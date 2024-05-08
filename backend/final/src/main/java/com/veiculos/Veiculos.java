@@ -1,6 +1,7 @@
 package com.veiculos;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@Entity
 @Table(name = "VEICULO")
 public class Veiculos implements Serializable {
 

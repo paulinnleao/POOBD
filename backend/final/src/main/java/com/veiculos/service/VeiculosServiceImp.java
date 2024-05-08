@@ -1,5 +1,6 @@
 package com.veiculos.service;
 
+import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import com.veiculos.Veiculos;
 import com.veiculos.dto.VeiculosDTO;
@@ -15,11 +16,12 @@ import java.util.List;
 
 public class VeiculosServiceImp implements VeiculosService{
     @Autowired
-    VeiculosRepository repository;
+    private VeiculosRepository repository;
+
     @Override
     public VeiculosDTO findById(String placa) {
         Veiculos veiculo = repository.findById(placa)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado veículo para esta placa!"));
         VeiculosDTO veiculosDTO = GlobalMapper.parseObject(veiculo, VeiculosDTO.class);
         veiculosDTO.add(
                 linkTo(
@@ -61,7 +63,7 @@ public class VeiculosServiceImp implements VeiculosService{
     @Override
     public VeiculosDTO update(VeiculosDTO veiculosDTO) {
         Veiculos veiculos = repository.findById(veiculosDTO.getPlaca())
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado este veículo para atualizar!"));
         VeiculosDTO veiculosDTOSaved = GlobalMapper.parseObject(
                 repository.save(veiculos),
                 VeiculosDTO.class
@@ -77,7 +79,7 @@ public class VeiculosServiceImp implements VeiculosService{
     @Override
     public ResponseEntity<?> delete(String placa) {
         Veiculos veiculo = repository.findById(placa)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado veículo para esta placa!"));
         repository.delete(veiculo);
         return ResponseEntity.noContent().build();
     }

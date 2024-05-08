@@ -1,1 +1,16 @@
-spring.application.name=final
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/cmp1611_paulo_artur
+    username: postgres
+    password: admin123
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+      show-sql: false
+
+springdoc:
+  pathsToMatch: /**
+  swagger-ui:
+    use-root-path: true
