@@ -8,12 +8,14 @@ import com.veiculos.repository.VeiculosRepository;
 import com.veiculos.rest.VeiculosRestImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 
+@Service
 public class VeiculosServiceImp implements VeiculosService{
     @Autowired
     private VeiculosRepository repository;

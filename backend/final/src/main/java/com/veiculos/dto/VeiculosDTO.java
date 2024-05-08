@@ -22,5 +22,6 @@ public class VeiculosDTO extends RepresentationModel<VeiculosDTO> implements Ser
     private String tipo_combust;
     private Integer potencia_motor;
 
-
+    public VeiculosDTO() {
+    }
 }

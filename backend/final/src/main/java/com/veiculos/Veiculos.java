@@ -37,5 +37,6 @@ public class Veiculos implements Serializable {
     @Column(name = "POTENCIA_MOTOR")
     private Integer potencia_motor;
 
-
+    public Veiculos() {
+    }
 }

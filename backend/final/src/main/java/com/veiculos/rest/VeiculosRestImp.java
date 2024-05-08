@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/veiculo")
+@RequestMapping("/veiculo")
 @Tag(name = "Veiculo", description = "Endpoints para gerenciar entidade Veículos.")
 public class VeiculosRestImp implements VeiculosService {
 
