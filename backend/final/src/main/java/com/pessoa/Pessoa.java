@@ -9,6 +9,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -31,4 +32,68 @@ public class Pessoa implements Serializable {
     private String sexo;
     @Column(name = "E_MAIL")
     private String e_mail;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(cpf_pessoa, pessoa.cpf_pessoa) && Objects.equals(nome, pessoa.nome) && Objects.equals(endereco, pessoa.endereco) && Objects.equals(telefone, pessoa.telefone) && Objects.equals(sexo, pessoa.sexo) && Objects.equals(e_mail, pessoa.e_mail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cpf_pessoa, nome, endereco, telefone, sexo, e_mail);
+    }
+
+    public Long getCpf_pessoa() {
+        return cpf_pessoa;
+    }
+
+    public void setCpf_pessoa(Long cpf_pessoa) {
+        this.cpf_pessoa = cpf_pessoa;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public Integer getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Integer telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getE_mail() {
+        return e_mail;
+    }
+
+    public void setE_mail(String e_mail) {
+        this.e_mail = e_mail;
+    }
+
+    public Pessoa() {
+    }
 }

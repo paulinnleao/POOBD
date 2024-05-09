@@ -3,6 +3,7 @@ package com.motorista.service;
 import com.motorista.Motorista;
 import com.motorista.dto.MotoristaDTO;
 import com.motorista.repository.MotoristaRepository;
+import com.motorista.rest.MotoristaRestImp;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
