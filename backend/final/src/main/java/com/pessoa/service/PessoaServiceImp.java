@@ -40,7 +40,7 @@ public class PessoaServiceImp implements PessoaService {
         listaViagensDTO.forEach(
                 pessoa -> pessoa.add(
                         linkTo(
-                                methodOn(PessoaRestImp.class).findById(pessoa.getCpf_pessoa())
+                                methodOn(PessoaRestImp.class).findById(pessoa.getId_pessoa())
                         ).withSelfRel()
                 )
         );
@@ -56,7 +56,7 @@ public class PessoaServiceImp implements PessoaService {
         );
         pessoaDTOSaved.add(
                 linkTo(
-                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getCpf_pessoa())
+                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getId_pessoa())
                 ).withSelfRel()
         );
         return pessoaDTOSaved;
@@ -64,7 +64,7 @@ public class PessoaServiceImp implements PessoaService {
 
     @Override
     public PessoaDTO update(PessoaDTO pessoaDTO) {
-        Pessoa pessoa = repository.findById(pessoaDTO.getCpf_pessoa())
+        Pessoa pessoa = repository.findById(pessoaDTO.getId_pessoa())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este ID!"));
         PessoaDTO pessoaDTOSaved = GlobalMapper.parseObject(
                 repository.save(pessoa),
@@ -72,7 +72,7 @@ public class PessoaServiceImp implements PessoaService {
         );
         pessoaDTOSaved.add(
                 linkTo(
-                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getCpf_pessoa())
+                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getId_pessoa())
                 ).withSelfRel()
         );
         return pessoaDTOSaved;

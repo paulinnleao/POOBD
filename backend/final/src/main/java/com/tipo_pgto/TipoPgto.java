@@ -21,10 +21,15 @@ public class TipoPgto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TIPO_PGTO")
+    private Long id_tipo_pgto;
+
     @Column(name = "COD_PAGTO")
     private Integer cod_pagto;
+
     @Column(name = "DESC_PAGTO")
     private String desc_pagto;
+
     @OneToMany(mappedBy = "tipoPgto")
     private List<Viagem> listaViagens;
 
@@ -36,12 +41,20 @@ public class TipoPgto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TipoPgto tipoPgto = (TipoPgto) o;
-        return Objects.equals(cod_pagto, tipoPgto.cod_pagto) && Objects.equals(desc_pagto, tipoPgto.desc_pagto) && Objects.equals(listaViagens, tipoPgto.listaViagens);
+        return Objects.equals(id_tipo_pgto, tipoPgto.id_tipo_pgto) && Objects.equals(cod_pagto, tipoPgto.cod_pagto) && Objects.equals(desc_pagto, tipoPgto.desc_pagto) && Objects.equals(listaViagens, tipoPgto.listaViagens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cod_pagto, desc_pagto, listaViagens);
+        return Objects.hash(id_tipo_pgto, cod_pagto, desc_pagto, listaViagens);
+    }
+
+    public Long getId_tipo_pgto() {
+        return id_tipo_pgto;
+    }
+
+    public void setId_tipo_pgto(Long id_tipo_pgto) {
+        this.id_tipo_pgto = id_tipo_pgto;
     }
 
     public List<Viagem> getListaViagens() {

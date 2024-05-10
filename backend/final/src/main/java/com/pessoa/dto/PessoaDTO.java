@@ -14,6 +14,7 @@ public class PessoaDTO extends RepresentationModel<PessoaDTO> implements Seriali
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private Long id_pessoa;
     private Long cpf_pessoa;
     private String nome;
     private String endereco;
@@ -30,12 +31,20 @@ public class PessoaDTO extends RepresentationModel<PessoaDTO> implements Seriali
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         PessoaDTO pessoaDTO = (PessoaDTO) o;
-        return Objects.equals(cpf_pessoa, pessoaDTO.cpf_pessoa) && Objects.equals(nome, pessoaDTO.nome) && Objects.equals(endereco, pessoaDTO.endereco) && Objects.equals(telefone, pessoaDTO.telefone) && Objects.equals(sexo, pessoaDTO.sexo) && Objects.equals(e_mail, pessoaDTO.e_mail);
+        return Objects.equals(id_pessoa, pessoaDTO.id_pessoa) && Objects.equals(cpf_pessoa, pessoaDTO.cpf_pessoa) && Objects.equals(nome, pessoaDTO.nome) && Objects.equals(endereco, pessoaDTO.endereco) && Objects.equals(telefone, pessoaDTO.telefone) && Objects.equals(sexo, pessoaDTO.sexo) && Objects.equals(e_mail, pessoaDTO.e_mail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpf_pessoa, nome, endereco, telefone, sexo, e_mail);
+        return Objects.hash(super.hashCode(), id_pessoa, cpf_pessoa, nome, endereco, telefone, sexo, e_mail);
+    }
+
+    public Long getId_pessoa() {
+        return id_pessoa;
+    }
+
+    public void setId_pessoa(Long id_pessoa) {
+        this.id_pessoa = id_pessoa;
     }
 
     public Long getCpf_pessoa() {

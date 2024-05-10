@@ -20,16 +20,25 @@ public class Proprietario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PROPRIETARIO")
+    private Long id_proprietario;
+
     @Column(name = "CPF_PROP")
     private Long cpf_prop;
+
     @Column(name = "CNH_PROP")
     private String cnh_prop;
+
     @Column(name = "BANCO_PROP")
     private Integer banco_prop;
+
     @Column(name = "AGENCIA_PROP")
     private Integer agencia_prop;
+
     @Column(name = "CONTA_PROP")
     private Integer conta_prop;
+
     @OneToMany(mappedBy = "proprietario")
     private List<Veiculo> listaVeiculos;
 
@@ -41,12 +50,20 @@ public class Proprietario implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Proprietario that = (Proprietario) o;
-        return Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop) && Objects.equals(listaVeiculos, that.listaVeiculos);
+        return Objects.equals(id_proprietario, that.id_proprietario) && Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop) && Objects.equals(listaVeiculos, that.listaVeiculos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop, listaVeiculos);
+        return Objects.hash(id_proprietario, cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop, listaVeiculos);
+    }
+
+    public Long getId_proprietario() {
+        return id_proprietario;
+    }
+
+    public void setId_proprietario(Long id_proprietario) {
+        this.id_proprietario = id_proprietario;
     }
 
     public List<Veiculo> getListaVeiculos() {

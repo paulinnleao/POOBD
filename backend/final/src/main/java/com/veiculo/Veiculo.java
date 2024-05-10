@@ -21,24 +21,38 @@ public class Veiculo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_VEICULO")
+    private Long id_veiculo;
+
     @Column(name = "PLACA")
     private String placa;
+
     @Column(name = "MARCA")
     private String marca;
+
     @Column(name = "MODELO")
     private String modelo;
+
     @Column(name = "ANO_FABRIC")
     private String ano_fabric;
+
     @Column(name = "CAPACIDADE_PASS")
     private Integer capacidade_pass;
+
     @Column(name = "COR")
     private String cor;
+
     @Column(name = "TIPO_COMBUST")
     private String tipo_combust;
+
     @Column(name = "POTENCIA_MOTOR")
     private Integer potencia_motor;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_proprietario")
     private Proprietario proprietario;
+
     @OneToMany(mappedBy = "veiculo")
     private List<MotoristaVeiculo> listaMotoristaVeiculo;
 
@@ -50,12 +64,20 @@ public class Veiculo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Veiculo veiculo = (Veiculo) o;
-        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(ano_fabric, veiculo.ano_fabric) && Objects.equals(capacidade_pass, veiculo.capacidade_pass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipo_combust, veiculo.tipo_combust) && Objects.equals(potencia_motor, veiculo.potencia_motor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
+        return Objects.equals(id_veiculo, veiculo.id_veiculo) && Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(ano_fabric, veiculo.ano_fabric) && Objects.equals(capacidade_pass, veiculo.capacidade_pass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipo_combust, veiculo.tipo_combust) && Objects.equals(potencia_motor, veiculo.potencia_motor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor, proprietario, listaMotoristaVeiculo);
+        return Objects.hash(id_veiculo, placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor, proprietario, listaMotoristaVeiculo);
+    }
+
+    public Long getId_veiculo() {
+        return id_veiculo;
+    }
+
+    public void setId_veiculo(Long id_veiculo) {
+        this.id_veiculo = id_veiculo;
     }
 
     public Proprietario getProprietario() {

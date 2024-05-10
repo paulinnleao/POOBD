@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface VeiculoService {
 
-    VeiculoDTO findById(String placa);
+    VeiculoDTO findById(Long id_veiculo);
     List<VeiculoDTO> findAll();
     VeiculoDTO create(VeiculoDTO veiculoDTO);
     VeiculoDTO update(VeiculoDTO veiculoDTO);
-    ResponseEntity<?> delete(String placa);
+    ResponseEntity<?> delete(Long id_veiculo);
 }

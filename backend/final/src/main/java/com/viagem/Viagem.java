@@ -25,39 +25,55 @@ public class Viagem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_VIAGEM")
     private Long id_viagem;
-    @Column(name = "CPF_PASS_VIAG")
-    private Long cpf_pass_viag;
-    @Column(name = "CPF_MOT_VIAG")
-    private Long cpf_mot_viag;
-    @Column(name = "PLACA_VEIC_VIAG")
-    private String placa_veic_viag;
+
+    @Column(name = "ID_PASSAGEIRO")
+    private Long id_passageiro;
+
+    @Column(name = "ID_MOTORISTA")
+    private Long id_motorista;
+
+    @Column(name = "ID_VEICULO")
+    private Long id_veiculo;
+
     @Column(name = "LOCAL_ORIG_VIAG")
     private String local_orig_viag;
+
     @Column(name = "LOCAL_DEST_VIAG")
     private String local_dest_viag;
+
     @Column(name = "DT_HORA_INICIO")
     private Date dt_hora_inicio;
+
     @Column(name = "DT_HORA_FIM")
     private Date dt_hora_fim;
+
     @Column(name = "QTDE_PASS")
     private Integer qtde_pass;
+
     @Column(name = "FORMA_PAGTO")
     private String forma_pagto;
+
     @Column(name = "VALOR_PAGTO")
     private Double valor_pagto;
+
     @Column(name = "CANCELAM_MOT")
     private String cancelam_mot;
+
     @Column(name = "CANCELAM_PASS")
     private String cancelam_pass;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CPF_MOTORISTA")
+    @JoinColumn(name = "ID_MOTORISTA")
     private MotoristaVeiculo motoristaVeiculo;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CPF_PASSAG")
+    @JoinColumn(name = "ID_PASSAGEIRO")
     private Passageiro passageiro;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COD_PAGTO")
+    @JoinColumn(name = "ID_TIPO_PGTO")
     private TipoPgto tipoPgto;
+
     public Viagem() {
     }
 
@@ -66,12 +82,36 @@ public class Viagem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Viagem viagem = (Viagem) o;
-        return Objects.equals(id_viagem, viagem.id_viagem) && Objects.equals(cpf_pass_viag, viagem.cpf_pass_viag) && Objects.equals(cpf_mot_viag, viagem.cpf_mot_viag) && Objects.equals(placa_veic_viag, viagem.placa_veic_viag) && Objects.equals(local_orig_viag, viagem.local_orig_viag) && Objects.equals(local_dest_viag, viagem.local_dest_viag) && Objects.equals(dt_hora_inicio, viagem.dt_hora_inicio) && Objects.equals(dt_hora_fim, viagem.dt_hora_fim) && Objects.equals(qtde_pass, viagem.qtde_pass) && Objects.equals(forma_pagto, viagem.forma_pagto) && Objects.equals(valor_pagto, viagem.valor_pagto) && Objects.equals(cancelam_mot, viagem.cancelam_mot) && Objects.equals(cancelam_pass, viagem.cancelam_pass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
+        return Objects.equals(id_viagem, viagem.id_viagem) && Objects.equals(id_passageiro, viagem.id_passageiro) && Objects.equals(id_motorista, viagem.id_motorista) && Objects.equals(id_veiculo, viagem.id_veiculo) && Objects.equals(local_orig_viag, viagem.local_orig_viag) && Objects.equals(local_dest_viag, viagem.local_dest_viag) && Objects.equals(dt_hora_inicio, viagem.dt_hora_inicio) && Objects.equals(dt_hora_fim, viagem.dt_hora_fim) && Objects.equals(qtde_pass, viagem.qtde_pass) && Objects.equals(forma_pagto, viagem.forma_pagto) && Objects.equals(valor_pagto, viagem.valor_pagto) && Objects.equals(cancelam_mot, viagem.cancelam_mot) && Objects.equals(cancelam_pass, viagem.cancelam_pass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_viagem, cpf_pass_viag, cpf_mot_viag, placa_veic_viag, local_orig_viag, local_dest_viag, dt_hora_inicio, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass, motoristaVeiculo, passageiro, tipoPgto);
+        return Objects.hash(id_viagem, id_passageiro, id_motorista, id_veiculo, local_orig_viag, local_dest_viag, dt_hora_inicio, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass, motoristaVeiculo, passageiro, tipoPgto);
+    }
+
+    public Long getId_passageiro() {
+        return id_passageiro;
+    }
+
+    public void setId_passageiro(Long id_passageiro) {
+        this.id_passageiro = id_passageiro;
+    }
+
+    public Long getId_motorista() {
+        return id_motorista;
+    }
+
+    public void setId_motorista(Long id_motorista) {
+        this.id_motorista = id_motorista;
+    }
+
+    public Long getId_veiculo() {
+        return id_veiculo;
+    }
+
+    public void setId_veiculo(Long id_veiculo) {
+        this.id_veiculo = id_veiculo;
     }
 
     public MotoristaVeiculo getMotoristaVeiculo() {
@@ -104,30 +144,6 @@ public class Viagem implements Serializable {
 
     public void setId_viagem(Long id_viagem) {
         this.id_viagem = id_viagem;
-    }
-
-    public Long getCpf_pass_viag() {
-        return cpf_pass_viag;
-    }
-
-    public void setCpf_pass_viag(Long cpf_pass_viag) {
-        this.cpf_pass_viag = cpf_pass_viag;
-    }
-
-    public Long getCpf_mot_viag() {
-        return cpf_mot_viag;
-    }
-
-    public void setCpf_mot_viag(Long cpf_mot_viag) {
-        this.cpf_mot_viag = cpf_mot_viag;
-    }
-
-    public String getPlaca_veic_viag() {
-        return placa_veic_viag;
-    }
-
-    public void setPlaca_veic_viag(String placa_veic_viag) {
-        this.placa_veic_viag = placa_veic_viag;
     }
 
     public String getLocal_orig_viag() {

@@ -41,7 +41,7 @@ public class PassageiroServiceImp implements PassageiroService {
         listaViagensDTO.forEach(
                 passageiro -> passageiro.add(
                         linkTo(
-                                methodOn(PassageiroRestImp.class).findById(passageiro.getCpf_passg())
+                                methodOn(PassageiroRestImp.class).findById(passageiro.getId_passageiro())
                         ).withSelfRel()
                 )
         );
@@ -57,7 +57,7 @@ public class PassageiroServiceImp implements PassageiroService {
         );
         passageiroDTOSaved.add(
                 linkTo(
-                        methodOn(PassageiroRestImp.class).findById(passageiroDTOSaved.getCpf_passg())
+                        methodOn(PassageiroRestImp.class).findById(passageiroDTOSaved.getId_passageiro())
                 ).withSelfRel()
         );
         return passageiroDTOSaved;
@@ -65,7 +65,7 @@ public class PassageiroServiceImp implements PassageiroService {
 
     @Override
     public PassageiroDTO update(PassageiroDTO passageiroDTO) {
-        Passageiro passageiro = repository.findById(passageiroDTO.getCpf_passg())
+        Passageiro passageiro = repository.findById(passageiroDTO.getId_passageiro())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado passageiro para este ID!"));
         PassageiroDTO passageiroDTOSaved = GlobalMapper.parseObject(
                 repository.save(passageiro),
@@ -73,7 +73,7 @@ public class PassageiroServiceImp implements PassageiroService {
         );
         passageiroDTOSaved.add(
                 linkTo(
-                        methodOn(PassageiroRestImp.class).findById(passageiroDTOSaved.getCpf_passg())
+                        methodOn(PassageiroRestImp.class).findById(passageiroDTOSaved.getId_passageiro())
                 ).withSelfRel()
         );
         return passageiroDTOSaved;

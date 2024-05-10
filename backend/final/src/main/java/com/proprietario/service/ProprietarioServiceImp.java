@@ -40,7 +40,7 @@ public class ProprietarioServiceImp implements ProprietarioService{
         listaProprietarioDTO.forEach(
                 proprietario -> proprietario.add(
                         linkTo(
-                                methodOn(ProprietarioRestImp.class).findById(proprietario.getCpf_prop())
+                                methodOn(ProprietarioRestImp.class).findById(proprietario.getId_proprietario())
                         ).withSelfRel()
                 )
         );
@@ -56,7 +56,7 @@ public class ProprietarioServiceImp implements ProprietarioService{
         );
         proprietarioDTOSaved.add(
                 linkTo(
-                        methodOn(ProprietarioRestImp.class).findById(proprietarioDTOSaved.getCpf_prop())
+                        methodOn(ProprietarioRestImp.class).findById(proprietarioDTOSaved.getId_proprietario())
                 ).withSelfRel()
         );
         return proprietarioDTOSaved;
@@ -64,7 +64,7 @@ public class ProprietarioServiceImp implements ProprietarioService{
 
     @Override
     public ProprietarioDTO update(ProprietarioDTO proprietarioDTO) {
-        Proprietario proprietario = repository.findById(proprietarioDTO.getCpf_prop())
+        Proprietario proprietario = repository.findById(proprietarioDTO.getId_proprietario())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado proprietario para este ID!"));
         ProprietarioDTO proprietarioDTOSaved = GlobalMapper.parseObject(
                 repository.save(proprietario),
@@ -72,7 +72,7 @@ public class ProprietarioServiceImp implements ProprietarioService{
         );
         proprietarioDTOSaved.add(
                 linkTo(
-                        methodOn(ProprietarioRestImp.class).findById(proprietarioDTOSaved.getCpf_prop())
+                        methodOn(ProprietarioRestImp.class).findById(proprietarioDTOSaved.getId_proprietario())
                 ).withSelfRel()
         );
         return proprietarioDTOSaved;

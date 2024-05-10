@@ -14,6 +14,7 @@ public class PassageiroDTO extends RepresentationModel<PassageiroDTO> implements
     @Serial
     public static final long serialVersionUID = 1L;
 
+    private Long id_passageiro;
     private Long cpf_passg;
     private String cartao_cred;
     private String bandeira_cartao;
@@ -28,12 +29,20 @@ public class PassageiroDTO extends RepresentationModel<PassageiroDTO> implements
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         PassageiroDTO that = (PassageiroDTO) o;
-        return Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig);
+        return Objects.equals(id_passageiro, that.id_passageiro) && Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpf_passg, cartao_cred, bandeira_cartao, cidade_orig);
+        return Objects.hash(super.hashCode(), id_passageiro, cpf_passg, cartao_cred, bandeira_cartao, cidade_orig);
+    }
+
+    public Long getId_passageiro() {
+        return id_passageiro;
+    }
+
+    public void setId_passageiro(Long id_passageiro) {
+        this.id_passageiro = id_passageiro;
     }
 
     public Long getCpf_passg() {

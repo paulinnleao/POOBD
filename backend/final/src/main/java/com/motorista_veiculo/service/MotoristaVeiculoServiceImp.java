@@ -41,7 +41,7 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
         listaViagensDTO.forEach(
                 motoristaVeiculo -> motoristaVeiculo.add(
                         linkTo(
-                                methodOn(MotoristaVeiculoRestImp.class).findById(motoristaVeiculo.getCpf_motorista())
+                                methodOn(MotoristaVeiculoRestImp.class).findById(motoristaVeiculo.getId_motorista_veiculo())
                         ).withSelfRel()
                 )
         );
@@ -57,7 +57,7 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
         );
         motoristaVeiculoDTOSaved.add(
                 linkTo(
-                        methodOn(MotoristaVeiculoRestImp.class).findById(motoristaVeiculoDTOSaved.getCpf_motorista())
+                        methodOn(MotoristaVeiculoRestImp.class).findById(motoristaVeiculoDTOSaved.getId_motorista_veiculo())
                 ).withSelfRel()
         );
         return motoristaVeiculoDTOSaved;
@@ -65,7 +65,7 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
 
     @Override
     public MotoristaVeiculoDTO update(MotoristaVeiculoDTO motoristaVeiculoDTO) {
-        MotoristaVeiculo motoristaVeiculo = repository.findById(motoristaVeiculoDTO.getCpf_motorista())
+        MotoristaVeiculo motoristaVeiculo = repository.findById(motoristaVeiculoDTO.getId_motorista_veiculo())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista e veiculo para este ID!"));
         MotoristaVeiculoDTO motoristaVeiculoDTOSaved = GlobalMapper.parseObject(
                 repository.save(motoristaVeiculo),
@@ -73,7 +73,7 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
         );
         motoristaVeiculoDTOSaved.add(
                 linkTo(
-                        methodOn(MotoristaVeiculoRestImp.class).findById(motoristaVeiculoDTOSaved.getCpf_motorista())
+                        methodOn(MotoristaVeiculoRestImp.class).findById(motoristaVeiculoDTOSaved.getId_motorista_veiculo())
                 ).withSelfRel()
         );
         return motoristaVeiculoDTOSaved;

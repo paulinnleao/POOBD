@@ -1,9 +1,6 @@
 package com.pessoa;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -20,16 +17,25 @@ public class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PESSOA")
+    private Long id_pessoa;
+
     @Column(name = "CPF_PESSOA")
     private Long cpf_pessoa;
+
     @Column(name = "NOME")
     private String nome;
+
     @Column(name = "ENDERECO")
     private String endereco;
+
     @Column(name = "TELEFONE")
     private Integer telefone;
+
     @Column(name = "SEXO")
     private String sexo;
+
     @Column(name = "E_MAIL")
     private String e_mail;
 
@@ -38,12 +44,20 @@ public class Pessoa implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(cpf_pessoa, pessoa.cpf_pessoa) && Objects.equals(nome, pessoa.nome) && Objects.equals(endereco, pessoa.endereco) && Objects.equals(telefone, pessoa.telefone) && Objects.equals(sexo, pessoa.sexo) && Objects.equals(e_mail, pessoa.e_mail);
+        return Objects.equals(id_pessoa, pessoa.id_pessoa) && Objects.equals(cpf_pessoa, pessoa.cpf_pessoa) && Objects.equals(nome, pessoa.nome) && Objects.equals(endereco, pessoa.endereco) && Objects.equals(telefone, pessoa.telefone) && Objects.equals(sexo, pessoa.sexo) && Objects.equals(e_mail, pessoa.e_mail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_pessoa, nome, endereco, telefone, sexo, e_mail);
+        return Objects.hash(id_pessoa, cpf_pessoa, nome, endereco, telefone, sexo, e_mail);
+    }
+
+    public Long getId_pessoa() {
+        return id_pessoa;
+    }
+
+    public void setId_pessoa(Long id_pessoa) {
+        this.id_pessoa = id_pessoa;
     }
 
     public Long getCpf_pessoa() {

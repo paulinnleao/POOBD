@@ -14,6 +14,7 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private Long id_veiculo;
     private String placa;
     private String marca;
     private String modelo;
@@ -32,12 +33,20 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         VeiculoDTO that = (VeiculoDTO) o;
-        return Objects.equals(placa, that.placa) && Objects.equals(marca, that.marca) && Objects.equals(modelo, that.modelo) && Objects.equals(ano_fabric, that.ano_fabric) && Objects.equals(capacidade_pass, that.capacidade_pass) && Objects.equals(cor, that.cor) && Objects.equals(tipo_combust, that.tipo_combust) && Objects.equals(potencia_motor, that.potencia_motor);
+        return Objects.equals(id_veiculo, that.id_veiculo) && Objects.equals(placa, that.placa) && Objects.equals(marca, that.marca) && Objects.equals(modelo, that.modelo) && Objects.equals(ano_fabric, that.ano_fabric) && Objects.equals(capacidade_pass, that.capacidade_pass) && Objects.equals(cor, that.cor) && Objects.equals(tipo_combust, that.tipo_combust) && Objects.equals(potencia_motor, that.potencia_motor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor);
+        return Objects.hash(super.hashCode(), id_veiculo, placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor);
+    }
+
+    public Long getId_veiculo() {
+        return id_veiculo;
+    }
+
+    public void setId_veiculo(Long id_veiculo) {
+        this.id_veiculo = id_veiculo;
     }
 
     public String getPlaca() {

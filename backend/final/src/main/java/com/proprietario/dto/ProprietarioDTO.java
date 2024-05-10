@@ -15,6 +15,7 @@ public class ProprietarioDTO extends RepresentationModel<ProprietarioDTO> implem
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private Long id_proprietario;
     private Long cpf_prop;
     private String cnh_prop;
     private Integer banco_prop;
@@ -27,12 +28,20 @@ public class ProprietarioDTO extends RepresentationModel<ProprietarioDTO> implem
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ProprietarioDTO that = (ProprietarioDTO) o;
-        return Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop);
+        return Objects.equals(id_proprietario, that.id_proprietario) && Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop);
+        return Objects.hash(super.hashCode(), id_proprietario, cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop);
+    }
+
+    public Long getId_proprietario() {
+        return id_proprietario;
+    }
+
+    public void setId_proprietario(Long id_proprietario) {
+        this.id_proprietario = id_proprietario;
     }
 
     public Long getCpf_prop() {

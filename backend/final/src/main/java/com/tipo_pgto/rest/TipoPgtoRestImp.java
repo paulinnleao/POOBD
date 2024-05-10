@@ -59,7 +59,7 @@ public class TipoPgtoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public TipoPgtoDTO findById(@PathVariable("id") Integer id) {
+    public TipoPgtoDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
@@ -101,7 +101,7 @@ public class TipoPgtoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return service.delete(id);
     }
 }

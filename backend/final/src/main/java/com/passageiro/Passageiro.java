@@ -17,17 +17,27 @@ import java.util.Objects;
 public class Passageiro implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PASSAGEIRO")
+    private Long id_passageiro;
+
     @Column(name = "CPF_PASSAG")
     private Long cpf_passg;
+
     @Column(name = "CARTAO_CRED")
     private String cartao_cred;
+
     @Column(name = "BANDEIRA_CARTAO")
     private String bandeira_cartao;
+
     @Column(name = "CIDADE_ORIG")
     private String cidade_orig;
+
     @OneToMany(mappedBy = "passageiro")
     private List<Viagem> listaViagens;
+
 
     public Passageiro() {
     }
@@ -37,12 +47,20 @@ public class Passageiro implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Passageiro that = (Passageiro) o;
-        return Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig) && Objects.equals(listaViagens, that.listaViagens);
+        return Objects.equals(id_passageiro, that.id_passageiro) && Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig) && Objects.equals(listaViagens, that.listaViagens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_passg, cartao_cred, bandeira_cartao, cidade_orig, listaViagens);
+        return Objects.hash(id_passageiro, cpf_passg, cartao_cred, bandeira_cartao, cidade_orig, listaViagens);
+    }
+
+    public Long getId_passageiro() {
+        return id_passageiro;
+    }
+
+    public void setId_passageiro(Long id_passageiro) {
+        this.id_passageiro = id_passageiro;
     }
 
     public List<Viagem> getListaViagens() {

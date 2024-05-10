@@ -14,6 +14,7 @@ public class MotoristaDTO extends RepresentationModel<MotoristaDTO> implements S
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private Long id_motorista;
     private Long cpf_motorista;
     private String cnh;
     private Integer banco_mot;

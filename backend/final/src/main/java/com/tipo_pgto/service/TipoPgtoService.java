@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface TipoPgtoService {
 
-    TipoPgtoDTO findById(Integer id);
+    TipoPgtoDTO findById(Long id);
     TipoPgtoDTO create(TipoPgtoDTO tipoPgtoDTO);
     TipoPgtoDTO update(TipoPgtoDTO tipoPgtoDTO);
     List<TipoPgtoDTO> findAll();
-    ResponseEntity<?> delete(Integer id);
+    ResponseEntity<?> delete(Long id);
 }

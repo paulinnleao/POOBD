@@ -15,6 +15,7 @@ public class TipoPgtoDTO  extends RepresentationModel<TipoPgtoDTO> implements Se
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private Long id_tipo_pgto;
     private Integer cod_pagto;
     private String desc_pagto;
 
@@ -27,12 +28,20 @@ public class TipoPgtoDTO  extends RepresentationModel<TipoPgtoDTO> implements Se
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         TipoPgtoDTO that = (TipoPgtoDTO) o;
-        return Objects.equals(cod_pagto, that.cod_pagto) && Objects.equals(desc_pagto, that.desc_pagto);
+        return Objects.equals(id_tipo_pgto, that.id_tipo_pgto) && Objects.equals(cod_pagto, that.cod_pagto) && Objects.equals(desc_pagto, that.desc_pagto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cod_pagto, desc_pagto);
+        return Objects.hash(super.hashCode(), id_tipo_pgto, cod_pagto, desc_pagto);
+    }
+
+    public Long getId_tipo_pgto() {
+        return id_tipo_pgto;
+    }
+
+    public void setId_tipo_pgto(Long id_tipo_pgto) {
+        this.id_tipo_pgto = id_tipo_pgto;
     }
 
     public Integer getCod_pagto() {

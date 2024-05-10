@@ -42,7 +42,7 @@ public class MotoristaServiceImp implements MotoristaService {
         listaViagensDTO.forEach(
                 motorista -> motorista.add(
                         linkTo(
-                                methodOn(MotoristaRestImp.class).findById(motorista.getCpf_motorista())
+                                methodOn(MotoristaRestImp.class).findById(motorista.getId_motorista())
                         ).withSelfRel()
                 )
         );
@@ -58,7 +58,7 @@ public class MotoristaServiceImp implements MotoristaService {
         );
         motoristaDTOSaved.add(
                 linkTo(
-                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getCpf_motorista())
+                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getId_motorista())
                 ).withSelfRel()
         );
         return motoristaDTOSaved;
@@ -66,7 +66,7 @@ public class MotoristaServiceImp implements MotoristaService {
 
     @Override
     public MotoristaDTO update(MotoristaDTO motoristaDTO) {
-        Motorista motorista = repository.findById(motoristaDTO.getCpf_motorista())
+        Motorista motorista = repository.findById(motoristaDTO.getId_motorista())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este ID!"));
         MotoristaDTO motoristaDTOSaved = GlobalMapper.parseObject(
                 repository.save(motorista),
@@ -74,7 +74,7 @@ public class MotoristaServiceImp implements MotoristaService {
         );
         motoristaDTOSaved.add(
                 linkTo(
-                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getCpf_motorista())
+                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getId_motorista())
                 ).withSelfRel()
         );
         return motoristaDTOSaved;

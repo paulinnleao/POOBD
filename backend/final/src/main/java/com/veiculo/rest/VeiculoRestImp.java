@@ -23,8 +23,8 @@ public class VeiculoRestImp {
     @Autowired
     private VeiculoServiceImp service;
 
-    @GetMapping(value = "/{placa}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar veiculo pela placa", description = "Procura um veículo pela placa. Caso não encontre, retorna um NOT_FOUND",
+    @GetMapping(value = "/{id_veiculo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Buscar veiculo pelo id_veiculo", description = "Procura um veículo pelo id_veiculo. Caso não encontre, retorna um NOT_FOUND",
                 tags = {"Veiculos"},
                 responses = {
                     @ApiResponse(
@@ -36,8 +36,8 @@ public class VeiculoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
                 })
-    public VeiculoDTO findById(@PathVariable("placa") String placa) {
-        return service.findById(placa);
+    public VeiculoDTO findById(@PathVariable("id_veiculo") Long id_veiculo) {
+        return service.findById(id_veiculo);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,7 +63,7 @@ public class VeiculoRestImp {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Persiste um novo veículo no Banco de Dados", description = "Persiste um novo veículo no Banco de Dados, caso ele não encontre outro com a mesma placa.",
+    @Operation(summary = "Persiste um novo veículo no Banco de Dados", description = "Persiste um novo veículo no Banco de Dados, caso ele não encontre outro com o mesmo ID.",
                 tags = {"Veiculos"},
                 responses = {
                         @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = VeiculoDTO.class))),
@@ -89,8 +89,8 @@ public class VeiculoRestImp {
         return service.update(veiculoDTO);
     }
 
-    @DeleteMapping("/{placa}")
-    @Operation(summary = "Apaga um veículo através da placa", description = "Busca um veículo pela placa fornecida e se o encontrar, o apaga",
+    @DeleteMapping("/{id_veiculo}")
+    @Operation(summary = "Apaga um veículo através do id_veiculo", description = "Busca um veículo pelo id_veiculo fornecido e se o encontrar, o apaga",
                 tags = {"Veiculos"},
                 responses = {
                         @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),
@@ -100,7 +100,7 @@ public class VeiculoRestImp {
                         @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                         @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
                 })
-    public ResponseEntity<?> delete(@PathVariable("placa") String placa) {
-        return service.delete(placa);
+    public ResponseEntity<?> delete(@PathVariable("id_veiculo") Long id_veiculo) {
+        return service.delete(id_veiculo);
     }
 }

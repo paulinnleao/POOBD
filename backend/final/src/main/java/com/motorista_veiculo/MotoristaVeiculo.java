@@ -21,19 +21,36 @@ public class MotoristaVeiculo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_MOTORISTA_VEICULO")
+    private Long id_motorista_veiculo;
+
     @Column(name = "CPF_MOTORISTA")
     private Long cpf_motorista;
-    @Column(name = "PLACA_VEICULO")
-    private String placa_veiculo;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "CPF_MOTORISTA")
+
+    @Column(name = "ID_VEICULO")
+    private Long id_veiculo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_MOTORISTA")
     private Motorista motorista;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLACA")
     private Veiculo veiculo;
+
     @OneToMany(mappedBy = "motoristaVeiculo")
     private List<Viagem> listaViagens;
+
     public MotoristaVeiculo() {
+    }
+
+    public Long getId_motorista_veiculo() {
+        return id_motorista_veiculo;
+    }
+
+    public void setId_motorista_veiculo(Long id_motorista_veiculo) {
+        this.id_motorista_veiculo = id_motorista_veiculo;
     }
 
     @Override
@@ -41,12 +58,20 @@ public class MotoristaVeiculo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MotoristaVeiculo that = (MotoristaVeiculo) o;
-        return Objects.equals(cpf_motorista, that.cpf_motorista) && Objects.equals(placa_veiculo, that.placa_veiculo) && Objects.equals(motorista, that.motorista) && Objects.equals(veiculo, that.veiculo) && Objects.equals(listaViagens, that.listaViagens);
+        return Objects.equals(id_motorista_veiculo, that.id_motorista_veiculo) && Objects.equals(cpf_motorista, that.cpf_motorista) && Objects.equals(id_veiculo, that.id_veiculo) && Objects.equals(motorista, that.motorista) && Objects.equals(veiculo, that.veiculo) && Objects.equals(listaViagens, that.listaViagens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_motorista, placa_veiculo, motorista, veiculo, listaViagens);
+        return Objects.hash(id_motorista_veiculo, cpf_motorista, id_veiculo, motorista, veiculo, listaViagens);
+    }
+
+    public Long getId_veiculo() {
+        return id_veiculo;
+    }
+
+    public void setId_veiculo(Long id_veiculo) {
+        this.id_veiculo = id_veiculo;
     }
 
     public Motorista getMotorista() {
@@ -81,11 +106,4 @@ public class MotoristaVeiculo implements Serializable {
         this.cpf_motorista = cpf_motorista;
     }
 
-    public String getPlaca_veiculo() {
-        return placa_veiculo;
-    }
-
-    public void setPlaca_veiculo(String placa_veiculo) {
-        this.placa_veiculo = placa_veiculo;
-    }
 }
