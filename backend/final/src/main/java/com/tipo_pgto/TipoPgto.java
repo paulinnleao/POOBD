@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -25,7 +26,7 @@ public class TipoPgto implements Serializable {
     @Column(name = "DESC_PAGTO")
     private String desc_pagto;
     @OneToMany(mappedBy = "tipoPgto")
-    private Viagem viagem;
+    private List<Viagem> listaViagens;
 
     public TipoPgto() {
     }
@@ -35,20 +36,20 @@ public class TipoPgto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TipoPgto tipoPgto = (TipoPgto) o;
-        return Objects.equals(cod_pagto, tipoPgto.cod_pagto) && Objects.equals(desc_pagto, tipoPgto.desc_pagto) && Objects.equals(viagem, tipoPgto.viagem);
+        return Objects.equals(cod_pagto, tipoPgto.cod_pagto) && Objects.equals(desc_pagto, tipoPgto.desc_pagto) && Objects.equals(listaViagens, tipoPgto.listaViagens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cod_pagto, desc_pagto, viagem);
+        return Objects.hash(cod_pagto, desc_pagto, listaViagens);
     }
 
-    public Viagem getViagem() {
-        return viagem;
+    public List<Viagem> getListaViagens() {
+        return listaViagens;
     }
 
-    public void setViagem(Viagem viagem) {
-        this.viagem = viagem;
+    public void setListaViagens(List<Viagem> listaViagens) {
+        this.listaViagens = listaViagens;
     }
 
     public Integer getCod_pagto() {

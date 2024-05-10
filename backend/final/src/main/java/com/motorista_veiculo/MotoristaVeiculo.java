@@ -25,11 +25,11 @@ public class MotoristaVeiculo implements Serializable {
     private Long cpf_motorista;
     @Column(name = "PLACA_VEICULO")
     private String placa_veiculo;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cpf_motorista")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "CPF_MOTORISTA")
     private Motorista motorista;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cpf_motorista")
+    @JoinColumn(name = "PLACA")
     private Veiculo veiculo;
     @OneToMany(mappedBy = "motoristaVeiculo")
     private List<Viagem> listaViagens;

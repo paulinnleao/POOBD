@@ -30,7 +30,7 @@ public class Motorista implements Serializable {
     private Integer agencia_mot;
     @Column(name = "CONTA_MOT")
     private Integer conta_mot;
-    @OneToMany(mappedBy = "motorista")
+//    @OneToMany(mappedBy = "motorista")
     private List<MotoristaVeiculo> listaMotoristasVeiculos;
 
     public Motorista() {

@@ -30,7 +30,7 @@ public class Proprietario implements Serializable {
     private Integer agencia_prop;
     @Column(name = "CONTA_PROP")
     private Integer conta_prop;
-    @OneToMany(mappedBy = "veiculo")
+    @OneToMany(mappedBy = "proprietario")
     private List<Veiculo> listaVeiculos;
 
     public Proprietario() {

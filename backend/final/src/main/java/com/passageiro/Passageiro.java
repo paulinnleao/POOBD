@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,7 +27,7 @@ public class Passageiro implements Serializable {
     @Column(name = "CIDADE_ORIG")
     private String cidade_orig;
     @OneToMany(mappedBy = "passageiro")
-    private Viagem viagem;
+    private List<Viagem> listaViagens;
 
     public Passageiro() {
     }
@@ -36,20 +37,20 @@ public class Passageiro implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Passageiro that = (Passageiro) o;
-        return Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig) && Objects.equals(viagem, that.viagem);
+        return Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig) && Objects.equals(listaViagens, that.listaViagens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_passg, cartao_cred, bandeira_cartao, cidade_orig, viagem);
+        return Objects.hash(cpf_passg, cartao_cred, bandeira_cartao, cidade_orig, listaViagens);
     }
 
-    public Viagem getViagem() {
-        return viagem;
+    public List<Viagem> getListaViagens() {
+        return listaViagens;
     }
 
-    public void setViagem(Viagem viagem) {
-        this.viagem = viagem;
+    public void setListaViagens(List<Viagem> listaViagens) {
+        this.listaViagens = listaViagens;
     }
 
     public Long getCpf_passg() {

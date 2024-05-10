@@ -50,13 +50,13 @@ public class Viagem implements Serializable {
     @Column(name = "CANCELAM_PASS")
     private String cancelam_pass;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_viagem")
+    @JoinColumn(name = "CPF_MOTORISTA")
     private MotoristaVeiculo motoristaVeiculo;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_viagem")
+    @JoinColumn(name = "CPF_PASSAG")
     private Passageiro passageiro;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_viagem")
+    @JoinColumn(name = "COD_PAGTO")
     private TipoPgto tipoPgto;
     public Viagem() {
     }
