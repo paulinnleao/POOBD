@@ -1,14 +1,14 @@
 package com.veiculo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.motorista_veiculo.MotoristaVeiculo;
+import com.proprietario.Proprietario;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -37,6 +37,10 @@ public class Veiculo implements Serializable {
     private String tipo_combust;
     @Column(name = "POTENCIA_MOTOR")
     private Integer potencia_motor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Proprietario proprietario;
+    @OneToMany(mappedBy = "veiculo")
+    private List<MotoristaVeiculo> listaMotoristaVeiculo;
 
     public Veiculo() {
     }
@@ -46,12 +50,28 @@ public class Veiculo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Veiculo veiculo = (Veiculo) o;
-        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(ano_fabric, veiculo.ano_fabric) && Objects.equals(capacidade_pass, veiculo.capacidade_pass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipo_combust, veiculo.tipo_combust) && Objects.equals(potencia_motor, veiculo.potencia_motor);
+        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(ano_fabric, veiculo.ano_fabric) && Objects.equals(capacidade_pass, veiculo.capacidade_pass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipo_combust, veiculo.tipo_combust) && Objects.equals(potencia_motor, veiculo.potencia_motor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor);
+        return Objects.hash(placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor, proprietario, listaMotoristaVeiculo);
+    }
+
+    public Proprietario getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Proprietario proprietario) {
+        this.proprietario = proprietario;
+    }
+
+    public List<MotoristaVeiculo> getListaMotoristaVeiculo() {
+        return listaMotoristaVeiculo;
+    }
+
+    public void setListaMotoristaVeiculo(List<MotoristaVeiculo> listaMotoristaVeiculo) {
+        this.listaMotoristaVeiculo = listaMotoristaVeiculo;
     }
 
     public String getPlaca() {

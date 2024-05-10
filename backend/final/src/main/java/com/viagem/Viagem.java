@@ -1,5 +1,8 @@
 package com.viagem;
 
+import com.motorista_veiculo.MotoristaVeiculo;
+import com.passageiro.Passageiro;
+import com.tipo_pgto.TipoPgto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +49,15 @@ public class Viagem implements Serializable {
     private String cancelam_mot;
     @Column(name = "CANCELAM_PASS")
     private String cancelam_pass;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_viagem")
+    private MotoristaVeiculo motoristaVeiculo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_viagem")
+    private Passageiro passageiro;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_viagem")
+    private TipoPgto tipoPgto;
     public Viagem() {
     }
 
@@ -55,12 +66,36 @@ public class Viagem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Viagem viagem = (Viagem) o;
-        return Objects.equals(id_viagem, viagem.id_viagem) && Objects.equals(cpf_pass_viag, viagem.cpf_pass_viag) && Objects.equals(cpf_mot_viag, viagem.cpf_mot_viag) && Objects.equals(placa_veic_viag, viagem.placa_veic_viag) && Objects.equals(local_orig_viag, viagem.local_orig_viag) && Objects.equals(local_dest_viag, viagem.local_dest_viag) && Objects.equals(dt_hora_inicio, viagem.dt_hora_inicio) && Objects.equals(dt_hora_fim, viagem.dt_hora_fim) && Objects.equals(qtde_pass, viagem.qtde_pass) && Objects.equals(forma_pagto, viagem.forma_pagto) && Objects.equals(valor_pagto, viagem.valor_pagto) && Objects.equals(cancelam_mot, viagem.cancelam_mot) && Objects.equals(cancelam_pass, viagem.cancelam_pass);
+        return Objects.equals(id_viagem, viagem.id_viagem) && Objects.equals(cpf_pass_viag, viagem.cpf_pass_viag) && Objects.equals(cpf_mot_viag, viagem.cpf_mot_viag) && Objects.equals(placa_veic_viag, viagem.placa_veic_viag) && Objects.equals(local_orig_viag, viagem.local_orig_viag) && Objects.equals(local_dest_viag, viagem.local_dest_viag) && Objects.equals(dt_hora_inicio, viagem.dt_hora_inicio) && Objects.equals(dt_hora_fim, viagem.dt_hora_fim) && Objects.equals(qtde_pass, viagem.qtde_pass) && Objects.equals(forma_pagto, viagem.forma_pagto) && Objects.equals(valor_pagto, viagem.valor_pagto) && Objects.equals(cancelam_mot, viagem.cancelam_mot) && Objects.equals(cancelam_pass, viagem.cancelam_pass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_viagem, cpf_pass_viag, cpf_mot_viag, placa_veic_viag, local_orig_viag, local_dest_viag, dt_hora_inicio, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass);
+        return Objects.hash(id_viagem, cpf_pass_viag, cpf_mot_viag, placa_veic_viag, local_orig_viag, local_dest_viag, dt_hora_inicio, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass, motoristaVeiculo, passageiro, tipoPgto);
+    }
+
+    public MotoristaVeiculo getMotoristaVeiculo() {
+        return motoristaVeiculo;
+    }
+
+    public void setMotoristaVeiculo(MotoristaVeiculo motoristaVeiculo) {
+        this.motoristaVeiculo = motoristaVeiculo;
+    }
+
+    public Passageiro getPassageiro() {
+        return passageiro;
+    }
+
+    public void setPassageiro(Passageiro passageiro) {
+        this.passageiro = passageiro;
+    }
+
+    public TipoPgto getTipoPgto() {
+        return tipoPgto;
+    }
+
+    public void setTipoPgto(TipoPgto tipoPgto) {
+        this.tipoPgto = tipoPgto;
     }
 
     public Long getId_viagem() {

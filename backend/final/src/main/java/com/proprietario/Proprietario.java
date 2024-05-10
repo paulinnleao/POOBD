@@ -1,15 +1,14 @@
 package com.proprietario;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.veiculo.Veiculo;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,6 +30,8 @@ public class Proprietario implements Serializable {
     private Integer agencia_prop;
     @Column(name = "CONTA_PROP")
     private Integer conta_prop;
+    @OneToMany(mappedBy = "veiculo")
+    private List<Veiculo> listaVeiculos;
 
     public Proprietario() {
     }
@@ -40,12 +41,20 @@ public class Proprietario implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Proprietario that = (Proprietario) o;
-        return Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop);
+        return Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop) && Objects.equals(listaVeiculos, that.listaVeiculos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop);
+        return Objects.hash(cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop, listaVeiculos);
+    }
+
+    public List<Veiculo> getListaVeiculos() {
+        return listaVeiculos;
+    }
+
+    public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+        this.listaVeiculos = listaVeiculos;
     }
 
     public Long getCpf_prop() {

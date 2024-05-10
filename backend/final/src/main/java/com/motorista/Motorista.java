@@ -1,14 +1,13 @@
 package com.motorista;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.motorista_veiculo.MotoristaVeiculo;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,6 +30,8 @@ public class Motorista implements Serializable {
     private Integer agencia_mot;
     @Column(name = "CONTA_MOT")
     private Integer conta_mot;
+    @OneToMany(mappedBy = "motorista")
+    private List<MotoristaVeiculo> listaMotoristasVeiculos;
 
     public Motorista() {
     }
@@ -40,12 +41,20 @@ public class Motorista implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Motorista motorista = (Motorista) o;
-        return Objects.equals(cpf_motorista, motorista.cpf_motorista) && Objects.equals(cnh, motorista.cnh) && Objects.equals(banco_mot, motorista.banco_mot) && Objects.equals(agencia_mot, motorista.agencia_mot) && Objects.equals(conta_mot, motorista.conta_mot);
+        return Objects.equals(cpf_motorista, motorista.cpf_motorista) && Objects.equals(cnh, motorista.cnh) && Objects.equals(banco_mot, motorista.banco_mot) && Objects.equals(agencia_mot, motorista.agencia_mot) && Objects.equals(conta_mot, motorista.conta_mot) && Objects.equals(listaMotoristasVeiculos, motorista.listaMotoristasVeiculos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_motorista, cnh, banco_mot, agencia_mot, conta_mot);
+        return Objects.hash(cpf_motorista, cnh, banco_mot, agencia_mot, conta_mot, listaMotoristasVeiculos);
+    }
+
+    public List<MotoristaVeiculo> getListaMotoristasVeiculos() {
+        return listaMotoristasVeiculos;
+    }
+
+    public void setListaMotoristasVeiculos(List<MotoristaVeiculo> listaMotoristasVeiculos) {
+        this.listaMotoristasVeiculos = listaMotoristasVeiculos;
     }
 
     public Long getCpf_motorista() {

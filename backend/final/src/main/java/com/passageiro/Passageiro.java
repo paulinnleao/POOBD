@@ -1,9 +1,7 @@
 package com.passageiro;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.viagem.Viagem;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -27,6 +25,8 @@ public class Passageiro implements Serializable {
     private String bandeira_cartao;
     @Column(name = "CIDADE_ORIG")
     private String cidade_orig;
+    @OneToMany(mappedBy = "passageiro")
+    private Viagem viagem;
 
     public Passageiro() {
     }
@@ -36,12 +36,20 @@ public class Passageiro implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Passageiro that = (Passageiro) o;
-        return Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig);
+        return Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig) && Objects.equals(viagem, that.viagem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpf_passg, cartao_cred, bandeira_cartao, cidade_orig);
+        return Objects.hash(cpf_passg, cartao_cred, bandeira_cartao, cidade_orig, viagem);
+    }
+
+    public Viagem getViagem() {
+        return viagem;
+    }
+
+    public void setViagem(Viagem viagem) {
+        this.viagem = viagem;
     }
 
     public Long getCpf_passg() {
