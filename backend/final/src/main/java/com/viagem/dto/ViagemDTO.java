@@ -1,5 +1,6 @@
 package com.viagem.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
@@ -7,7 +8,6 @@ import org.springframework.hateoas.RepresentationModel;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -15,13 +15,11 @@ public class ViagemDTO extends RepresentationModel<ViagemDTO> implements Seriali
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id_viagem;
+    private Long cpf_passag;
 
-    private Long id_passageiro;
+    private Long cpf_motorista;
 
-    private Long id_motorista;
-
-    private Long id_veiculo;
+    private Long PLACA;
 
     private String local_orig_viag;
 
@@ -44,51 +42,6 @@ public class ViagemDTO extends RepresentationModel<ViagemDTO> implements Seriali
     public ViagemDTO() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        ViagemDTO viagemDTO = (ViagemDTO) o;
-        return Objects.equals(id_viagem, viagemDTO.id_viagem) && Objects.equals(id_passageiro, viagemDTO.id_passageiro) && Objects.equals(id_motorista, viagemDTO.id_motorista) && Objects.equals(id_veiculo, viagemDTO.id_veiculo) && Objects.equals(local_orig_viag, viagemDTO.local_orig_viag) && Objects.equals(local_dest_viag, viagemDTO.local_dest_viag) && Objects.equals(dt_hora_inicio, viagemDTO.dt_hora_inicio) && Objects.equals(dt_hora_fim, viagemDTO.dt_hora_fim) && Objects.equals(qtde_pass, viagemDTO.qtde_pass) && Objects.equals(forma_pagto, viagemDTO.forma_pagto) && Objects.equals(valor_pagto, viagemDTO.valor_pagto) && Objects.equals(cancelam_mot, viagemDTO.cancelam_mot) && Objects.equals(cancelam_pass, viagemDTO.cancelam_pass);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id_viagem, id_passageiro, id_motorista, id_veiculo, local_orig_viag, local_dest_viag, dt_hora_inicio, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass);
-    }
-
-    public Long getId_passageiro() {
-        return id_passageiro;
-    }
-
-    public void setId_passageiro(Long id_passageiro) {
-        this.id_passageiro = id_passageiro;
-    }
-
-    public Long getId_motorista() {
-        return id_motorista;
-    }
-
-    public void setId_motorista(Long id_motorista) {
-        this.id_motorista = id_motorista;
-    }
-
-    public Long getId_veiculo() {
-        return id_veiculo;
-    }
-
-    public void setId_veiculo(Long id_veiculo) {
-        this.id_veiculo = id_veiculo;
-    }
-
-    public Long getId_viagem() {
-        return id_viagem;
-    }
-
-    public void setId_viagem(Long id_viagem) {
-        this.id_viagem = id_viagem;
-    }
     public String getLocal_orig_viag() {
         return local_orig_viag;
     }

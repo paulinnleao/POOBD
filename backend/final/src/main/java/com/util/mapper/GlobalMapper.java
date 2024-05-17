@@ -1,12 +1,14 @@
 package com.util.mapper;
 
+import com.viagem.Viagem;
+import com.viagem.dto.ViagemDTO;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GlobalMapper {
-    private static ModelMapper mapper = new ModelMapper();
+    protected static ModelMapper mapper = new ModelMapper();
 
     public static <O, D> D parseObject (O origem, Class<D> destino){
         return mapper.map(origem, destino);

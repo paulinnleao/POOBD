@@ -4,6 +4,9 @@ import com.motorista_veiculo.MotoristaVeiculo;
 import com.passageiro.Passageiro;
 import com.tipo_pgto.TipoPgto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -21,28 +24,66 @@ public class Viagem implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_VIAGEM")
-    private Long id_viagem;
+    @Embeddable
+    public static class ViagemId implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 1L;
 
-    @Column(name = "ID_PASSAGEIRO")
-    private Long id_passageiro;
+        @NotNull(message = "CPF não pode ser nulo")
+        @Column(name = "CPF_PASSAG")
+        private Long cpfPassag;
 
-    @Column(name = "ID_MOTORISTA")
-    private Long id_motorista;
+        @Column(name = "CPF_MOTORISTA")
+        private Long cpfMotorista;
 
-    @Column(name = "ID_VEICULO")
-    private Long id_veiculo;
+        @Size(max = 7, min = 7, message = "Deve conter 7 caracteres")
+        @Column(name = "PLACA", length = 7)
+        private String placa;
+
+        @Column(name = "DT_HORA_INICIO")
+        private Date dtHoraInicio;
+
+        public Long getCpfPassag() {
+            return cpfPassag;
+        }
+
+        public void setCpfPassag(Long cpfPassag) {
+            this.cpfPassag = cpfPassag;
+        }
+
+        public Long getCpfMotorista() {
+            return cpfMotorista;
+        }
+
+        public void setCpfMotorista(Long cpfMotorista) {
+            this.cpfMotorista = cpfMotorista;
+        }
+
+        public String getPlaca() {
+            return placa;
+        }
+
+        public void setPlaca(String placa) {
+            this.placa = placa;
+        }
+
+        public Date getDtHoraInicio() {
+            return dtHoraInicio;
+        }
+
+        public void setDtHoraInicio(Date dt_hora_inicio) {
+            this.dtHoraInicio = dt_hora_inicio;
+        }
+    }
+
+    @EmbeddedId
+    private ViagemId viagemId = new ViagemId();
 
     @Column(name = "LOCAL_ORIG_VIAG")
     private String local_orig_viag;
 
     @Column(name = "LOCAL_DEST_VIAG")
     private String local_dest_viag;
-
-    @Column(name = "DT_HORA_INICIO")
-    private Date dt_hora_inicio;
 
     @Column(name = "DT_HORA_FIM")
     private Date dt_hora_fim;
@@ -82,36 +123,20 @@ public class Viagem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Viagem viagem = (Viagem) o;
-        return Objects.equals(id_viagem, viagem.id_viagem) && Objects.equals(id_passageiro, viagem.id_passageiro) && Objects.equals(id_motorista, viagem.id_motorista) && Objects.equals(id_veiculo, viagem.id_veiculo) && Objects.equals(local_orig_viag, viagem.local_orig_viag) && Objects.equals(local_dest_viag, viagem.local_dest_viag) && Objects.equals(dt_hora_inicio, viagem.dt_hora_inicio) && Objects.equals(dt_hora_fim, viagem.dt_hora_fim) && Objects.equals(qtde_pass, viagem.qtde_pass) && Objects.equals(forma_pagto, viagem.forma_pagto) && Objects.equals(valor_pagto, viagem.valor_pagto) && Objects.equals(cancelam_mot, viagem.cancelam_mot) && Objects.equals(cancelam_pass, viagem.cancelam_pass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
+        return Objects.equals(viagemId, viagem.viagemId) && Objects.equals(local_orig_viag, viagem.local_orig_viag) && Objects.equals(local_dest_viag, viagem.local_dest_viag) && Objects.equals(dt_hora_fim, viagem.dt_hora_fim) && Objects.equals(qtde_pass, viagem.qtde_pass) && Objects.equals(forma_pagto, viagem.forma_pagto) && Objects.equals(valor_pagto, viagem.valor_pagto) && Objects.equals(cancelam_mot, viagem.cancelam_mot) && Objects.equals(cancelam_pass, viagem.cancelam_pass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_viagem, id_passageiro, id_motorista, id_veiculo, local_orig_viag, local_dest_viag, dt_hora_inicio, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass, motoristaVeiculo, passageiro, tipoPgto);
+        return Objects.hash(viagemId, local_orig_viag, local_dest_viag, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass, motoristaVeiculo, passageiro, tipoPgto);
     }
 
-    public Long getId_passageiro() {
-        return id_passageiro;
+    public ViagemId getViagemId() {
+        return viagemId;
     }
 
-    public void setId_passageiro(Long id_passageiro) {
-        this.id_passageiro = id_passageiro;
-    }
-
-    public Long getId_motorista() {
-        return id_motorista;
-    }
-
-    public void setId_motorista(Long id_motorista) {
-        this.id_motorista = id_motorista;
-    }
-
-    public Long getId_veiculo() {
-        return id_veiculo;
-    }
-
-    public void setId_veiculo(Long id_veiculo) {
-        this.id_veiculo = id_veiculo;
+    public void setViagemId(ViagemId viagemId) {
+        this.viagemId = viagemId;
     }
 
     public MotoristaVeiculo getMotoristaVeiculo() {
@@ -138,14 +163,6 @@ public class Viagem implements Serializable {
         this.tipoPgto = tipoPgto;
     }
 
-    public Long getId_viagem() {
-        return id_viagem;
-    }
-
-    public void setId_viagem(Long id_viagem) {
-        this.id_viagem = id_viagem;
-    }
-
     public String getLocal_orig_viag() {
         return local_orig_viag;
     }
@@ -160,14 +177,6 @@ public class Viagem implements Serializable {
 
     public void setLocal_dest_viag(String local_dest_viag) {
         this.local_dest_viag = local_dest_viag;
-    }
-
-    public Date getDt_hora_inicio() {
-        return dt_hora_inicio;
-    }
-
-    public void setDt_hora_inicio(Date dt_hora_inicio) {
-        this.dt_hora_inicio = dt_hora_inicio;
     }
 
     public Date getDt_hora_fim() {
@@ -216,5 +225,30 @@ public class Viagem implements Serializable {
 
     public void setCancelam_pass(String cancelam_pass) {
         this.cancelam_pass = cancelam_pass;
+    }
+
+    public void setPlaca(String placa){
+        this.getViagemId().setPlaca(placa);
+    }
+    public String getPlaca(){
+        return this.getViagemId().getPlaca();
+    }
+    public void setCpf_passg(Long cpf_passg){
+        this.viagemId.setCpfPassag(cpf_passg);
+    }
+    public Long getCpf_pass(){
+       return this.viagemId.getCpfPassag();
+    }
+    public void setCpf_motorista(Long cpf_motorista){
+        this.viagemId.setCpfMotorista(cpf_motorista);
+    }
+    public Long getCpf_motorista(){
+        return this.viagemId.getCpfMotorista();
+    }
+    public void setDt_hora_inicio(Date dt_hora_inicio){
+        this.viagemId.setDtHoraInicio(dt_hora_inicio);
+    }
+    public Date getDt_hora_inicio(){
+        return this.viagemId.getDtHoraInicio();
     }
 }

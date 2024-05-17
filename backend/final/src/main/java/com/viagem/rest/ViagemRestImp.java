@@ -8,11 +8,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class ViagemRestImp {
     @Autowired
     private ViagemServiceImp service;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/id", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Buscar viagem pelo ID", description = "Procura uma viagem pelo id. Caso não encontre, retorna um NOT_FOUND",
             tags = {"Viagens"},
             responses = {
@@ -36,7 +38,12 @@ public class ViagemRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ViagemDTO findById(@PathVariable("id") Long id) {
+    public ViagemDTO findById(
+            @PathParam("placa") String placa,
+            @PathParam("cpfPassag")Long cpfPassag,
+            @PathParam("cpfMotorista") Long cpfMotorista,
+            @PathParam("dtHoraInicio") Date dthoraInicio
+            ) {
         return service.findById(id);
     }
 

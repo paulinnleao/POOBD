@@ -1,9 +1,10 @@
 package com.viagem.service;
 
 import com.util.exception.ResourceNotFoundException;
-import com.util.mapper.GlobalMapper;
+import com.util.mapper.ViagemMapper;
 import com.viagem.Viagem;
 import com.viagem.dto.ViagemDTO;
+import com.viagem.mapper.ViagemMapper;
 import com.viagem.rest.ViagemRestImp;
 import com.viagem.repository.ViagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ViagemServiceImp implements ViagemService{
     public ViagemDTO findById(Long id) {
         Viagem viagem = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado viagem para este ID!"));
-        ViagemDTO viagemDTO = GlobalMapper.parseObject(viagem, ViagemDTO.class);
+        ViagemDTO viagemDTO = ViagemMapper.parseObject(viagem, ViagemDTO.class);
         viagemDTO.add(
                 linkTo(
                         methodOn(ViagemRestImp.class).findById(id)
@@ -36,7 +37,7 @@ public class ViagemServiceImp implements ViagemService{
     @Override
     public List<ViagemDTO> findAll() {
         List<Viagem> listaViagens = repository.findAll();
-        List<ViagemDTO> listaViagensDTO = GlobalMapper.parseListObject(listaViagens, ViagemDTO.class);
+        List<ViagemDTO> listaViagensDTO = ViagemMapper.parseListObject(listaViagens, ViagemDTO.class);
         listaViagensDTO.forEach(
                 viagem -> viagem.add(
                         linkTo(
@@ -49,8 +50,8 @@ public class ViagemServiceImp implements ViagemService{
 
     @Override
     public ViagemDTO create(ViagemDTO viagemDTO) {
-        Viagem viagem = GlobalMapper.parseObject(viagemDTO, Viagem.class);
-        ViagemDTO viagemDTOSaved = GlobalMapper.parseObject(
+        Viagem viagem = ViagemMapper.parseObject(viagemDTO, Viagem.class);
+        ViagemDTO viagemDTOSaved = ViagemMapper.parseObject(
                 repository.save(viagem),
                 ViagemDTO.class
         );
@@ -66,7 +67,7 @@ public class ViagemServiceImp implements ViagemService{
     public ViagemDTO update(ViagemDTO viagemDTO) {
         Viagem viagem = repository.findById(viagemDTO.getId_viagem())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado viagem para este ID!"));
-        ViagemDTO viagemDTOSaved = GlobalMapper.parseObject(
+        ViagemDTO viagemDTOSaved = ViagemMapper.parseObject(
                 repository.save(viagem),
                 ViagemDTO.class
         );
