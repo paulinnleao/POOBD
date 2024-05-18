@@ -69,7 +69,8 @@ public class MotoristaRestImp {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = MotoristaDTO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Conflict", responseCode = "409", content = @Content)
             })
     public MotoristaDTO create(@RequestBody MotoristaDTO motoristaDTO) {
         return service.create(motoristaDTO);

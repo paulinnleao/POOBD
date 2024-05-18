@@ -27,7 +27,10 @@ public class ViagemRestImp {
     private ViagemServiceImp service;
 
     @GetMapping(value = "/id", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar viagem pelo ID", description = "Procura uma viagem pelo id. Caso não encontre, retorna um NOT_FOUND",
+    @Operation(summary = "Buscar viagem pelo ID",
+            description = "Procura uma viagem pelo ID. " +
+                    "O ID é uma chave composta por: CPF do passageiro, CPF do motorista, Placa e Data hora inicio da viagem." +
+                    " Caso não encontre, retorna um NOT_FOUND",
             tags = {"Viagens"},
             responses = {
                     @ApiResponse(
@@ -40,10 +43,10 @@ public class ViagemRestImp {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
     public ViagemDTO findById(
-            @PathParam("placa") String placa,
             @PathParam("cpfPassag")Long cpfPassag,
             @PathParam("cpfMotorista") Long cpfMotorista,
-            @PathParam("dtHoraInicio") LocalDateTime dthoraInicio
+            @PathParam("placa") String placa,
+            @PathParam("dtHoraInicio") String dthoraInicio
             ) {
         return service.findById(placa, cpfPassag, cpfMotorista, dthoraInicio);
     }
@@ -98,7 +101,8 @@ public class ViagemRestImp {
     }
 
     @DeleteMapping("/id")
-    @Operation(summary = "Apaga uma viagem através do ID", description = "Busca uma viagem pelo ID fornecido e se encontrar, apaga",
+    @Operation(summary = "Apaga uma viagem através do ID", description = "Busca uma viagem pelo ID fornecido e se encontrar, apaga. " +
+            "O ID é uma chave composta por: CPF do passageiro, CPF do motorista, Placa e Data hora inicio da viagem.",
             tags = {"Viagens"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),
@@ -109,10 +113,10 @@ public class ViagemRestImp {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
     public ResponseEntity<?> delete(
-            @PathParam("placa") String placa,
             @PathParam("cpfPassag")Long cpfPassag,
             @PathParam("cpfMotorista") Long cpfMotorista,
-            @PathParam("dtHoraInicio") LocalDateTime dthoraInicio
+            @PathParam("placa") String placa,
+            @PathParam("dtHoraInicio") String dthoraInicio
     ) {
         return service.delete(placa, cpfPassag, cpfMotorista, dthoraInicio);
     }

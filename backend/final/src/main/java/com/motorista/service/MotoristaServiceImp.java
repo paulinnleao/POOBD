@@ -4,13 +4,17 @@ import com.motorista.Motorista;
 import com.motorista.dto.MotoristaDTO;
 import com.motorista.repository.MotoristaRepository;
 import com.motorista.rest.MotoristaRestImp;
+import com.util.exception.ExceptionResponse;
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -52,6 +56,9 @@ public class MotoristaServiceImp implements MotoristaService {
     @Override
     public MotoristaDTO create(MotoristaDTO motoristaDTO) {
         Motorista motorista = GlobalMapper.parseObject(motoristaDTO, Motorista.class);
+        if(repository.findById(motorista.getCpfMotorista()).isPresent()) {
+           throw new ResourceAlreadyExistsException("Já existe motorista cadastrado com este CPF! ");
+        }
         MotoristaDTO motoristaDTOSaved = GlobalMapper.parseObject(
                 repository.save(motorista),
                 MotoristaDTO.class

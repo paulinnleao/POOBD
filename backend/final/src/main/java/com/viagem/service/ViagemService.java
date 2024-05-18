@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface ViagemService {
 
-    ViagemDTO findById(String placa, Long cpfPassag, Long cpfMotorista, LocalDateTime dthoraInicio);
+    ViagemDTO findById(String placa, Long cpfPassag, Long cpfMotorista, String dthoraInicio);
     ViagemDTO create(ViagemDTO viagemDTO);
     ViagemDTO update(ViagemDTO viagemDTO);
     List<ViagemDTO> findAll();
-    ResponseEntity<?> delete(String placa, Long cpfPassag, Long cpfMotorista, LocalDateTime dthoraInicio);
+    ResponseEntity<?> delete(String placa, Long cpfPassag, Long cpfMotorista, String dthoraInicio);
 
 }

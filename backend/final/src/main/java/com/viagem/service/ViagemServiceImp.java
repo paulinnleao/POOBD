@@ -1,5 +1,6 @@
 package com.viagem.service;
 
+import com.tipoPgto.rest.TipoPgtoRestImp;
 import com.util.exception.ResourceNotFoundException;
 import com.viagem.Viagem;
 import com.viagem.dto.ViagemDTO;
@@ -7,10 +8,13 @@ import com.viagem.mapper.ViagemMapper;
 import com.viagem.rest.ViagemRestImp;
 import com.viagem.repository.ViagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -21,16 +25,28 @@ public class ViagemServiceImp implements ViagemService{
     @Autowired
     ViagemRepository repository;
 
-    @Override
-    public ViagemDTO findById(String placa, Long cpfPassag, Long cpfMotorista, LocalDateTime dthoraInicio) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
+    @Override
+    public ViagemDTO findById(String placa, Long cpfPassag, Long cpfMotorista, String dtHora) {
+        LocalDateTime dthoraInicio = LocalDateTime.parse(dtHora, formatter);
         Viagem viagem = repository.findById(new Viagem.ViagemId(placa, cpfPassag, cpfMotorista, dthoraInicio))
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado viagem para este ID!"));
         ViagemDTO viagemDTO = ViagemMapper.parseObject(viagem, ViagemDTO.class);
         viagemDTO.add(
                 linkTo(
-                        methodOn(ViagemRestImp.class).findById(placa, cpfPassag, cpfMotorista, dthoraInicio)
+                        methodOn(ViagemRestImp.class).findById(cpfPassag, cpfMotorista,placa, dthoraInicio.toString())
                 ).withSelfRel()
+        );
+        viagemDTO.add(
+                linkTo(
+                        methodOn(ViagemRestImp.class).findById(
+                                viagem.getCpfPassag(),
+                                viagem.getCpfMotorista(),
+                                viagem.getPlaca(),
+                                viagem.getDtHoraInicio().toString()
+                        )
+                ).withRel("End point com ID do tipo de pagamento")
         );
         return viagemDTO;
     }
@@ -40,15 +56,40 @@ public class ViagemServiceImp implements ViagemService{
         List<Viagem> listaViagens = repository.findAll();
         List<ViagemDTO> listaViagensDTO = ViagemMapper.parseListObject(listaViagens, ViagemDTO.class);
         listaViagensDTO.forEach(
-                viagem -> viagem.add(
-                        linkTo(
-                                methodOn(ViagemRestImp.class).findById(
-                                        viagem.getPlaca(),
-                                        viagem.getCpfPassag(),
-                                        viagem.getCpfMotorista(),
-                                        viagem.getDtHoraInicio()
-                                )
-                        ).withSelfRel()
+                viagem ->
+                listaViagens.forEach(
+                        viagemRepository ->
+                        {
+                            if((
+                                viagemRepository.getPlaca()
+                                +viagemRepository.getCpfPassag()
+                                +viagemRepository.getCpfMotorista()
+                                +viagemRepository.getDtHoraInicio()).equals(
+                                    viagem.getPlaca()+
+                                    viagem.getCpfPassag().toString()+
+                                    viagem.getCpfMotorista().toString()+
+                                    viagem.getDtHoraInicio().toString()
+                                    ))
+                            {
+                                viagem.add(
+                                        linkTo(
+                                                methodOn(ViagemRestImp.class).findById(
+                                                        viagem.getCpfPassag(),
+                                                        viagem.getCpfMotorista(),
+                                                        viagem.getPlaca(),
+                                                        viagem.getDtHoraInicio().toString()
+                                                )
+                                        ).withSelfRel()
+                                );
+                                viagem.add(
+                                        linkTo(
+                                                methodOn(TipoPgtoRestImp.class).findById(
+                                                        viagemRepository.getTipoPgto().getCodPagto()
+                                                )
+                                        ).withRel("End point com ID do tipo de pagamento")
+                                );
+                            }
+                        }
                 )
         );
         return listaViagensDTO;
@@ -64,12 +105,22 @@ public class ViagemServiceImp implements ViagemService{
         viagemDTOSaved.add(
                 linkTo(
                         methodOn(ViagemRestImp.class).findById(
-                                viagemDTOSaved.getPlaca(),
                                 viagemDTOSaved.getCpfPassag(),
                                 viagemDTOSaved.getCpfMotorista(),
-                                viagemDTOSaved.getDtHoraInicio()
+                                viagemDTOSaved.getPlaca(),
+                                viagemDTOSaved.getDtHoraInicio().toString()
                         )
                 ).withSelfRel()
+        );
+        viagemDTOSaved.add(
+                linkTo(
+                        methodOn(ViagemRestImp.class).findById(
+                                viagemDTOSaved.getCpfPassag(),
+                                viagemDTOSaved.getCpfMotorista(),
+                                viagemDTOSaved.getPlaca(),
+                                viagemDTOSaved.getDtHoraInicio().toString()
+                        )
+                ).withRel("End point com ID do tipo de pagamento")
         );
         return viagemDTOSaved;
     }
@@ -91,18 +142,26 @@ public class ViagemServiceImp implements ViagemService{
         viagemDTOSaved.add(
                 linkTo(
                         methodOn(ViagemRestImp.class).findById(
-                                viagemDTOSaved.getPlaca(),
                                 viagemDTOSaved.getCpfPassag(),
                                 viagemDTOSaved.getCpfMotorista(),
-                                viagemDTOSaved.getDtHoraInicio()
+                                viagemDTOSaved.getPlaca(),
+                                viagemDTOSaved.getDtHoraInicio().toString()
                         )
-                ).withSelfRel()
+                ).withRel("End point com ID do tipo de pagamento")
+        );
+        viagemDTOSaved.add(
+                linkTo(
+                        methodOn(TipoPgtoRestImp.class).findById(
+                                viagem.getTipoPgto().getCodPagto()
+                        )
+                ).withRel("")
         );
         return viagemDTOSaved;
     }
 
     @Override
-    public ResponseEntity<?> delete(String placa, Long cpfPassag, Long cpfMotorista, LocalDateTime dthoraInicio) {
+    public ResponseEntity<?> delete(String placa, Long cpfPassag, Long cpfMotorista, String dtHora) {
+        LocalDateTime dthoraInicio = LocalDateTime.parse(dtHora, formatter);
         Viagem viagem = repository.findById(new Viagem.ViagemId(placa, cpfPassag, cpfMotorista, dthoraInicio))
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado viagem para este ID!"));
         repository.delete(viagem);

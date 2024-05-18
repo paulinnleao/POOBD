@@ -2,6 +2,7 @@ package com.motorista;
 
 import com.motorista_veiculo.MotoristaVeiculo;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
 @Entity
 @Data
 @AllArgsConstructor
-@Table(name = "MOTORISTA")
+@Table(name = "MOTORISTAS")
 public class Motorista implements Serializable {
 
     @Serial
@@ -23,7 +24,9 @@ public class Motorista implements Serializable {
     @Column(name = "CPF_MOTORISTA")
     private Long cpfMotorista;
 
+
     @Column(name = "CNH")
+    @Size(max = 15, min = 15, message = "CNH deve conter 15 caracteres")
     private String cnh;
 
     @Column(name = "BANCO_MOT")
