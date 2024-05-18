@@ -1,7 +1,7 @@
-package com.tipo_pgto.rest;
+package com.tipoPgto.rest;
 
-import com.tipo_pgto.dto.TipoPgtoDTO;
-import com.tipo_pgto.service.TipoPgtoServiceImp;
+import com.tipoPgto.dto.TipoPgtoDTO;
+import com.tipoPgto.service.TipoPgtoServiceImp;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -59,7 +59,7 @@ public class TipoPgtoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public TipoPgtoDTO findById(@PathVariable("id") Long id) {
+    public TipoPgtoDTO findById(@PathVariable("id") Integer id) {
         return service.findById(id);
     }
 
@@ -101,7 +101,7 @@ public class TipoPgtoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
         return service.delete(id);
     }
 }

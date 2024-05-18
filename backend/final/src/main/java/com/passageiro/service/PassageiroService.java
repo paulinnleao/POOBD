@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface PassageiroService {
 
-    PassageiroDTO findById(Long id);
+    PassageiroDTO findById(Long cpf);
     PassageiroDTO create(PassageiroDTO passageiroDTO);
     PassageiroDTO update(PassageiroDTO passageiroDTO);
     List<PassageiroDTO> findAll();
-    ResponseEntity<?> delete(Long id);
+    ResponseEntity<?> delete(Long cpf);
 }

@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface MotoristaVeiculoService {
-    MotoristaVeiculoDTO findById(Long id);
+    MotoristaVeiculoDTO findById(Long cpfMotorista, String placa);
     MotoristaVeiculoDTO create(MotoristaVeiculoDTO MotoristaVeiculoDTO);
     MotoristaVeiculoDTO update(MotoristaVeiculoDTO motoristaVeiculoDTO);
     List<MotoristaVeiculoDTO> findAll();
-    ResponseEntity<?> delete(Long id);
+    ResponseEntity<?> delete(Long cpfMotorista, String placa);
 }

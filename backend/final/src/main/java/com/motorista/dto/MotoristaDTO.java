@@ -14,12 +14,11 @@ public class MotoristaDTO extends RepresentationModel<MotoristaDTO> implements S
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id_motorista;
-    private Long cpf_motorista;
+    private Long cpfMotorista;
     private String cnh;
-    private Integer banco_mot;
-    private Integer agencia_mot;
-    private Integer conta_mot;
+    private Integer bancoMot;
+    private Integer agenciaMot;
+    private Integer contaMot;
 
     public MotoristaDTO() {
     }
@@ -30,20 +29,20 @@ public class MotoristaDTO extends RepresentationModel<MotoristaDTO> implements S
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         MotoristaDTO that = (MotoristaDTO) o;
-        return Objects.equals(cpf_motorista, that.cpf_motorista) && Objects.equals(cnh, that.cnh) && Objects.equals(banco_mot, that.banco_mot) && Objects.equals(agencia_mot, that.agencia_mot) && Objects.equals(conta_mot, that.conta_mot);
+        return Objects.equals(cpfMotorista, that.cpfMotorista) && Objects.equals(cnh, that.cnh) && Objects.equals(bancoMot, that.bancoMot) && Objects.equals(agenciaMot, that.agenciaMot) && Objects.equals(contaMot, that.contaMot);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpf_motorista, cnh, banco_mot, agencia_mot, conta_mot);
+        return Objects.hash(super.hashCode(), cpfMotorista, cnh, bancoMot, agenciaMot, contaMot);
     }
 
-    public Long getCpf_motorista() {
-        return cpf_motorista;
+    public Long getCpfMotorista() {
+        return cpfMotorista;
     }
 
-    public void setCpf_motorista(Long cpf_motorista) {
-        this.cpf_motorista = cpf_motorista;
+    public void setCpfMotorista(Long cpfMotorista) {
+        this.cpfMotorista = cpfMotorista;
     }
 
     public String getCnh() {
@@ -54,27 +53,27 @@ public class MotoristaDTO extends RepresentationModel<MotoristaDTO> implements S
         this.cnh = cnh;
     }
 
-    public Integer getBanco_mot() {
-        return banco_mot;
+    public Integer getBancoMot() {
+        return bancoMot;
     }
 
-    public void setBanco_mot(Integer banco_mot) {
-        this.banco_mot = banco_mot;
+    public void setBancoMot(Integer bancoMot) {
+        this.bancoMot = bancoMot;
     }
 
-    public Integer getAgencia_mot() {
-        return agencia_mot;
+    public Integer getAgenciaMot() {
+        return agenciaMot;
     }
 
-    public void setAgencia_mot(Integer agencia_mot) {
-        this.agencia_mot = agencia_mot;
+    public void setAgenciaMot(Integer agenciaMot) {
+        this.agenciaMot = agenciaMot;
     }
 
-    public Integer getConta_mot() {
-        return conta_mot;
+    public Integer getContaMot() {
+        return contaMot;
     }
 
-    public void setConta_mot(Integer conta_mot) {
-        this.conta_mot = conta_mot;
+    public void setContaMot(Integer contaMot) {
+        this.contaMot = contaMot;
     }
 }

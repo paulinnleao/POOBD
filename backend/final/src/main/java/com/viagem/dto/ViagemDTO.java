@@ -1,13 +1,14 @@
 package com.viagem.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -15,102 +16,141 @@ public class ViagemDTO extends RepresentationModel<ViagemDTO> implements Seriali
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long cpf_passag;
+    private Long cpfPassag;
 
-    private Long cpf_motorista;
+    private Long cpfMotorista;
 
-    private Long PLACA;
+    private String placa;
 
-    private String local_orig_viag;
+    private String localOrigViag;
 
-    private String local_dest_viag;
+    private String localDestViag;
 
-    private Date dt_hora_inicio;
+    private LocalDateTime dtHoraInicio;
 
-    private Date dt_hora_fim;
+    private Date dtHoraFim;
 
-    private Integer qtde_pass;
+    private Integer qtdePass;
 
-    private String forma_pagto;
+    private String formaPagto;
 
-    private Double valor_pagto;
+    private Double valorPagto;
 
-    private String cancelam_mot;
+    private String cancelamMot;
 
-    private String cancelam_pass;
+    private String cancelamPass;
+
 
     public ViagemDTO() {
     }
 
-    public String getLocal_orig_viag() {
-        return local_orig_viag;
+    public Long getCpfPassag() {
+        return cpfPassag;
     }
 
-    public void setLocal_orig_viag(String local_orig_viag) {
-        this.local_orig_viag = local_orig_viag;
+    public void setCpfPassag(Long cpfPassag) {
+        this.cpfPassag = cpfPassag;
     }
 
-    public String getLocal_dest_viag() {
-        return local_dest_viag;
+    public Long getCpfMotorista() {
+        return cpfMotorista;
     }
 
-    public void setLocal_dest_viag(String local_dest_viag) {
-        this.local_dest_viag = local_dest_viag;
+    public void setCpfMotorista(Long cpfMotorista) {
+        this.cpfMotorista = cpfMotorista;
     }
 
-    public Date getDt_hora_inicio() {
-        return dt_hora_inicio;
+    public String getPlaca() {
+        return placa;
     }
 
-    public void setDt_hora_inicio(Date dt_hora_inicio) {
-        this.dt_hora_inicio = dt_hora_inicio;
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
-    public Date getDt_hora_fim() {
-        return dt_hora_fim;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ViagemDTO viagemDTO = (ViagemDTO) o;
+        return Objects.equals(cpfPassag, viagemDTO.cpfPassag) && Objects.equals(cpfMotorista, viagemDTO.cpfMotorista) && Objects.equals(placa, viagemDTO.placa) && Objects.equals(localOrigViag, viagemDTO.localOrigViag) && Objects.equals(localDestViag, viagemDTO.localDestViag) && Objects.equals(dtHoraInicio, viagemDTO.dtHoraInicio) && Objects.equals(dtHoraFim, viagemDTO.dtHoraFim) && Objects.equals(qtdePass, viagemDTO.qtdePass) && Objects.equals(formaPagto, viagemDTO.formaPagto) && Objects.equals(valorPagto, viagemDTO.valorPagto) && Objects.equals(cancelamMot, viagemDTO.cancelamMot) && Objects.equals(cancelamPass, viagemDTO.cancelamPass);
     }
 
-    public void setDt_hora_fim(Date dt_hora_fim) {
-        this.dt_hora_fim = dt_hora_fim;
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), cpfPassag, cpfMotorista, placa, localOrigViag, localDestViag, dtHoraInicio, dtHoraFim, qtdePass, formaPagto, valorPagto, cancelamMot, cancelamPass);
     }
 
-    public Integer getQtde_pass() {
-        return qtde_pass;
+    public String getLocalOrigViag() {
+        return localOrigViag;
     }
 
-    public void setQtde_pass(Integer qtde_pass) {
-        this.qtde_pass = qtde_pass;
+    public void setLocalOrigViag(String localOrigViag) {
+        this.localOrigViag = localOrigViag;
     }
 
-    public String getForma_pagto() {
-        return forma_pagto;
+    public String getLocalDestViag() {
+        return localDestViag;
     }
 
-    public void setForma_pagto(String forma_pagto) {
-        this.forma_pagto = forma_pagto;
+    public void setLocalDestViag(String localDestViag) {
+        this.localDestViag = localDestViag;
     }
 
-    public Double getValor_pagto() {
-        return valor_pagto;
+    public LocalDateTime getDtHoraInicio() {
+        return dtHoraInicio;
     }
 
-    public void setValor_pagto(Double valor_pagto) {
-        this.valor_pagto = valor_pagto;
+    public void setDtHoraInicio(LocalDateTime dtHoraInicio) {
+        this.dtHoraInicio = dtHoraInicio;
     }
 
-    public String getCancelam_mot() {
-        return cancelam_mot;
+    public Date getDtHoraFim() {
+        return dtHoraFim;
     }
 
-    public void setCancelam_mot(String cancelam_mot) {
-        this.cancelam_mot = cancelam_mot;
+    public void setDtHoraFim(Date dtHoraFim) {
+        this.dtHoraFim = dtHoraFim;
     }
 
-    public String getCancelam_pass() {
-        return cancelam_pass;
+    public Integer getQtdePass() {
+        return qtdePass;
     }
 
-    public void setCancelam_pass(String cancelam_pass) {
-        this.cancelam_pass = cancelam_pass;
+    public void setQtdePass(Integer qtdePass) {
+        this.qtdePass = qtdePass;
+    }
+
+    public String getFormaPagto() {
+        return formaPagto;
+    }
+
+    public void setFormaPagto(String formaPagto) {
+        this.formaPagto = formaPagto;
+    }
+
+    public Double getValorPagto() {
+        return valorPagto;
+    }
+
+    public void setValorPagto(Double valorPagto) {
+        this.valorPagto = valorPagto;
+    }
+
+    public String getCancelamMot() {
+        return cancelamMot;
+    }
+
+    public void setCancelamMot(String cancelamMot) {
+        this.cancelamMot = cancelamMot;
+    }
+
+    public String getCancelamPass() {
+        return cancelamPass;
+    }
+
+    public void setCancelamPass(String cancelamPass) {
+        this.cancelamPass = cancelamPass;
     }
 }

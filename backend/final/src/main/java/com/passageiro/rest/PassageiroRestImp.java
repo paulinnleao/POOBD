@@ -24,8 +24,8 @@ public class PassageiroRestImp {
     @Autowired
     private PassageiroServiceImp service;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar passageiro pelo ID", description = "Procura um passageiro pelo id. Caso não encontre, retorna um NOT_FOUND",
+    @GetMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Buscar passageiro pelo CPF", description = "Procura um passageiro pelo id. Caso não encontre, retorna um NOT_FOUND",
             tags = {"Passageiros"},
             responses = {
                     @ApiResponse(
@@ -37,8 +37,8 @@ public class PassageiroRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public PassageiroDTO findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+    public PassageiroDTO findById(@PathVariable("cpf") Long cpf) {
+        return service.findById(cpf);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -90,7 +90,7 @@ public class PassageiroRestImp {
         return service.update(passageiroDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{cpf}")
     @Operation(summary = "Apaga um passageiro através do ID", description = "Busca um passageiro pelo ID fornecido e se encontrar, apaga",
             tags = {"Passageiros"},
             responses = {
@@ -101,7 +101,7 @@ public class PassageiroRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        return service.delete(id);
+    public ResponseEntity<?> delete(@PathVariable("cpf") Long cpf) {
+        return service.delete(cpf);
     }
 }

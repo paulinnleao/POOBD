@@ -14,13 +14,12 @@ public class PessoaDTO extends RepresentationModel<PessoaDTO> implements Seriali
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id_pessoa;
-    private Long cpf_pessoa;
+    private Long cpfPessoa;
     private String nome;
     private String endereco;
     private Integer telefone;
     private String sexo;
-    private String e_mail;
+    private String eMail;
 
     public PessoaDTO() {
     }
@@ -31,28 +30,20 @@ public class PessoaDTO extends RepresentationModel<PessoaDTO> implements Seriali
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         PessoaDTO pessoaDTO = (PessoaDTO) o;
-        return Objects.equals(id_pessoa, pessoaDTO.id_pessoa) && Objects.equals(cpf_pessoa, pessoaDTO.cpf_pessoa) && Objects.equals(nome, pessoaDTO.nome) && Objects.equals(endereco, pessoaDTO.endereco) && Objects.equals(telefone, pessoaDTO.telefone) && Objects.equals(sexo, pessoaDTO.sexo) && Objects.equals(e_mail, pessoaDTO.e_mail);
+        return Objects.equals(cpfPessoa, pessoaDTO.cpfPessoa) && Objects.equals(nome, pessoaDTO.nome) && Objects.equals(endereco, pessoaDTO.endereco) && Objects.equals(telefone, pessoaDTO.telefone) && Objects.equals(sexo, pessoaDTO.sexo) && Objects.equals(eMail, pessoaDTO.eMail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id_pessoa, cpf_pessoa, nome, endereco, telefone, sexo, e_mail);
+        return Objects.hash(super.hashCode(), cpfPessoa, nome, endereco, telefone, sexo, eMail);
     }
 
-    public Long getId_pessoa() {
-        return id_pessoa;
+    public Long getCpfPessoa() {
+        return cpfPessoa;
     }
 
-    public void setId_pessoa(Long id_pessoa) {
-        this.id_pessoa = id_pessoa;
-    }
-
-    public Long getCpf_pessoa() {
-        return cpf_pessoa;
-    }
-
-    public void setCpf_pessoa(Long cpf_pessoa) {
-        this.cpf_pessoa = cpf_pessoa;
+    public void setCpfPessoa(Long cpfPessoa) {
+        this.cpfPessoa = cpfPessoa;
     }
 
     public String getNome() {
@@ -87,11 +78,11 @@ public class PessoaDTO extends RepresentationModel<PessoaDTO> implements Seriali
         this.sexo = sexo;
     }
 
-    public String getE_mail() {
-        return e_mail;
+    public String geteMail() {
+        return eMail;
     }
 
-    public void setE_mail(String e_mail) {
-        this.e_mail = e_mail;
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
     }
 }

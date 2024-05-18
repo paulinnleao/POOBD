@@ -17,12 +17,8 @@ public class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PESSOA")
-    private Long id_pessoa;
-
     @Column(name = "CPF_PESSOA")
-    private Long cpf_pessoa;
+    private Long cpfPessoa;
 
     @Column(name = "NOME")
     private String nome;
@@ -37,35 +33,27 @@ public class Pessoa implements Serializable {
     private String sexo;
 
     @Column(name = "E_MAIL")
-    private String e_mail;
+    private String eMail;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(id_pessoa, pessoa.id_pessoa) && Objects.equals(cpf_pessoa, pessoa.cpf_pessoa) && Objects.equals(nome, pessoa.nome) && Objects.equals(endereco, pessoa.endereco) && Objects.equals(telefone, pessoa.telefone) && Objects.equals(sexo, pessoa.sexo) && Objects.equals(e_mail, pessoa.e_mail);
+        return Objects.equals(cpfPessoa, pessoa.cpfPessoa) && Objects.equals(nome, pessoa.nome) && Objects.equals(endereco, pessoa.endereco) && Objects.equals(telefone, pessoa.telefone) && Objects.equals(sexo, pessoa.sexo) && Objects.equals(eMail, pessoa.eMail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_pessoa, cpf_pessoa, nome, endereco, telefone, sexo, e_mail);
+        return Objects.hash(cpfPessoa, nome, endereco, telefone, sexo, eMail);
     }
 
-    public Long getId_pessoa() {
-        return id_pessoa;
+    public Long getCpfPessoa() {
+        return cpfPessoa;
     }
 
-    public void setId_pessoa(Long id_pessoa) {
-        this.id_pessoa = id_pessoa;
-    }
-
-    public Long getCpf_pessoa() {
-        return cpf_pessoa;
-    }
-
-    public void setCpf_pessoa(Long cpf_pessoa) {
-        this.cpf_pessoa = cpf_pessoa;
+    public void setCpfPessoa(Long cpfPessoa) {
+        this.cpfPessoa = cpfPessoa;
     }
 
     public String getNome() {
@@ -100,12 +88,12 @@ public class Pessoa implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getE_mail() {
-        return e_mail;
+    public String geteMail() {
+        return eMail;
     }
 
-    public void setE_mail(String e_mail) {
-        this.e_mail = e_mail;
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
     }
 
     public Pessoa() {

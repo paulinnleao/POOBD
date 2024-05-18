@@ -23,7 +23,7 @@ public class MotoristaRestImp {
     @Autowired
     private MotoristaServiceImp service;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Buscar motorista pelo ID", description = "Procura um motorista pelo id. Caso não encontre, retorna um NOT_FOUND",
             tags = {"Motoristas"},
             responses = {
@@ -36,8 +36,8 @@ public class MotoristaRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public MotoristaDTO findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+    public MotoristaDTO findById(@PathVariable("cpf") Long cpf) {
+        return service.findById(cpf);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -89,7 +89,7 @@ public class MotoristaRestImp {
         return service.update(motoristaDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{cpf}")
     @Operation(summary = "Apaga um motorista através do ID", description = "Busca um motorista pelo ID fornecido e se encontrar, apaga",
             tags = {"Motoristas"},
             responses = {
@@ -100,7 +100,7 @@ public class MotoristaRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        return service.delete(id);
+    public ResponseEntity<?> delete(@PathVariable("cpf") Long cpf) {
+        return service.delete(cpf);
     }
 }

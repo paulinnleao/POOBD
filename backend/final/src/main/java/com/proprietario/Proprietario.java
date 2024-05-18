@@ -7,7 +7,6 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.List;
 
 @Data
@@ -20,50 +19,25 @@ public class Proprietario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PROPRIETARIO")
-    private Long id_proprietario;
-
     @Column(name = "CPF_PROP")
-    private Long cpf_prop;
+    private Long cpfProp;
 
     @Column(name = "CNH_PROP")
-    private String cnh_prop;
+    private String cnhProp;
 
     @Column(name = "BANCO_PROP")
-    private Integer banco_prop;
+    private Integer bancoProp;
 
     @Column(name = "AGENCIA_PROP")
-    private Integer agencia_prop;
+    private Integer agenciaProp;
 
     @Column(name = "CONTA_PROP")
-    private Integer conta_prop;
+    private Integer contaProp;
 
     @OneToMany(mappedBy = "proprietario")
     private List<Veiculo> listaVeiculos;
 
     public Proprietario() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Proprietario that = (Proprietario) o;
-        return Objects.equals(id_proprietario, that.id_proprietario) && Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop) && Objects.equals(listaVeiculos, that.listaVeiculos);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id_proprietario, cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop, listaVeiculos);
-    }
-
-    public Long getId_proprietario() {
-        return id_proprietario;
-    }
-
-    public void setId_proprietario(Long id_proprietario) {
-        this.id_proprietario = id_proprietario;
     }
 
     public List<Veiculo> getListaVeiculos() {
@@ -74,43 +48,43 @@ public class Proprietario implements Serializable {
         this.listaVeiculos = listaVeiculos;
     }
 
-    public Long getCpf_prop() {
-        return cpf_prop;
+    public Long getCpfProp() {
+        return cpfProp;
     }
 
-    public void setCpf_prop(Long cpf_prop) {
-        this.cpf_prop = cpf_prop;
+    public void setCpfProp(Long cpfProp) {
+        this.cpfProp = cpfProp;
     }
 
-    public String getCnh_prop() {
-        return cnh_prop;
+    public String getCnhProp() {
+        return cnhProp;
     }
 
-    public void setCnh_prop(String cnh_prop) {
-        this.cnh_prop = cnh_prop;
+    public void setCnhProp(String cnhProp) {
+        this.cnhProp = cnhProp;
     }
 
-    public Integer getBanco_prop() {
-        return banco_prop;
+    public Integer getBancoProp() {
+        return bancoProp;
     }
 
-    public void setBanco_prop(Integer banco_prop) {
-        this.banco_prop = banco_prop;
+    public void setBancoProp(Integer bancoProp) {
+        this.bancoProp = bancoProp;
     }
 
-    public Integer getAgencia_prop() {
-        return agencia_prop;
+    public Integer getAgenciaProp() {
+        return agenciaProp;
     }
 
-    public void setAgencia_prop(Integer agencia_prop) {
-        this.agencia_prop = agencia_prop;
+    public void setAgenciaProp(Integer agenciaProp) {
+        this.agenciaProp = agenciaProp;
     }
 
-    public Integer getConta_prop() {
-        return conta_prop;
+    public Integer getContaProp() {
+        return contaProp;
     }
 
-    public void setConta_prop(Integer conta_prop) {
-        this.conta_prop = conta_prop;
+    public void setContaProp(Integer contaProp) {
+        this.contaProp = contaProp;
     }
 }

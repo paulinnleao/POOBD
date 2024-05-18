@@ -14,11 +14,10 @@ public class PassageiroDTO extends RepresentationModel<PassageiroDTO> implements
     @Serial
     public static final long serialVersionUID = 1L;
 
-    private Long id_passageiro;
-    private Long cpf_passg;
-    private String cartao_cred;
-    private String bandeira_cartao;
-    private String cidade_orig;
+    private Long cpfPassg;
+    private String cartaoCred;
+    private String bandeiraCartao;
+    private String cidadeOrig;
 
     public PassageiroDTO() {
     }
@@ -29,51 +28,43 @@ public class PassageiroDTO extends RepresentationModel<PassageiroDTO> implements
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         PassageiroDTO that = (PassageiroDTO) o;
-        return Objects.equals(id_passageiro, that.id_passageiro) && Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig);
+        return Objects.equals(cpfPassg, that.cpfPassg) && Objects.equals(cartaoCred, that.cartaoCred) && Objects.equals(bandeiraCartao, that.bandeiraCartao) && Objects.equals(cidadeOrig, that.cidadeOrig);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id_passageiro, cpf_passg, cartao_cred, bandeira_cartao, cidade_orig);
+        return Objects.hash(super.hashCode(), cpfPassg, cartaoCred, bandeiraCartao, cidadeOrig);
     }
 
-    public Long getId_passageiro() {
-        return id_passageiro;
+    public Long getCpfPassg() {
+        return cpfPassg;
     }
 
-    public void setId_passageiro(Long id_passageiro) {
-        this.id_passageiro = id_passageiro;
+    public void setCpfPassg(Long cpfPassg) {
+        this.cpfPassg = cpfPassg;
     }
 
-    public Long getCpf_passg() {
-        return cpf_passg;
+    public String getCartaoCred() {
+        return cartaoCred;
     }
 
-    public void setCpf_passg(Long cpf_passg) {
-        this.cpf_passg = cpf_passg;
+    public void setCartaoCred(String cartaoCred) {
+        this.cartaoCred = cartaoCred;
     }
 
-    public String getCartao_cred() {
-        return cartao_cred;
+    public String getBandeiraCartao() {
+        return bandeiraCartao;
     }
 
-    public void setCartao_cred(String cartao_cred) {
-        this.cartao_cred = cartao_cred;
+    public void setBandeiraCartao(String bandeiraCartao) {
+        this.bandeiraCartao = bandeiraCartao;
     }
 
-    public String getBandeira_cartao() {
-        return bandeira_cartao;
+    public String getCidadeOrig() {
+        return cidadeOrig;
     }
 
-    public void setBandeira_cartao(String bandeira_cartao) {
-        this.bandeira_cartao = bandeira_cartao;
-    }
-
-    public String getCidade_orig() {
-        return cidade_orig;
-    }
-
-    public void setCidade_orig(String cidade_orig) {
-        this.cidade_orig = cidade_orig;
+    public void setCidadeOrig(String cidadeOrig) {
+        this.cidadeOrig = cidadeOrig;
     }
 }

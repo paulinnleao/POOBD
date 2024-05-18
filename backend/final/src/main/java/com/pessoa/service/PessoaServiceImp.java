@@ -21,13 +21,13 @@ public class PessoaServiceImp implements PessoaService {
     PessoaRepository repository;
 
     @Override
-    public PessoaDTO findById(Long id) {
-        Pessoa pessoa = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este ID!"));
+    public PessoaDTO findById(Long cpf) {
+        Pessoa pessoa = repository.findById(cpf)
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este CPF!"));
         PessoaDTO pessoaDTO = GlobalMapper.parseObject(pessoa, PessoaDTO.class);
         pessoaDTO.add(
                 linkTo(
-                        methodOn(PessoaRestImp.class).findById(id)
+                        methodOn(PessoaRestImp.class).findById(cpf)
                 ).withSelfRel()
         );
         return pessoaDTO;
@@ -40,7 +40,7 @@ public class PessoaServiceImp implements PessoaService {
         listaViagensDTO.forEach(
                 pessoa -> pessoa.add(
                         linkTo(
-                                methodOn(PessoaRestImp.class).findById(pessoa.getId_pessoa())
+                                methodOn(PessoaRestImp.class).findById(pessoa.getCpfPessoa())
                         ).withSelfRel()
                 )
         );
@@ -56,7 +56,7 @@ public class PessoaServiceImp implements PessoaService {
         );
         pessoaDTOSaved.add(
                 linkTo(
-                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getId_pessoa())
+                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getCpfPessoa())
                 ).withSelfRel()
         );
         return pessoaDTOSaved;
@@ -64,24 +64,24 @@ public class PessoaServiceImp implements PessoaService {
 
     @Override
     public PessoaDTO update(PessoaDTO pessoaDTO) {
-        Pessoa pessoa = repository.findById(pessoaDTO.getId_pessoa())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este ID!"));
+        Pessoa pessoa = repository.findById(pessoaDTO.getCpfPessoa())
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este CPF!"));
         PessoaDTO pessoaDTOSaved = GlobalMapper.parseObject(
                 repository.save(pessoa),
                 PessoaDTO.class
         );
         pessoaDTOSaved.add(
                 linkTo(
-                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getId_pessoa())
+                        methodOn(PessoaRestImp.class).findById(pessoaDTOSaved.getCpfPessoa())
                 ).withSelfRel()
         );
         return pessoaDTOSaved;
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
-        Pessoa pessoa = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este ID!"));
+    public ResponseEntity<?> delete(Long cpf) {
+        Pessoa pessoa = repository.findById(cpf)
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este CPF!"));
         repository.delete(pessoa);
         return ResponseEntity.noContent().build();
     }

@@ -21,10 +21,6 @@ public class Veiculo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_VEICULO")
-    private Long id_veiculo;
-
     @Column(name = "PLACA")
     private String placa;
 
@@ -50,7 +46,7 @@ public class Veiculo implements Serializable {
     private Integer potencia_motor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_proprietario")
+    @JoinColumn(name = "CPF_PROP")
     private Proprietario proprietario;
 
     @OneToMany(mappedBy = "veiculo")
@@ -64,20 +60,12 @@ public class Veiculo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Veiculo veiculo = (Veiculo) o;
-        return Objects.equals(id_veiculo, veiculo.id_veiculo) && Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(ano_fabric, veiculo.ano_fabric) && Objects.equals(capacidade_pass, veiculo.capacidade_pass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipo_combust, veiculo.tipo_combust) && Objects.equals(potencia_motor, veiculo.potencia_motor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
+        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(ano_fabric, veiculo.ano_fabric) && Objects.equals(capacidade_pass, veiculo.capacidade_pass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipo_combust, veiculo.tipo_combust) && Objects.equals(potencia_motor, veiculo.potencia_motor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_veiculo, placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor, proprietario, listaMotoristaVeiculo);
-    }
-
-    public Long getId_veiculo() {
-        return id_veiculo;
-    }
-
-    public void setId_veiculo(Long id_veiculo) {
-        this.id_veiculo = id_veiculo;
+        return Objects.hash(placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor, proprietario, listaMotoristaVeiculo);
     }
 
     public Proprietario getProprietario() {

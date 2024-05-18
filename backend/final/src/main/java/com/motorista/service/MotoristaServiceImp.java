@@ -23,13 +23,13 @@ public class MotoristaServiceImp implements MotoristaService {
     MotoristaRepository repository;
 
     @Override
-    public MotoristaDTO findById(Long id) {
-        Motorista motorista = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este ID!"));
+    public MotoristaDTO findById(Long cpf) {
+        Motorista motorista = repository.findById(cpf)
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este CPF!"));
         MotoristaDTO motoristaDTO = GlobalMapper.parseObject(motorista, MotoristaDTO.class);
         motoristaDTO.add(
                 linkTo(
-                        methodOn(MotoristaRestImp.class).findById(id)
+                        methodOn(MotoristaRestImp.class).findById(cpf)
                 ).withSelfRel()
         );
         return motoristaDTO;
@@ -42,7 +42,7 @@ public class MotoristaServiceImp implements MotoristaService {
         listaViagensDTO.forEach(
                 motorista -> motorista.add(
                         linkTo(
-                                methodOn(MotoristaRestImp.class).findById(motorista.getId_motorista())
+                                methodOn(MotoristaRestImp.class).findById(motorista.getCpfMotorista())
                         ).withSelfRel()
                 )
         );
@@ -58,7 +58,7 @@ public class MotoristaServiceImp implements MotoristaService {
         );
         motoristaDTOSaved.add(
                 linkTo(
-                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getId_motorista())
+                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getCpfMotorista())
                 ).withSelfRel()
         );
         return motoristaDTOSaved;
@@ -66,24 +66,24 @@ public class MotoristaServiceImp implements MotoristaService {
 
     @Override
     public MotoristaDTO update(MotoristaDTO motoristaDTO) {
-        Motorista motorista = repository.findById(motoristaDTO.getId_motorista())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este ID!"));
+        Motorista motorista = repository.findById(motoristaDTO.getCpfMotorista())
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este CPF!"));
         MotoristaDTO motoristaDTOSaved = GlobalMapper.parseObject(
                 repository.save(motorista),
                 MotoristaDTO.class
         );
         motoristaDTOSaved.add(
                 linkTo(
-                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getId_motorista())
+                        methodOn(MotoristaRestImp.class).findById(motoristaDTOSaved.getCpfMotorista())
                 ).withSelfRel()
         );
         return motoristaDTOSaved;
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
-        Motorista motorista = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este ID!"));
+    public ResponseEntity<?> delete(Long cpf) {
+        Motorista motorista = repository.findById(cpf)
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este CPF!"));
         repository.delete(motorista);
         return ResponseEntity.noContent().build();
     }

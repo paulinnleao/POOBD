@@ -20,39 +20,45 @@ public class MotoristaVeiculo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private class MotoristaVeiculoPk implements Serializable {
+    @Embeddable
+    public static class MotoristaVeiculoId implements Serializable {
         @Column(name = "CPF_MOTORISTA")
-        private Long cpf_motorista;
+        private Long cpfMotorista;
 
-        @Column(name = "ID_VEICULO")
-        private Long id_veiculo;
+        @Column(name = "PLACA")
+        private String placa;
 
-        public Long getCpf_motorista() {
-            return cpf_motorista;
+        public MotoristaVeiculoId(){}
+        public MotoristaVeiculoId(Long cpfMotorista, String placa) {
         }
 
-        public void setCpf_motorista(Long cpf_motorista) {
-            this.cpf_motorista = cpf_motorista;
+        public Long getCpfMotorista() {
+            return cpfMotorista;
         }
 
-        public Long getId_veiculo() {
-            return id_veiculo;
+        public void setCpfMotorista(Long cpfMotorista) {
+            this.cpfMotorista = cpfMotorista;
         }
 
-        public void setId_veiculo(Long id_veiculo) {
-            this.id_veiculo = id_veiculo;
+        public String getPlaca() {
+            return this.placa;
+        }
+
+        public void setPlaca(String placa) {
+            this.placa = placa;
         }
     }
 
     @Id
-    private MotoristaVeiculoPk motorista_veiculo;
+    @EmbeddedId
+    private MotoristaVeiculoId motoristaVeiculoId = new MotoristaVeiculoId();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_MOTORISTA")
+    @JoinColumn(name = "CPF_MOTORISTA", insertable = false, updatable = false)
     private Motorista motorista;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PLACA")
+    @JoinColumn(name = "PLACA", insertable = false, updatable = false)
     private Veiculo veiculo;
 
     @OneToMany(mappedBy = "motoristaVeiculo")
@@ -61,6 +67,18 @@ public class MotoristaVeiculo implements Serializable {
     public MotoristaVeiculo() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MotoristaVeiculo that = (MotoristaVeiculo) o;
+        return Objects.equals(motoristaVeiculoId, that.motoristaVeiculoId) && Objects.equals(motorista, that.motorista) && Objects.equals(veiculo, that.veiculo) && Objects.equals(listaViagens, that.listaViagens);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(motoristaVeiculoId, motorista, veiculo, listaViagens);
+    }
     public Motorista getMotorista() {
         return motorista;
     }
@@ -77,12 +95,33 @@ public class MotoristaVeiculo implements Serializable {
         this.veiculo = veiculo;
     }
 
+    public MotoristaVeiculoId getMotoristaVeiculoId() {
+        return motoristaVeiculoId;
+    }
+
+    public void setMotoristaVeiculoId(MotoristaVeiculoId motoristaVeiculoId) {
+        this.motoristaVeiculoId = motoristaVeiculoId;
+    }
+
     public List<Viagem> getListaViagens() {
         return listaViagens;
     }
 
     public void setListaViagens(List<Viagem> listaViagens) {
         this.listaViagens = listaViagens;
+    }
+
+    public void setCpfMotorista(Long cpfMotorista){
+        this.motoristaVeiculoId.setCpfMotorista(cpfMotorista);
+    }
+    public Long getCpfMotorista(){
+        return this.motoristaVeiculoId.getCpfMotorista();
+    }
+    public void setPlaca(String placa){
+        this.motoristaVeiculoId.setPlaca(placa);
+    }
+    public String getPlaca(){
+        return this.motoristaVeiculoId.getPlaca();
     }
 
 }

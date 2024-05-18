@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class MotoristaVeiculoRestImp {
     @Autowired
     private MotoristaVeiculoServiceImp service;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/id", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Buscar motoristaVeiculo pelo ID", description = "Procura um motoristaVeiculo pelo id. Caso não encontre, retorna um NOT_FOUND",
             tags = {"Motoristas Veiculos"},
             responses = {
@@ -36,8 +37,11 @@ public class MotoristaVeiculoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public MotoristaVeiculoDTO findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+    public MotoristaVeiculoDTO findById(
+            @PathParam("cpfMotorista") Long cpfMotorista,
+            @PathParam("placa") String placa
+    ) {
+        return service.findById(cpfMotorista, placa);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -89,7 +93,7 @@ public class MotoristaVeiculoRestImp {
         return service.update(motoristaVeiculoDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id")
     @Operation(summary = "Apaga um motoristaVeiculo através do ID", description = "Busca um motoristaVeiculo pelo ID fornecido e se encontrar, apaga",
             tags = {"Motoristas Veiculos"},
             responses = {
@@ -100,7 +104,9 @@ public class MotoristaVeiculoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        return service.delete(id);
+    public ResponseEntity<?> delete(
+            @PathParam("cpfMotorista") Long cpfMotorista,
+            @PathParam("placa") String placa) {
+        return service.delete(cpfMotorista, placa);
     }
 }

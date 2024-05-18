@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface PessoaService {
 
-    PessoaDTO findById(Long id);
+    PessoaDTO findById(Long cpf);
     PessoaDTO create(PessoaDTO pessoaDTO);
     PessoaDTO update(PessoaDTO pessoaDTO);
     List<PessoaDTO> findAll();
-    ResponseEntity<?> delete(Long id);
+    ResponseEntity<?> delete(Long cpf);
 
 }

@@ -19,21 +19,17 @@ public class Passageiro implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PASSAGEIRO")
-    private Long id_passageiro;
-
     @Column(name = "CPF_PASSAG")
-    private Long cpf_passg;
+    private Long cpfPassg;
 
     @Column(name = "CARTAO_CRED")
-    private String cartao_cred;
+    private String cartaoCred;
 
     @Column(name = "BANDEIRA_CARTAO")
-    private String bandeira_cartao;
+    private String bandeiraCartao;
 
     @Column(name = "CIDADE_ORIG")
-    private String cidade_orig;
+    private String cidadeOrig;
 
     @OneToMany(mappedBy = "passageiro")
     private List<Viagem> listaViagens;
@@ -47,20 +43,12 @@ public class Passageiro implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Passageiro that = (Passageiro) o;
-        return Objects.equals(id_passageiro, that.id_passageiro) && Objects.equals(cpf_passg, that.cpf_passg) && Objects.equals(cartao_cred, that.cartao_cred) && Objects.equals(bandeira_cartao, that.bandeira_cartao) && Objects.equals(cidade_orig, that.cidade_orig) && Objects.equals(listaViagens, that.listaViagens);
+        return Objects.equals(cpfPassg, that.cpfPassg) && Objects.equals(cartaoCred, that.cartaoCred) && Objects.equals(bandeiraCartao, that.bandeiraCartao) && Objects.equals(cidadeOrig, that.cidadeOrig) && Objects.equals(listaViagens, that.listaViagens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_passageiro, cpf_passg, cartao_cred, bandeira_cartao, cidade_orig, listaViagens);
-    }
-
-    public Long getId_passageiro() {
-        return id_passageiro;
-    }
-
-    public void setId_passageiro(Long id_passageiro) {
-        this.id_passageiro = id_passageiro;
+        return Objects.hash(cpfPassg, cartaoCred, bandeiraCartao, cidadeOrig, listaViagens);
     }
 
     public List<Viagem> getListaViagens() {
@@ -71,35 +59,35 @@ public class Passageiro implements Serializable {
         this.listaViagens = listaViagens;
     }
 
-    public Long getCpf_passg() {
-        return cpf_passg;
+    public Long getCpfPassg() {
+        return cpfPassg;
     }
 
-    public void setCpf_passg(Long cpf_passg) {
-        this.cpf_passg = cpf_passg;
+    public void setCpfPassg(Long cpfPassg) {
+        this.cpfPassg = cpfPassg;
     }
 
-    public String getCartao_cred() {
-        return cartao_cred;
+    public String getCartaoCred() {
+        return cartaoCred;
     }
 
-    public void setCartao_cred(String cartao_cred) {
-        this.cartao_cred = cartao_cred;
+    public void setCartaoCred(String cartaoCred) {
+        this.cartaoCred = cartaoCred;
     }
 
-    public String getBandeira_cartao() {
-        return bandeira_cartao;
+    public String getBandeiraCartao() {
+        return bandeiraCartao;
     }
 
-    public void setBandeira_cartao(String bandeira_cartao) {
-        this.bandeira_cartao = bandeira_cartao;
+    public void setBandeiraCartao(String bandeiraCartao) {
+        this.bandeiraCartao = bandeiraCartao;
     }
 
-    public String getCidade_orig() {
-        return cidade_orig;
+    public String getCidadeOrig() {
+        return cidadeOrig;
     }
 
-    public void setCidade_orig(String cidade_orig) {
-        this.cidade_orig = cidade_orig;
+    public void setCidadeOrig(String cidadeOrig) {
+        this.cidadeOrig = cidadeOrig;
     }
 }

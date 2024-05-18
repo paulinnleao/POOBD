@@ -20,24 +20,20 @@ public class Motorista implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_MOTORISTA")
-    private Long id_motorista;
-
     @Column(name = "CPF_MOTORISTA")
-    private Long cpf_motorista;
+    private Long cpfMotorista;
 
     @Column(name = "CNH")
     private String cnh;
 
     @Column(name = "BANCO_MOT")
-    private Integer banco_mot;
+    private Integer bancoMot;
 
     @Column(name = "AGENCIA_MOT")
-    private Integer agencia_mot;
+    private Integer agenciaMot;
 
     @Column(name = "CONTA_MOT")
-    private Integer conta_mot;
+    private Integer contaMot;
 
     @OneToMany(mappedBy = "motorista")
     private List<MotoristaVeiculo> listaMotoristasVeiculos;
@@ -50,20 +46,12 @@ public class Motorista implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Motorista motorista = (Motorista) o;
-        return Objects.equals(id_motorista, motorista.id_motorista) && Objects.equals(cpf_motorista, motorista.cpf_motorista) && Objects.equals(cnh, motorista.cnh) && Objects.equals(banco_mot, motorista.banco_mot) && Objects.equals(agencia_mot, motorista.agencia_mot) && Objects.equals(conta_mot, motorista.conta_mot) && Objects.equals(listaMotoristasVeiculos, motorista.listaMotoristasVeiculos);
+        return Objects.equals(cpfMotorista, motorista.cpfMotorista) && Objects.equals(cnh, motorista.cnh) && Objects.equals(bancoMot, motorista.bancoMot) && Objects.equals(agenciaMot, motorista.agenciaMot) && Objects.equals(contaMot, motorista.contaMot) && Objects.equals(listaMotoristasVeiculos, motorista.listaMotoristasVeiculos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_motorista, cpf_motorista, cnh, banco_mot, agencia_mot, conta_mot, listaMotoristasVeiculos);
-    }
-
-    public Long getId_motorista() {
-        return id_motorista;
-    }
-
-    public void setId_motorista(Long id_motorista) {
-        this.id_motorista = id_motorista;
+        return Objects.hash(cpfMotorista, cnh, bancoMot, agenciaMot, contaMot, listaMotoristasVeiculos);
     }
 
     public List<MotoristaVeiculo> getListaMotoristasVeiculos() {
@@ -74,12 +62,12 @@ public class Motorista implements Serializable {
         this.listaMotoristasVeiculos = listaMotoristasVeiculos;
     }
 
-    public Long getCpf_motorista() {
-        return cpf_motorista;
+    public Long getCpfMotorista() {
+        return cpfMotorista;
     }
 
-    public void setCpf_motorista(Long cpf_motorista) {
-        this.cpf_motorista = cpf_motorista;
+    public void setCpfMotorista(Long cpfMotorista) {
+        this.cpfMotorista = cpfMotorista;
     }
 
     public String getCnh() {
@@ -90,27 +78,27 @@ public class Motorista implements Serializable {
         this.cnh = cnh;
     }
 
-    public Integer getBanco_mot() {
-        return banco_mot;
+    public Integer getBancoMot() {
+        return bancoMot;
     }
 
-    public void setBanco_mot(Integer banco_mot) {
-        this.banco_mot = banco_mot;
+    public void setBancoMot(Integer bancoMot) {
+        this.bancoMot = bancoMot;
     }
 
-    public Integer getAgencia_mot() {
-        return agencia_mot;
+    public Integer getAgenciaMot() {
+        return agenciaMot;
     }
 
-    public void setAgencia_mot(Integer agencia_mot) {
-        this.agencia_mot = agencia_mot;
+    public void setAgenciaMot(Integer agenciaMot) {
+        this.agenciaMot = agenciaMot;
     }
 
-    public Integer getConta_mot() {
-        return conta_mot;
+    public Integer getContaMot() {
+        return contaMot;
     }
 
-    public void setConta_mot(Integer conta_mot) {
-        this.conta_mot = conta_mot;
+    public void setContaMot(Integer contaMot) {
+        this.contaMot = contaMot;
     }
 }

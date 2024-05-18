@@ -15,12 +15,11 @@ public class ProprietarioDTO extends RepresentationModel<ProprietarioDTO> implem
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id_proprietario;
-    private Long cpf_prop;
-    private String cnh_prop;
-    private Integer banco_prop;
-    private Integer agencia_prop;
-    private Integer conta_prop;
+    private Long cpfProp;
+    private String cnhProp;
+    private Integer bancoProp;
+    private Integer agenciaProp;
+    private Integer contaProp;
 
     @Override
     public boolean equals(Object o) {
@@ -28,60 +27,52 @@ public class ProprietarioDTO extends RepresentationModel<ProprietarioDTO> implem
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ProprietarioDTO that = (ProprietarioDTO) o;
-        return Objects.equals(id_proprietario, that.id_proprietario) && Objects.equals(cpf_prop, that.cpf_prop) && Objects.equals(cnh_prop, that.cnh_prop) && Objects.equals(banco_prop, that.banco_prop) && Objects.equals(agencia_prop, that.agencia_prop) && Objects.equals(conta_prop, that.conta_prop);
+        return Objects.equals(cpfProp, that.cpfProp) && Objects.equals(cnhProp, that.cnhProp) && Objects.equals(bancoProp, that.bancoProp) && Objects.equals(agenciaProp, that.agenciaProp) && Objects.equals(contaProp, that.contaProp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id_proprietario, cpf_prop, cnh_prop, banco_prop, agencia_prop, conta_prop);
+        return Objects.hash(super.hashCode(), cpfProp, cnhProp, bancoProp, agenciaProp, contaProp);
     }
 
-    public Long getId_proprietario() {
-        return id_proprietario;
+    public Long getCpfProp() {
+        return cpfProp;
     }
 
-    public void setId_proprietario(Long id_proprietario) {
-        this.id_proprietario = id_proprietario;
+    public void setCpfProp(Long cpfProp) {
+        this.cpfProp = cpfProp;
     }
 
-    public Long getCpf_prop() {
-        return cpf_prop;
+    public String getCnhProp() {
+        return cnhProp;
     }
 
-    public void setCpf_prop(Long cpf_prop) {
-        this.cpf_prop = cpf_prop;
+    public void setCnhProp(String cnhProp) {
+        this.cnhProp = cnhProp;
     }
 
-    public String getCnh_prop() {
-        return cnh_prop;
+    public Integer getBancoProp() {
+        return bancoProp;
     }
 
-    public void setCnh_prop(String cnh_prop) {
-        this.cnh_prop = cnh_prop;
+    public void setBancoProp(Integer bancoProp) {
+        this.bancoProp = bancoProp;
     }
 
-    public Integer getBanco_prop() {
-        return banco_prop;
+    public Integer getAgenciaProp() {
+        return agenciaProp;
     }
 
-    public void setBanco_prop(Integer banco_prop) {
-        this.banco_prop = banco_prop;
+    public void setAgenciaProp(Integer agenciaProp) {
+        this.agenciaProp = agenciaProp;
     }
 
-    public Integer getAgencia_prop() {
-        return agencia_prop;
+    public Integer getContaProp() {
+        return contaProp;
     }
 
-    public void setAgencia_prop(Integer agencia_prop) {
-        this.agencia_prop = agencia_prop;
-    }
-
-    public Integer getConta_prop() {
-        return conta_prop;
-    }
-
-    public void setConta_prop(Integer conta_prop) {
-        this.conta_prop = conta_prop;
+    public void setContaProp(Integer contaProp) {
+        this.contaProp = contaProp;
     }
 
     public ProprietarioDTO() {

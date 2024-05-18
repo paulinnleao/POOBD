@@ -2,16 +2,16 @@ package com.viagem;
 
 import com.motorista_veiculo.MotoristaVeiculo;
 import com.passageiro.Passageiro;
-import com.tipo_pgto.TipoPgto;
+import com.tipoPgto.TipoPgto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -41,7 +41,15 @@ public class Viagem implements Serializable {
         private String placa;
 
         @Column(name = "DT_HORA_INICIO")
-        private Date dtHoraInicio;
+        private LocalDateTime dtHoraInicio;
+
+        public ViagemId(String placa, Long cpfPassag, Long cpfMotorista, LocalDateTime dthoraInicio) {
+            this.cpfMotorista = cpfMotorista;
+            this.cpfPassag = cpfPassag;
+            this.dtHoraInicio = dthoraInicio;
+            this.placa = placa;
+        }
+        public ViagemId(){};
 
         public Long getCpfPassag() {
             return cpfPassag;
@@ -67,12 +75,12 @@ public class Viagem implements Serializable {
             this.placa = placa;
         }
 
-        public Date getDtHoraInicio() {
+        public LocalDateTime getDtHoraInicio() {
             return dtHoraInicio;
         }
 
-        public void setDtHoraInicio(Date dt_hora_inicio) {
-            this.dtHoraInicio = dt_hora_inicio;
+        public void setDtHoraInicio(LocalDateTime dtHoraInicio) {
+            this.dtHoraInicio = dtHoraInicio;
         }
     }
 
@@ -80,39 +88,42 @@ public class Viagem implements Serializable {
     private ViagemId viagemId = new ViagemId();
 
     @Column(name = "LOCAL_ORIG_VIAG")
-    private String local_orig_viag;
+    private String localOrigViag;
 
     @Column(name = "LOCAL_DEST_VIAG")
-    private String local_dest_viag;
+    private String localDestViag;
 
     @Column(name = "DT_HORA_FIM")
-    private Date dt_hora_fim;
+    private Date dtHoraFim;
 
     @Column(name = "QTDE_PASS")
-    private Integer qtde_pass;
+    private Integer qtdePass;
 
     @Column(name = "FORMA_PAGTO")
-    private String forma_pagto;
+    private String formaPagto;
 
     @Column(name = "VALOR_PAGTO")
-    private Double valor_pagto;
+    private Double valorPagto;
 
     @Column(name = "CANCELAM_MOT")
-    private String cancelam_mot;
+    private String cancelamMot;
 
     @Column(name = "CANCELAM_PASS")
-    private String cancelam_pass;
+    private String cancelamPass;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_MOTORISTA")
+    @JoinColumns({
+            @JoinColumn(name = "CPF_MOTORISTA", insertable = false, updatable = false),
+            @JoinColumn(name = "PLACA", insertable = false, updatable = false)
+    })
     private MotoristaVeiculo motoristaVeiculo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PASSAGEIRO")
+    @JoinColumn(name = "CPF_PASSAG", insertable = false, updatable = false)
     private Passageiro passageiro;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TIPO_PGTO")
+    @JoinColumn(name = "COD_PAGTO")
     private TipoPgto tipoPgto;
 
     public Viagem() {
@@ -123,12 +134,12 @@ public class Viagem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Viagem viagem = (Viagem) o;
-        return Objects.equals(viagemId, viagem.viagemId) && Objects.equals(local_orig_viag, viagem.local_orig_viag) && Objects.equals(local_dest_viag, viagem.local_dest_viag) && Objects.equals(dt_hora_fim, viagem.dt_hora_fim) && Objects.equals(qtde_pass, viagem.qtde_pass) && Objects.equals(forma_pagto, viagem.forma_pagto) && Objects.equals(valor_pagto, viagem.valor_pagto) && Objects.equals(cancelam_mot, viagem.cancelam_mot) && Objects.equals(cancelam_pass, viagem.cancelam_pass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
+        return Objects.equals(viagemId, viagem.viagemId) && Objects.equals(localOrigViag, viagem.localOrigViag) && Objects.equals(localDestViag, viagem.localDestViag) && Objects.equals(dtHoraFim, viagem.dtHoraFim) && Objects.equals(qtdePass, viagem.qtdePass) && Objects.equals(formaPagto, viagem.formaPagto) && Objects.equals(valorPagto, viagem.valorPagto) && Objects.equals(cancelamMot, viagem.cancelamMot) && Objects.equals(cancelamPass, viagem.cancelamPass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(viagemId, local_orig_viag, local_dest_viag, dt_hora_fim, qtde_pass, forma_pagto, valor_pagto, cancelam_mot, cancelam_pass, motoristaVeiculo, passageiro, tipoPgto);
+        return Objects.hash(viagemId, localOrigViag, localDestViag, dtHoraFim, qtdePass, formaPagto, valorPagto, cancelamMot, cancelamPass, motoristaVeiculo, passageiro, tipoPgto);
     }
 
     public ViagemId getViagemId() {
@@ -163,68 +174,68 @@ public class Viagem implements Serializable {
         this.tipoPgto = tipoPgto;
     }
 
-    public String getLocal_orig_viag() {
-        return local_orig_viag;
+    public String getLocalOrigViag() {
+        return localOrigViag;
     }
 
-    public void setLocal_orig_viag(String local_orig_viag) {
-        this.local_orig_viag = local_orig_viag;
+    public void setLocalOrigViag(String localOrigViag) {
+        this.localOrigViag = localOrigViag;
     }
 
-    public String getLocal_dest_viag() {
-        return local_dest_viag;
+    public String getLocalDestViag() {
+        return localDestViag;
     }
 
-    public void setLocal_dest_viag(String local_dest_viag) {
-        this.local_dest_viag = local_dest_viag;
+    public void setLocalDestViag(String localDestViag) {
+        this.localDestViag = localDestViag;
     }
 
-    public Date getDt_hora_fim() {
-        return dt_hora_fim;
+    public Date getDtHoraFim() {
+        return dtHoraFim;
     }
 
-    public void setDt_hora_fim(Date dt_hora_fim) {
-        this.dt_hora_fim = dt_hora_fim;
+    public void setDtHoraFim(Date dtHoraFim) {
+        this.dtHoraFim = dtHoraFim;
     }
 
-    public Integer getQtde_pass() {
-        return qtde_pass;
+    public Integer getQtdePass() {
+        return qtdePass;
     }
 
-    public void setQtde_pass(Integer qtde_pass) {
-        this.qtde_pass = qtde_pass;
+    public void setQtdePass(Integer qtdePass) {
+        this.qtdePass = qtdePass;
     }
 
-    public String getForma_pagto() {
-        return forma_pagto;
+    public String getFormaPagto() {
+        return formaPagto;
     }
 
-    public void setForma_pagto(String forma_pagto) {
-        this.forma_pagto = forma_pagto;
+    public void setFormaPagto(String formaPagto) {
+        this.formaPagto = formaPagto;
     }
 
-    public Double getValor_pagto() {
-        return valor_pagto;
+    public Double getValorPagto() {
+        return valorPagto;
     }
 
-    public void setValor_pagto(Double valor_pagto) {
-        this.valor_pagto = valor_pagto;
+    public void setValorPagto(Double valorPagto) {
+        this.valorPagto = valorPagto;
     }
 
-    public String getCancelam_mot() {
-        return cancelam_mot;
+    public String getCancelamMot() {
+        return cancelamMot;
     }
 
-    public void setCancelam_mot(String cancelam_mot) {
-        this.cancelam_mot = cancelam_mot;
+    public void setCancelamMot(String cancelamMot) {
+        this.cancelamMot = cancelamMot;
     }
 
-    public String getCancelam_pass() {
-        return cancelam_pass;
+    public String getCancelamPass() {
+        return cancelamPass;
     }
 
-    public void setCancelam_pass(String cancelam_pass) {
-        this.cancelam_pass = cancelam_pass;
+    public void setCancelamPass(String cancelamPass) {
+        this.cancelamPass = cancelamPass;
     }
 
     public void setPlaca(String placa){
@@ -233,22 +244,22 @@ public class Viagem implements Serializable {
     public String getPlaca(){
         return this.getViagemId().getPlaca();
     }
-    public void setCpf_passg(Long cpf_passg){
-        this.viagemId.setCpfPassag(cpf_passg);
+    public void setCpfPassag(Long cpfPassag){
+        this.viagemId.setCpfPassag(cpfPassag);
     }
-    public Long getCpf_pass(){
+    public Long getCpfPassag(){
        return this.viagemId.getCpfPassag();
     }
-    public void setCpf_motorista(Long cpf_motorista){
-        this.viagemId.setCpfMotorista(cpf_motorista);
+    public void setCpfMotorista(Long cpfMotorista){
+        this.viagemId.setCpfMotorista(cpfMotorista);
     }
-    public Long getCpf_motorista(){
+    public Long getCpfMotorista(){
         return this.viagemId.getCpfMotorista();
     }
-    public void setDt_hora_inicio(Date dt_hora_inicio){
-        this.viagemId.setDtHoraInicio(dt_hora_inicio);
+    public void setDtHoraInicio(LocalDateTime dtHoraInicio){
+        this.viagemId.setDtHoraInicio(dtHoraInicio);
     }
-    public Date getDt_hora_inicio(){
+    public LocalDateTime getDtHoraInicio(){
         return this.viagemId.getDtHoraInicio();
     }
 }

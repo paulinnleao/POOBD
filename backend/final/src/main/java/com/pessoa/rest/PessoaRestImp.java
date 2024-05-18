@@ -25,7 +25,7 @@ public class PessoaRestImp {
     @Autowired
     private PessoaServiceImp service;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Buscar pessoa pelo ID", description = "Procura uma pessoa pelo id. Caso não encontre, retorna um NOT_FOUND",
             tags = {"Pessoas"},
             responses = {
@@ -38,8 +38,8 @@ public class PessoaRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public PessoaDTO findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+    public PessoaDTO findById(@PathVariable("cpf") Long cpf) {
+        return service.findById(cpf);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -91,7 +91,7 @@ public class PessoaRestImp {
         return service.update(pessoaDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{cpf}")
     @Operation(summary = "Apaga uma pessoa através do ID", description = "Busca uma pessoa pelo ID fornecido e se encontrar, apaga",
             tags = {"Pessoas"},
             responses = {
@@ -102,7 +102,7 @@ public class PessoaRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        return service.delete(id);
+    public ResponseEntity<?> delete(@PathVariable("cpf") Long cpf) {
+        return service.delete(cpf);
     }
 }

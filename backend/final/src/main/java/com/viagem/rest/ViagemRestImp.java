@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,9 +43,9 @@ public class ViagemRestImp {
             @PathParam("placa") String placa,
             @PathParam("cpfPassag")Long cpfPassag,
             @PathParam("cpfMotorista") Long cpfMotorista,
-            @PathParam("dtHoraInicio") Date dthoraInicio
+            @PathParam("dtHoraInicio") LocalDateTime dthoraInicio
             ) {
-        return service.findById(id);
+        return service.findById(placa, cpfPassag, cpfMotorista, dthoraInicio);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -96,7 +97,7 @@ public class ViagemRestImp {
         return service.update(viagemDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id")
     @Operation(summary = "Apaga uma viagem através do ID", description = "Busca uma viagem pelo ID fornecido e se encontrar, apaga",
             tags = {"Viagens"},
             responses = {
@@ -107,7 +108,12 @@ public class ViagemRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        return service.delete(id);
+    public ResponseEntity<?> delete(
+            @PathParam("placa") String placa,
+            @PathParam("cpfPassag")Long cpfPassag,
+            @PathParam("cpfMotorista") Long cpfMotorista,
+            @PathParam("dtHoraInicio") LocalDateTime dthoraInicio
+    ) {
+        return service.delete(placa, cpfPassag, cpfMotorista, dthoraInicio);
     }
 }

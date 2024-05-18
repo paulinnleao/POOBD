@@ -21,13 +21,13 @@ public class VeiculoServiceImp implements VeiculoService {
     private VeiculoRepository repository;
 
     @Override
-    public VeiculoDTO findById(Long id_veiculo) {
-        Veiculo veiculo = repository.findById(id_veiculo)
+    public VeiculoDTO findById(String placa) {
+        Veiculo veiculo = repository.findById(placa)
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado veículo para esta placa!"));
         VeiculoDTO veiculoDTO = GlobalMapper.parseObject(veiculo, VeiculoDTO.class);
         veiculoDTO.add(
                 linkTo(
-                        methodOn(VeiculoRestImp.class).findById(id_veiculo)
+                        methodOn(VeiculoRestImp.class).findById(placa)
                 ).withSelfRel()
         );
         return veiculoDTO;
@@ -40,7 +40,7 @@ public class VeiculoServiceImp implements VeiculoService {
         listaVeiculoDTO.forEach(
                 veiculo -> veiculo.add(
                         linkTo(
-                                methodOn(VeiculoRestImp.class).findById(veiculo.getId_veiculo())
+                                methodOn(VeiculoRestImp.class).findById(veiculo.getPlaca())
                         ).withSelfRel()
                 )
         );
@@ -56,7 +56,7 @@ public class VeiculoServiceImp implements VeiculoService {
         );
         veiculoDTOSaved.add(
                 linkTo(
-                        methodOn(VeiculoRestImp.class).findById(veiculoDTOSaved.getId_veiculo())
+                        methodOn(VeiculoRestImp.class).findById(veiculoDTOSaved.getPlaca())
                 ).withSelfRel()
         );
         return veiculoDTOSaved;
@@ -64,7 +64,7 @@ public class VeiculoServiceImp implements VeiculoService {
 
     @Override
     public VeiculoDTO update(VeiculoDTO veiculoDTO) {
-        Veiculo veiculo = repository.findById(veiculoDTO.getId_veiculo())
+        Veiculo veiculo = repository.findById(veiculoDTO.getPlaca())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado este veículo para atualizar!"));
         VeiculoDTO veiculoDTOSaved = GlobalMapper.parseObject(
                 repository.save(veiculo),
@@ -72,15 +72,15 @@ public class VeiculoServiceImp implements VeiculoService {
         );
         veiculoDTOSaved.add(
                 linkTo(
-                        methodOn(VeiculoRestImp.class).findById(veiculoDTOSaved.getId_veiculo())
+                        methodOn(VeiculoRestImp.class).findById(veiculoDTOSaved.getPlaca())
                 ).withSelfRel()
         );
         return veiculoDTOSaved;
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id_veiculo) {
-        Veiculo veiculo = repository.findById(id_veiculo)
+    public ResponseEntity<?> delete(String placa) {
+        Veiculo veiculo = repository.findById(placa)
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado veículo para esta placa!"));
         repository.delete(veiculo);
         return ResponseEntity.noContent().build();

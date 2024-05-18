@@ -46,7 +46,7 @@ public class ProprietarioRestImp {
         return service.findAll();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Buscar proprietário pelo ID", description = "Procura um proprietário pelo ID. Caso não encontre, retorna um NOT_FOUND",
             tags = {"Proprietários"},
             responses = {
@@ -59,8 +59,8 @@ public class ProprietarioRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ProprietarioDTO findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+    public ProprietarioDTO findById(@PathVariable("cpf") Long cpf) {
+        return service.findById(cpf);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -90,7 +90,7 @@ public class ProprietarioRestImp {
         return service.update(proprietarioDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{cpf}")
     @Operation(summary = "Apaga um proprietário através do ID", description = "Busca um proprietário pelo ID fornecido e se o encontrar, o apaga",
             tags = {"Proprietários"},
             responses = {
@@ -101,7 +101,7 @@ public class ProprietarioRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        return service.delete(id);
+    public ResponseEntity<?> delete(@PathVariable("cpf") Long cpf) {
+        return service.delete(cpf);
     }
 }

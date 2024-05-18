@@ -1,9 +1,9 @@
-package com.tipo_pgto.service;
+package com.tipoPgto.service;
 
-import com.tipo_pgto.TipoPgto;
-import com.tipo_pgto.dto.TipoPgtoDTO;
-import com.tipo_pgto.repository.TipoPgtoRepository;
-import com.tipo_pgto.rest.TipoPgtoRestImp;
+import com.tipoPgto.TipoPgto;
+import com.tipoPgto.dto.TipoPgtoDTO;
+import com.tipoPgto.repository.TipoPgtoRepository;
+import com.tipoPgto.rest.TipoPgtoRestImp;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class TipoPgtoServiceImp implements TipoPgtoService{
     private TipoPgtoRepository repository;
 
     @Override
-    public TipoPgtoDTO findById(Long id) {
+    public TipoPgtoDTO findById(Integer id) {
         TipoPgto tipoPgto = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado tipo de pagamento para este ID!"));
         TipoPgtoDTO tipoPgtoDTO = GlobalMapper.parseObject(tipoPgto, TipoPgtoDTO.class);
@@ -40,7 +40,7 @@ public class TipoPgtoServiceImp implements TipoPgtoService{
         listaTipoPgtoDTO.forEach(
                 tipoPgto -> tipoPgto.add(
                         linkTo(
-                                methodOn(TipoPgtoRestImp.class).findById(tipoPgto.getId_tipo_pgto())
+                                methodOn(TipoPgtoRestImp.class).findById(tipoPgto.getCodPagto())
                         ).withSelfRel()
                 )
         );
@@ -56,7 +56,7 @@ public class TipoPgtoServiceImp implements TipoPgtoService{
         );
         tipoPgtoDTOSaved.add(
                 linkTo(
-                        methodOn(TipoPgtoRestImp.class).findById(tipoPgtoDTOSaved.getId_tipo_pgto())
+                        methodOn(TipoPgtoRestImp.class).findById(tipoPgtoDTOSaved.getCodPagto())
                 ).withSelfRel()
         );
         return tipoPgtoDTOSaved;
@@ -64,7 +64,7 @@ public class TipoPgtoServiceImp implements TipoPgtoService{
 
     @Override
     public TipoPgtoDTO update(TipoPgtoDTO tipoPgtoDTO) {
-        TipoPgto tipoPgto = repository.findById(tipoPgtoDTO.getId_tipo_pgto())
+        TipoPgto tipoPgto = repository.findById(tipoPgtoDTO.getCodPagto())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado tipo de pagamento para este ID!"));
         TipoPgtoDTO tipoPgtoDTOSaved = GlobalMapper.parseObject(
                 repository.save(tipoPgto),
@@ -72,14 +72,14 @@ public class TipoPgtoServiceImp implements TipoPgtoService{
         );
         tipoPgtoDTOSaved.add(
                 linkTo(
-                        methodOn(TipoPgtoRestImp.class).findById(tipoPgtoDTOSaved.getId_tipo_pgto())
+                        methodOn(TipoPgtoRestImp.class).findById(tipoPgtoDTOSaved.getCodPagto())
                 ).withSelfRel()
         );
         return tipoPgtoDTOSaved;
     }
 
     @Override
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(Integer id) {
         TipoPgto tipoPgto = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado tipo de pagamento para este ID!"));
         repository.delete(tipoPgto);
