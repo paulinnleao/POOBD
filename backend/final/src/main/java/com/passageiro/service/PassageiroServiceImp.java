@@ -2,6 +2,7 @@ package com.passageiro.service;
 
 import com.passageiro.repository.PassageiroRepository;
 import com.passageiro.rest.PassageiroRestImp;
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import com.passageiro.Passageiro;
@@ -50,6 +51,9 @@ public class PassageiroServiceImp implements PassageiroService {
 
     @Override
     public PassageiroDTO create(PassageiroDTO passageiroDTO) {
+        if(repository.findById(passageiroDTO.getCpfPassg()).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe passageiro cadastrado com este CPF!");
+        }
         Passageiro passageiro = GlobalMapper.parseObject(passageiroDTO, Passageiro.class);
         PassageiroDTO passageiroDTOSaved = GlobalMapper.parseObject(
                 repository.save(passageiro),
@@ -65,8 +69,10 @@ public class PassageiroServiceImp implements PassageiroService {
 
     @Override
     public PassageiroDTO update(PassageiroDTO passageiroDTO) {
-        Passageiro passageiro = repository.findById(passageiroDTO.getCpfPassg())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado passageiro para este CPF!"));
+        if(repository.findById(passageiroDTO.getCpfPassg()).isEmpty()){
+            throw new ResourceNotFoundException("Não existe passageiro cadastrado com este CPF!");
+        }
+        Passageiro passageiro = GlobalMapper.parseObject(passageiroDTO, Passageiro.class);
         PassageiroDTO passageiroDTOSaved = GlobalMapper.parseObject(
                 repository.save(passageiro),
                 PassageiroDTO.class

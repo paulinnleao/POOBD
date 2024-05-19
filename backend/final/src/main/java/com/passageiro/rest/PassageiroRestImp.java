@@ -25,7 +25,8 @@ public class PassageiroRestImp {
     private PassageiroServiceImp service;
 
     @GetMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar passageiro pelo CPF", description = "Procura um passageiro pelo id. Caso não encontre, retorna um NOT_FOUND",
+    @Operation(summary = "Buscar passageiro pelo CPF",
+            description = "Procura um passageiro pelo CPF. Caso não o encontre, retorna uma resposta NOT_FOUND",
             tags = {"Passageiros"},
             responses = {
                     @ApiResponse(
@@ -42,7 +43,7 @@ public class PassageiroRestImp {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Busca todos os passageiros", description = "Busca todas os passageiros cadastrados no Banco de Dados.",
+    @Operation(summary = "Busca todos os passageiros", description = "Lista todas os passageiros cadastrados no Banco de Dados.",
             tags = {"Passageiros"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = {
@@ -64,13 +65,16 @@ public class PassageiroRestImp {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Persiste um novo passageiro no Banco de Dados", description = "Persiste um novo passageiro no Banco de Dados, caso ele não encontre outro com o mesmo ID.",
+    @Operation(summary = "Persiste um novo passageiro no Banco de Dados",
+            description = "Persiste um novo passageiro no Banco de Dados, caso ele não encontre outro com o mesmo ID." +
+                    "Para o caso de encontrar, ele retorna a resposta Conflict",
             tags = {"Passageiros"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = PassageiroDTO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Conflict", responseCode = "409", content = @Content)
             })
     public PassageiroDTO create(@RequestBody PassageiroDTO passageiroDTO) {
         return service.create(passageiroDTO);
