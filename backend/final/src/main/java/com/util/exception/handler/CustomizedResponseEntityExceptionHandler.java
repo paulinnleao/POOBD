@@ -1,9 +1,6 @@
 package com.util.exception.handler;
 
-import com.util.exception.ExceptionResponse;
-import com.util.exception.RequiredObjectIsNullException;
-import com.util.exception.ResourceAlreadyExistsException;
-import com.util.exception.ResourceNotFoundException;
+import com.util.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -57,5 +54,14 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 webRequest.getDescription(false)
         );
         return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
+    }
+    @ExceptionHandler(ResourceDependsOnAnotherEntityException.class)
+    public final ResponseEntity<ExceptionResponse> resourceDependsOnAnotherEntityException(Exception ex, WebRequest webRequest){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                webRequest.getDescription(false)
+        );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

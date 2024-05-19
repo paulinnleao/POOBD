@@ -6,12 +6,15 @@ import com.motoristaVeiculo.mapper.MotoristaVeiculoMapper;
 import com.motoristaVeiculo.repository.MotoristaVeiculoRepository;
 import com.motoristaVeiculo.rest.MotoristaVeiculoRestImp;
 import com.util.exception.ResourceAlreadyExistsException;
+import com.util.exception.ResourceDependsOnAnotherEntityException;
 import com.util.exception.ResourceNotFoundException;
 import com.viagem.dto.ViagemDTO;
 import com.viagem.mapper.ViagemMapper;
 import com.viagem.service.ViagemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -100,19 +103,14 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
             throw new ResourceAlreadyExistsException("Já existe um Motorista com este Veículo cadastrado!");
         }
         MotoristaVeiculo novoMotoristaVeiculo = MotoristaVeiculoMapper.parseObject(motoristaVeiculoDTO, MotoristaVeiculo.class);
-        novoMotoristaVeiculo.getListaViagens().size();
-        if(Objects.nonNull(novoMotoristaVeiculo.getListaViagens())){
-            novoMotoristaVeiculo.getListaViagens().forEach(
-                    viagem -> {
-                        viagem.setPlaca(novaPlaca);
-                        viagemServiceImp.update(ViagemMapper.parseObject(viagem, ViagemDTO.class));
-                    }
-            );
+        try{
+            repository.deleteById(new MotoristaVeiculo.MotoristaVeiculoId(
+                    motoristaVeiculoDTO.getCpfMotorista(),
+                    motoristaVeiculoDTO.getPlaca()
+            ));
+        }catch(DataIntegrityViolationException | JpaSystemException ex){
+            throw new ResourceDependsOnAnotherEntityException("Os dados não foram alterados, pois existe outra tabela que depende deles.");
         }
-//        repository.deleteById(new MotoristaVeiculo.MotoristaVeiculoId(
-//                motoristaVeiculoDTO.getCpfMotorista(),
-//                motoristaVeiculoDTO.getPlaca()
-//        ));
         novoMotoristaVeiculo.setPlaca(novaPlaca);
         MotoristaVeiculoDTO motoristaVeiculoDTOSaved = MotoristaVeiculoMapper.parseObject(
                 repository.save(novoMotoristaVeiculo),
@@ -133,7 +131,11 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
     public ResponseEntity<?> delete(Long cpfMotorista, String placa) {
         MotoristaVeiculo motoristaVeiculo = repository.findById( new MotoristaVeiculo.MotoristaVeiculoId( cpfMotorista, placa ))
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista e veiculo para este ID!"));
-        repository.delete(motoristaVeiculo);
+        try{
+            repository.delete(motoristaVeiculo);
+        }catch(DataIntegrityViolationException | JpaSystemException ex){
+            throw new ResourceDependsOnAnotherEntityException("Os dados não foram alterados, pois existe outra tabela que depende deles.");
+        }
         return ResponseEntity.noContent().build();
     }
 }
