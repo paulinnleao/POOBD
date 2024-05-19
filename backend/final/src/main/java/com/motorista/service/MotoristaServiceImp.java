@@ -73,9 +73,15 @@ public class MotoristaServiceImp implements MotoristaService {
     @Override
     @Transactional
     public MotoristaDTO update(MotoristaDTO motoristaDTO) {
-        Motorista motorista = repository.findById(motoristaDTO.getCpfMotorista())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista para este CPF!"));
-        Motorista motoristaSaved = repository.save(motorista);
+        if(repository.findById(motoristaDTO.getCpfMotorista()).isEmpty()){
+            throw new ResourceNotFoundException("Não foi encontrado motorista para este CPF!");
+        }
+
+        Motorista motoristaSaved = repository.save(
+                GlobalMapper.parseObject(
+                        motoristaDTO, Motorista.class
+                ));
+
         MotoristaDTO motoristaDTOSaved = GlobalMapper.parseObject(
                 motoristaSaved,
                 MotoristaDTO.class

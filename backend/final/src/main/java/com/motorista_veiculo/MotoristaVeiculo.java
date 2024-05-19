@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -68,7 +69,7 @@ public class MotoristaVeiculo implements Serializable {
     private Veiculo veiculo;
 
     @OneToMany(mappedBy = "motoristaVeiculo")
-    private List<Viagem> listaViagens;
+    private List<Viagem> listaViagens = new ArrayList<Viagem>();
 
     public MotoristaVeiculo() {
     }

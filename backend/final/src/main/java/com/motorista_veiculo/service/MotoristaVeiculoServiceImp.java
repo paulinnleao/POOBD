@@ -5,12 +5,18 @@ import com.motorista_veiculo.dto.MotoristaVeiculoDTO;
 import com.motorista_veiculo.mapper.MotoristaVeiculoMapper;
 import com.motorista_veiculo.repository.MotoristaVeiculoRepository;
 import com.motorista_veiculo.rest.MotoristaVeiculoRestImp;
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
+import com.viagem.dto.ViagemDTO;
+import com.viagem.mapper.ViagemMapper;
+import com.viagem.service.ViagemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -20,6 +26,9 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
 
     @Autowired
     MotoristaVeiculoRepository repository;
+
+    @Autowired
+    ViagemServiceImp viagemServiceImp;
 
     @Override
     public MotoristaVeiculoDTO findById(Long cpfMotorista, String placa) {
@@ -55,8 +64,12 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
     }
 
     @Override
+    @Transactional
     public MotoristaVeiculoDTO create(MotoristaVeiculoDTO motoristaVeiculoDTO) {
         MotoristaVeiculo motoristaVeiculo = MotoristaVeiculoMapper.parseObject(motoristaVeiculoDTO, MotoristaVeiculo.class);
+        if(repository.findById(motoristaVeiculo.getMotoristaVeiculoId()).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe um Motorista com este Veículo cadastrado!");
+        }
         MotoristaVeiculoDTO motoristaVeiculoDTOSaved = MotoristaVeiculoMapper.parseObject(
                 repository.save(motoristaVeiculo),
                 MotoristaVeiculoDTO.class
@@ -73,14 +86,33 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
     }
 
     @Override
+    @Transactional
     public MotoristaVeiculoDTO update(MotoristaVeiculoDTO motoristaVeiculoDTO, String novaPlaca) {
-        MotoristaVeiculo motoristaVeiculo = repository.findById(
-                new MotoristaVeiculo.MotoristaVeiculoId(
+        if(repository.findById(new MotoristaVeiculo.MotoristaVeiculoId(
                         motoristaVeiculoDTO.getCpfMotorista(),
                         motoristaVeiculoDTO.getPlaca()
-                ))
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista e veiculo para este ID!"));
-        MotoristaVeiculo novoMotoristaVeiculo = motoristaVeiculo;
+                )).isEmpty()){
+            throw new ResourceNotFoundException("Não foi encontrado motorista e veiculo para este ID!");
+        }else if(repository.findById(new MotoristaVeiculo.MotoristaVeiculoId(
+                motoristaVeiculoDTO.getCpfMotorista(),
+                novaPlaca
+        )).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe um Motorista com este Veículo cadastrado!");
+        }
+        MotoristaVeiculo novoMotoristaVeiculo = MotoristaVeiculoMapper.parseObject(motoristaVeiculoDTO, MotoristaVeiculo.class);
+        novoMotoristaVeiculo.getListaViagens().size();
+        if(Objects.nonNull(novoMotoristaVeiculo.getListaViagens())){
+            novoMotoristaVeiculo.getListaViagens().forEach(
+                    viagem -> {
+                        viagem.setPlaca(novaPlaca);
+                        viagemServiceImp.update(ViagemMapper.parseObject(viagem, ViagemDTO.class));
+                    }
+            );
+        }
+//        repository.deleteById(new MotoristaVeiculo.MotoristaVeiculoId(
+//                motoristaVeiculoDTO.getCpfMotorista(),
+//                motoristaVeiculoDTO.getPlaca()
+//        ));
         novoMotoristaVeiculo.setPlaca(novaPlaca);
         MotoristaVeiculoDTO motoristaVeiculoDTOSaved = MotoristaVeiculoMapper.parseObject(
                 repository.save(novoMotoristaVeiculo),
@@ -99,11 +131,7 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
 
     @Override
     public ResponseEntity<?> delete(Long cpfMotorista, String placa) {
-        MotoristaVeiculo motoristaVeiculo = repository.findById(
-                        new MotoristaVeiculo.MotoristaVeiculoId(
-                                cpfMotorista,
-                                placa
-                        ))
+        MotoristaVeiculo motoristaVeiculo = repository.findById( new MotoristaVeiculo.MotoristaVeiculoId( cpfMotorista, placa ))
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista e veiculo para este ID!"));
         repository.delete(motoristaVeiculo);
         return ResponseEntity.noContent().build();
