@@ -1,6 +1,7 @@
 package com.pessoa.service;
 
 import com.pessoa.repository.PessoaRepository;
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import com.pessoa.Pessoa;
@@ -49,6 +50,9 @@ public class PessoaServiceImp implements PessoaService {
 
     @Override
     public PessoaDTO create(PessoaDTO pessoaDTO) {
+        if(repository.findById(pessoaDTO.getCpfPessoa()).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe pessoa cadastrada com este CPF!");
+        }
         Pessoa pessoa = GlobalMapper.parseObject(pessoaDTO, Pessoa.class);
         PessoaDTO pessoaDTOSaved = GlobalMapper.parseObject(
                 repository.save(pessoa),
@@ -64,8 +68,10 @@ public class PessoaServiceImp implements PessoaService {
 
     @Override
     public PessoaDTO update(PessoaDTO pessoaDTO) {
-        Pessoa pessoa = repository.findById(pessoaDTO.getCpfPessoa())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado pessoa para este CPF!"));
+        if(repository.findById(pessoaDTO.getCpfPessoa()).isEmpty()){
+            throw new ResourceNotFoundException("Não existe pessoa cadastrada com este CPF!");
+        }
+        Pessoa pessoa = GlobalMapper.parseObject(pessoaDTO, Pessoa.class);
         PessoaDTO pessoaDTOSaved = GlobalMapper.parseObject(
                 repository.save(pessoa),
                 PessoaDTO.class

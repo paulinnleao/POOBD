@@ -95,7 +95,7 @@ public class PassageiroRestImp {
     }
 
     @DeleteMapping("/{cpf}")
-    @Operation(summary = "Apaga um passageiro através do ID", description = "Busca um passageiro pelo ID fornecido e se encontrar, apaga",
+    @Operation(summary = "Apaga um passageiro através do CPF", description = "Busca um passageiro pelo CPF fornecido e se encontrar, apaga",
             tags = {"Passageiros"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),

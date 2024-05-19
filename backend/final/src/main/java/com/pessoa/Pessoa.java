@@ -27,7 +27,7 @@ public class Pessoa implements Serializable {
     private String endereco;
 
     @Column(name = "TELEFONE")
-    private Integer telefone;
+    private Long telefone;
 
     @Column(name = "SEXO")
     private String sexo;
@@ -72,11 +72,11 @@ public class Pessoa implements Serializable {
         this.endereco = endereco;
     }
 
-    public Integer getTelefone() {
+    public Long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(Long telefone) {
         this.telefone = telefone;
     }
 

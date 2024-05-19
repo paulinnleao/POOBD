@@ -17,7 +17,7 @@ public class PessoaDTO extends RepresentationModel<PessoaDTO> implements Seriali
     private Long cpfPessoa;
     private String nome;
     private String endereco;
-    private Integer telefone;
+    private Long telefone;
     private String sexo;
     private String eMail;
 
@@ -62,11 +62,11 @@ public class PessoaDTO extends RepresentationModel<PessoaDTO> implements Seriali
         this.endereco = endereco;
     }
 
-    public Integer getTelefone() {
+    public Long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(Long telefone) {
         this.telefone = telefone;
     }
 
