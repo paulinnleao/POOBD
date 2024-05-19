@@ -4,6 +4,7 @@ import com.proprietario.Proprietario;
 import com.proprietario.dto.ProprietarioDTO;
 import com.proprietario.repository.ProprietarioRepository;
 import com.proprietario.rest.ProprietarioRestImp;
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class ProprietarioServiceImp implements ProprietarioService{
 
     @Override
     public ProprietarioDTO create(ProprietarioDTO proprietarioDTO) {
+        if(repository.findById(proprietarioDTO.getCpfProp()).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe proprietário cadastrado com este CPF!");
+        }
         Proprietario proprietario = GlobalMapper.parseObject(proprietarioDTO, Proprietario.class);
         ProprietarioDTO proprietarioDTOSaved = GlobalMapper.parseObject(
                 repository.save(proprietario),
@@ -64,8 +68,10 @@ public class ProprietarioServiceImp implements ProprietarioService{
 
     @Override
     public ProprietarioDTO update(ProprietarioDTO proprietarioDTO) {
-        Proprietario proprietario = repository.findById(proprietarioDTO.getCpfProp())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado proprietario para este CPF!"));
+         if(repository.findById(proprietarioDTO.getCpfProp()).isEmpty()){
+             throw new ResourceNotFoundException("Não existe pessoa cadastrada com este CPF!");
+         }
+        Proprietario proprietario = GlobalMapper.parseObject(proprietarioDTO, Proprietario.class);
         ProprietarioDTO proprietarioDTOSaved = GlobalMapper.parseObject(
                 repository.save(proprietario),
                 ProprietarioDTO.class

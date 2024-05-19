@@ -25,7 +25,7 @@ public class ProprietarioRestImp {
     private ProprietarioServiceImp service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Busca todos os proprietários", description = "Busca todos os proprietários cadastrados no Banco de Dados.",
+    @Operation(summary = "Busca todos os proprietários", description = "Lista todos os proprietários cadastrados no Banco de Dados.",
             tags = {"Proprietários"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = {
@@ -47,7 +47,7 @@ public class ProprietarioRestImp {
     }
 
     @GetMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar proprietário pelo ID", description = "Procura um proprietário pelo ID. Caso não encontre, retorna um NOT_FOUND",
+    @Operation(summary = "Buscar proprietário pelo CPF", description = "Procura um proprietário pelo CPF. Caso não encontre, retorna uma resposta NOT_FOUND",
             tags = {"Proprietários"},
             responses = {
                     @ApiResponse(
@@ -64,13 +64,16 @@ public class ProprietarioRestImp {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Persiste um novo proprietário no Banco de Dados", description = "Persiste um novo proprietário no Banco de Dados, caso ele não encontre outro com o mesmo ID.",
+    @Operation(summary = "Persiste um novo proprietário no Banco de Dados",
+            description = "Persiste um novo proprietário no Banco de Dados, caso ele não encontre outro com o mesmo CPF." +
+                    "Para o caso de encontrar, ele retorna a resposta Conflict",
             tags = {"Proprietários"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = ProprietarioDTO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Conflict", responseCode = "409", content = @Content)
             })
     public ProprietarioDTO create(@RequestBody ProprietarioDTO proprietarioDTO) {
         return service.create(proprietarioDTO);
@@ -91,7 +94,7 @@ public class ProprietarioRestImp {
     }
 
     @DeleteMapping("/{cpf}")
-    @Operation(summary = "Apaga um proprietário através do ID", description = "Busca um proprietário pelo ID fornecido e se o encontrar, o apaga",
+    @Operation(summary = "Apaga um proprietário através do CPF", description = "Busca um proprietário pelo CPF fornecido e se o encontrar, o apaga",
             tags = {"Proprietários"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),
