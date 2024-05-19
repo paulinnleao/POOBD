@@ -1,6 +1,7 @@
 package com.viagem.service;
 
 import com.tipoPgto.rest.TipoPgtoRestImp;
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.viagem.Viagem;
 import com.viagem.dto.ViagemDTO;
@@ -26,7 +27,7 @@ public class ViagemServiceImp implements ViagemService{
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     @Override
-    public ViagemDTO findById(String placa, Long cpfPassag, Long cpfMotorista, String dtHora) {
+    public ViagemDTO findById( Long cpfPassag, Long cpfMotorista,String placa, String dtHora) {
         LocalDateTime dthoraInicio = LocalDateTime.parse(dtHora, formatter);
         Viagem viagem = repository.findById(new Viagem.ViagemId(placa, cpfPassag, cpfMotorista, dthoraInicio))
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado viagem para este ID!"));
@@ -95,6 +96,15 @@ public class ViagemServiceImp implements ViagemService{
 
     @Override
     public ViagemDTO create(ViagemDTO viagemDTO) {
+        if( repository.findById(
+                new Viagem.ViagemId(
+                        viagemDTO.getPlaca(),
+                        viagemDTO.getCpfPassag(),
+                        viagemDTO.getCpfMotorista(),
+                        viagemDTO.getDtHoraInicio()
+                )).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe uma viagem cadastrada com este ID!");
+        }
         Viagem viagem = ViagemMapper.parseObject(viagemDTO, Viagem.class);
         ViagemDTO viagemDTOSaved = ViagemMapper.parseObject(
                 repository.save(viagem),
@@ -125,14 +135,16 @@ public class ViagemServiceImp implements ViagemService{
 
     @Override
     public ViagemDTO update(ViagemDTO viagemDTO) {
-        Viagem viagem = repository.findById(
+        if( repository.findById(
                 new Viagem.ViagemId(
                         viagemDTO.getPlaca(),
                         viagemDTO.getCpfPassag(),
                         viagemDTO.getCpfMotorista(),
                         viagemDTO.getDtHoraInicio()
-                ))
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado viagem para este ID!"));
+                )).isEmpty()){
+            throw  new ResourceNotFoundException("Não foi encontrado esta viagem para atualizar!");
+        }
+        Viagem viagem = ViagemMapper.parseObject(viagemDTO, Viagem.class);
         ViagemDTO viagemDTOSaved = ViagemMapper.parseObject(
                 repository.save(viagem),
                 ViagemDTO.class

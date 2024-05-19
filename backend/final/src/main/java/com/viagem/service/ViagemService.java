@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ViagemService {
 
-    ViagemDTO findById(String placa, Long cpfPassag, Long cpfMotorista, String dthoraInicio);
+    ViagemDTO findById( Long cpfPassag, Long cpfMotorista, String placa, String dthoraInicio);
     ViagemDTO create(ViagemDTO viagemDTO);
     ViagemDTO update(ViagemDTO viagemDTO);
     List<ViagemDTO> findAll();

@@ -40,6 +40,7 @@ public class ViagemDTO extends RepresentationModel<ViagemDTO> implements Seriali
 
     private String cancelamPass;
 
+    private Integer codPagto;
 
     public ViagemDTO() {
     }
@@ -74,12 +75,20 @@ public class ViagemDTO extends RepresentationModel<ViagemDTO> implements Seriali
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ViagemDTO viagemDTO = (ViagemDTO) o;
-        return Objects.equals(cpfPassag, viagemDTO.cpfPassag) && Objects.equals(cpfMotorista, viagemDTO.cpfMotorista) && Objects.equals(placa, viagemDTO.placa) && Objects.equals(localOrigViag, viagemDTO.localOrigViag) && Objects.equals(localDestViag, viagemDTO.localDestViag) && Objects.equals(dtHoraInicio, viagemDTO.dtHoraInicio) && Objects.equals(dtHoraFim, viagemDTO.dtHoraFim) && Objects.equals(qtdePass, viagemDTO.qtdePass) && Objects.equals(formaPagto, viagemDTO.formaPagto) && Objects.equals(valorPagto, viagemDTO.valorPagto) && Objects.equals(cancelamMot, viagemDTO.cancelamMot) && Objects.equals(cancelamPass, viagemDTO.cancelamPass);
+        return Objects.equals(cpfPassag, viagemDTO.cpfPassag) && Objects.equals(cpfMotorista, viagemDTO.cpfMotorista) && Objects.equals(placa, viagemDTO.placa) && Objects.equals(localOrigViag, viagemDTO.localOrigViag) && Objects.equals(localDestViag, viagemDTO.localDestViag) && Objects.equals(dtHoraInicio, viagemDTO.dtHoraInicio) && Objects.equals(dtHoraFim, viagemDTO.dtHoraFim) && Objects.equals(qtdePass, viagemDTO.qtdePass) && Objects.equals(formaPagto, viagemDTO.formaPagto) && Objects.equals(valorPagto, viagemDTO.valorPagto) && Objects.equals(cancelamMot, viagemDTO.cancelamMot) && Objects.equals(cancelamPass, viagemDTO.cancelamPass) && Objects.equals(codPagto, viagemDTO.codPagto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpfPassag, cpfMotorista, placa, localOrigViag, localDestViag, dtHoraInicio, dtHoraFim, qtdePass, formaPagto, valorPagto, cancelamMot, cancelamPass);
+        return Objects.hash(super.hashCode(), cpfPassag, cpfMotorista, placa, localOrigViag, localDestViag, dtHoraInicio, dtHoraFim, qtdePass, formaPagto, valorPagto, cancelamMot, cancelamPass, codPagto);
+    }
+
+    public Integer getCodPagto() {
+        return codPagto;
+    }
+
+    public void setCodPagto(Integer codPagto) {
+        this.codPagto = codPagto;
     }
 
     public String getLocalOrigViag() {

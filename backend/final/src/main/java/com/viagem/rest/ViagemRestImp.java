@@ -30,7 +30,7 @@ public class ViagemRestImp {
     @Operation(summary = "Buscar viagem pelo ID",
             description = "Procura uma viagem pelo ID. " +
                     "O ID é uma chave composta por: CPF do passageiro, CPF do motorista, Placa e Data hora inicio da viagem." +
-                    " Caso não encontre, retorna um NOT_FOUND",
+                    " Caso não encontre, retorna uma resposta NOT_FOUND",
             tags = {"Viagens"},
             responses = {
                     @ApiResponse(
@@ -46,13 +46,13 @@ public class ViagemRestImp {
             @PathParam("cpfPassag")Long cpfPassag,
             @PathParam("cpfMotorista") Long cpfMotorista,
             @PathParam("placa") String placa,
-            @PathParam("dtHoraInicio") String dthoraInicio
+            @PathParam("dtHoraInicio") String dtHoraInicio
             ) {
-        return service.findById(placa, cpfPassag, cpfMotorista, dthoraInicio);
+        return service.findById(cpfPassag, cpfMotorista, placa, dtHoraInicio);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Busca todos as viagens", description = "Busca todas as viagens cadastradas no Banco de Dados.",
+    @Operation(summary = "Busca todos as viagens", description = "Lista todas as viagens cadastradas no Banco de Dados.",
             tags = {"Viagens"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = {
@@ -74,13 +74,16 @@ public class ViagemRestImp {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Persiste uma nova viagem no Banco de Dados", description = "Persiste uma nova viagem no Banco de Dados, caso ele não encontre outro com o mesmo ID.",
+    @Operation(summary = "Persiste uma nova viagem no Banco de Dados",
+            description = "Persiste uma nova viagem no Banco de Dados, caso ele não encontre outro com o mesmo ID." +
+                    "Para o caso de encontrar, ele retorna a resposta Conflict",
             tags = {"Viagens"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = ViagemDTO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Conflict", responseCode = "409", content = @Content)
             })
     public ViagemDTO create(@RequestBody ViagemDTO viagemDTO) {
         return service.create(viagemDTO);
@@ -116,8 +119,8 @@ public class ViagemRestImp {
             @PathParam("cpfPassag")Long cpfPassag,
             @PathParam("cpfMotorista") Long cpfMotorista,
             @PathParam("placa") String placa,
-            @PathParam("dtHoraInicio") String dthoraInicio
+            @PathParam("dtHoraInicio") String dtHoraInicio
     ) {
-        return service.delete(placa, cpfPassag, cpfMotorista, dthoraInicio);
+        return service.delete(placa, cpfPassag, cpfMotorista, dtHoraInicio);
     }
 }

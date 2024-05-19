@@ -4,7 +4,6 @@ import com.motoristaVeiculo.MotoristaVeiculo;
 import com.passageiro.Passageiro;
 import com.tipoPgto.TipoPgto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,11 +28,9 @@ public class Viagem implements Serializable {
         @Serial
         private static final long serialVersionUID = 1L;
 
-        @NotNull(message = "CPF não pode ser nulo")
         @Column(name = "CPF_PASSAG")
         private Long cpfPassag;
 
-        @NotNull(message = "CPF não pode ser nulo")
         @Column(name = "CPF_MOTORISTA")
         private Long cpfMotorista;
 
@@ -112,6 +109,9 @@ public class Viagem implements Serializable {
     @Column(name = "CANCELAM_PASS")
     private String cancelamPass;
 
+    @Column(name = "COD_PAGTO")
+    private Integer codPagto;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "CPF_MOTORISTA", insertable = false, updatable = false),
@@ -124,7 +124,7 @@ public class Viagem implements Serializable {
     private Passageiro passageiro;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COD_PAGTO")
+    @JoinColumn(name = "COD_PAGTO", insertable = false, updatable = false)
     private TipoPgto tipoPgto;
 
     public Viagem() {
@@ -135,12 +135,20 @@ public class Viagem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Viagem viagem = (Viagem) o;
-        return Objects.equals(viagemId, viagem.viagemId) && Objects.equals(localOrigViag, viagem.localOrigViag) && Objects.equals(localDestViag, viagem.localDestViag) && Objects.equals(dtHoraFim, viagem.dtHoraFim) && Objects.equals(qtdePass, viagem.qtdePass) && Objects.equals(formaPagto, viagem.formaPagto) && Objects.equals(valorPagto, viagem.valorPagto) && Objects.equals(cancelamMot, viagem.cancelamMot) && Objects.equals(cancelamPass, viagem.cancelamPass) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
+        return Objects.equals(viagemId, viagem.viagemId) && Objects.equals(localOrigViag, viagem.localOrigViag) && Objects.equals(localDestViag, viagem.localDestViag) && Objects.equals(dtHoraFim, viagem.dtHoraFim) && Objects.equals(qtdePass, viagem.qtdePass) && Objects.equals(formaPagto, viagem.formaPagto) && Objects.equals(valorPagto, viagem.valorPagto) && Objects.equals(cancelamMot, viagem.cancelamMot) && Objects.equals(cancelamPass, viagem.cancelamPass) && Objects.equals(codPagto, viagem.codPagto) && Objects.equals(motoristaVeiculo, viagem.motoristaVeiculo) && Objects.equals(passageiro, viagem.passageiro) && Objects.equals(tipoPgto, viagem.tipoPgto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(viagemId, localOrigViag, localDestViag, dtHoraFim, qtdePass, formaPagto, valorPagto, cancelamMot, cancelamPass, motoristaVeiculo, passageiro, tipoPgto);
+        return Objects.hash(viagemId, localOrigViag, localDestViag, dtHoraFim, qtdePass, formaPagto, valorPagto, cancelamMot, cancelamPass, codPagto, motoristaVeiculo, passageiro, tipoPgto);
+    }
+
+    public Integer getCodPagto() {
+        return codPagto;
+    }
+
+    public void setCodPagto(Integer codPagto) {
+        this.codPagto = codPagto;
     }
 
     public ViagemId getViagemId() {
