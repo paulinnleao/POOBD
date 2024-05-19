@@ -24,9 +24,8 @@ public class Motorista implements Serializable {
     @Column(name = "CPF_MOTORISTA")
     private Long cpfMotorista;
 
-
     @Column(name = "CNH")
-    @Size(max = 15, min = 15, message = "CNH deve conter 15 caracteres")
+    @Size(max = 9, min = 9, message = "CNH deve conter 9 números")
     private String cnh;
 
     @Column(name = "BANCO_MOT")
@@ -38,7 +37,8 @@ public class Motorista implements Serializable {
     @Column(name = "CONTA_MOT")
     private Integer contaMot;
 
-    @OneToMany(mappedBy = "motorista")
+    @Transient
+    @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MotoristaVeiculo> listaMotoristasVeiculos;
 
     public Motorista() {

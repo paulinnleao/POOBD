@@ -31,19 +31,19 @@ public class Veiculo implements Serializable {
     private String modelo;
 
     @Column(name = "ANO_FABRIC")
-    private String ano_fabric;
+    private String anoFabric;
 
     @Column(name = "CAPACIDADE_PASS")
-    private Integer capacidade_pass;
+    private Integer capacidadePass;
 
     @Column(name = "COR")
     private String cor;
 
     @Column(name = "TIPO_COMBUST")
-    private String tipo_combust;
+    private String tipoCombust;
 
     @Column(name = "POTENCIA_MOTOR")
-    private Integer potencia_motor;
+    private Integer potenciaMotor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CPF_PROP")
@@ -60,12 +60,12 @@ public class Veiculo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Veiculo veiculo = (Veiculo) o;
-        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(ano_fabric, veiculo.ano_fabric) && Objects.equals(capacidade_pass, veiculo.capacidade_pass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipo_combust, veiculo.tipo_combust) && Objects.equals(potencia_motor, veiculo.potencia_motor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
+        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(anoFabric, veiculo.anoFabric) && Objects.equals(capacidadePass, veiculo.capacidadePass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipoCombust, veiculo.tipoCombust) && Objects.equals(potenciaMotor, veiculo.potenciaMotor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor, proprietario, listaMotoristaVeiculo);
+        return Objects.hash(placa, marca, modelo, anoFabric, capacidadePass, cor, tipoCombust, potenciaMotor, proprietario, listaMotoristaVeiculo);
     }
 
     public Proprietario getProprietario() {
@@ -108,20 +108,20 @@ public class Veiculo implements Serializable {
         this.modelo = modelo;
     }
 
-    public String getAno_fabric() {
-        return ano_fabric;
+    public String getAnoFabric() {
+        return anoFabric;
     }
 
-    public void setAno_fabric(String ano_fabric) {
-        this.ano_fabric = ano_fabric;
+    public void setAnoFabric(String anoFabric) {
+        this.anoFabric = anoFabric;
     }
 
-    public Integer getCapacidade_pass() {
-        return capacidade_pass;
+    public Integer getCapacidadePass() {
+        return capacidadePass;
     }
 
-    public void setCapacidade_pass(Integer capacidade_pass) {
-        this.capacidade_pass = capacidade_pass;
+    public void setCapacidadePass(Integer capacidadePass) {
+        this.capacidadePass = capacidadePass;
     }
 
     public String getCor() {
@@ -132,19 +132,19 @@ public class Veiculo implements Serializable {
         this.cor = cor;
     }
 
-    public String getTipo_combust() {
-        return tipo_combust;
+    public String getTipoCombust() {
+        return tipoCombust;
     }
 
-    public void setTipo_combust(String tipo_combust) {
-        this.tipo_combust = tipo_combust;
+    public void setTipoCombust(String tipoCombust) {
+        this.tipoCombust = tipoCombust;
     }
 
-    public Integer getPotencia_motor() {
-        return potencia_motor;
+    public Integer getPotenciaMotor() {
+        return potenciaMotor;
     }
 
-    public void setPotencia_motor(Integer potencia_motor) {
-        this.potencia_motor = potencia_motor;
+    public void setPotenciaMotor(Integer potenciaMotor) {
+        this.potenciaMotor = potenciaMotor;
     }
 }

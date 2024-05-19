@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -85,8 +86,8 @@ public class VeiculoRestImp {
                         @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                         @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
                 })
-    public VeiculoDTO update(@RequestBody VeiculoDTO veiculoDTO) {
-        return service.update(veiculoDTO);
+    public VeiculoDTO update(@RequestBody VeiculoDTO veiculoDTOAtualizado) {
+        return service.update(veiculoDTOAtualizado);
     }
 
     @DeleteMapping("/{placa}")

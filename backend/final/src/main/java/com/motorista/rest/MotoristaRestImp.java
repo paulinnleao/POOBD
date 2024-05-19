@@ -17,14 +17,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/motoristas")
-@Tag(name = "Motoristas", description = "Endpoints para gerenciar entidade Motorista.")
+@Tag(name = "Motoristas", description = "Endpoints para gerenciar a entidade Motorista.")
 public class MotoristaRestImp {
 
     @Autowired
     private MotoristaServiceImp service;
 
     @GetMapping(value = "/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar motorista pelo ID", description = "Procura um motorista pelo id. Caso não encontre, retorna um NOT_FOUND",
+    @Operation(summary = "Buscar motorista pelo CPF",
+            description = "Procura um motorista pelo CPF que é o ID da tabela. Caso não o encontre, retorna uma resposta NOT_FOUND",
             tags = {"Motoristas"},
             responses = {
                     @ApiResponse(
@@ -41,7 +42,7 @@ public class MotoristaRestImp {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Busca todos os motoristas", description = "Busca todas os motoristas cadastrados no Banco de Dados.",
+    @Operation(summary = "Busca todos os motoristas", description = "Lista todos os motoristas cadastrados no Banco de Dados.",
             tags = {"Motoristas"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = {
@@ -63,7 +64,9 @@ public class MotoristaRestImp {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Persiste um novo motorista no Banco de Dados", description = "Persiste um novo motorista no Banco de Dados, caso ele não encontre outro com o mesmo ID.",
+    @Operation(summary = "Persiste um novo motorista no Banco de Dados",
+            description = "Persiste um novo motorista no Banco de Dados, caso ele não encontre outro com o mesmo CPF." +
+                    " Para o caso de encontrar, ele retorna a resposta Conflict",
             tags = {"Motoristas"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = MotoristaDTO.class))),
@@ -77,7 +80,8 @@ public class MotoristaRestImp {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Atualiza os dados de um motorista", description = "Busca o motorista, atualiza, persiste e retorna o motorista atualizado.",
+    @Operation(summary = "Atualiza os dados de um motorista",
+            description = "Busca o motorista pelo CPF, atualiza, persiste e retorna o motorista atualizado.",
             tags = {"Motoristas"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = MotoristaDTO.class))),
@@ -91,7 +95,7 @@ public class MotoristaRestImp {
     }
 
     @DeleteMapping("/{cpf}")
-    @Operation(summary = "Apaga um motorista através do ID", description = "Busca um motorista pelo ID fornecido e se encontrar, apaga",
+    @Operation(summary = "Apaga um motorista através do CPF", description = "Busca um motorista pelo CPF fornecido e se encontrar, o apaga",
             tags = {"Motoristas"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),

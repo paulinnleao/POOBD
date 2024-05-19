@@ -89,8 +89,8 @@ public class MotoristaVeiculoRestImp {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
-    public MotoristaVeiculoDTO update(@RequestBody MotoristaVeiculoDTO motoristaVeiculoDTO) {
-        return service.update(motoristaVeiculoDTO);
+    public MotoristaVeiculoDTO update(@RequestBody MotoristaVeiculoDTO motoristaVeiculoDTO, @PathParam("novaPlaca") String novaPlaca) {
+        return service.update(motoristaVeiculoDTO, novaPlaca);
     }
 
     @DeleteMapping("/id")

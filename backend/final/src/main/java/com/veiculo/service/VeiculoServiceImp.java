@@ -14,6 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class VeiculoServiceImp implements VeiculoService {
@@ -63,8 +64,8 @@ public class VeiculoServiceImp implements VeiculoService {
     }
 
     @Override
-    public VeiculoDTO update(VeiculoDTO veiculoDTO) {
-        Veiculo veiculo = repository.findById(veiculoDTO.getPlaca())
+    public VeiculoDTO update(VeiculoDTO veiculoAtualizado) {
+        Veiculo veiculo = repository.findById(veiculoAtualizado.getPlaca())
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado este veículo para atualizar!"));
         VeiculoDTO veiculoDTOSaved = GlobalMapper.parseObject(
                 repository.save(veiculo),

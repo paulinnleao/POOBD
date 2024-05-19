@@ -23,11 +23,7 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
 
     @Override
     public MotoristaVeiculoDTO findById(Long cpfMotorista, String placa) {
-        MotoristaVeiculo motoristaVeiculo = repository.findById(
-                        new MotoristaVeiculo.MotoristaVeiculoId(
-                                cpfMotorista,
-                                placa
-                        ))
+        MotoristaVeiculo motoristaVeiculo = repository.findById( new MotoristaVeiculo.MotoristaVeiculoId( cpfMotorista, placa ))
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista e veiculo para este ID!"));
         MotoristaVeiculoDTO motoristaVeiculoDTO = MotoristaVeiculoMapper.parseObject(motoristaVeiculo, MotoristaVeiculoDTO.class);
         motoristaVeiculoDTO.add(
@@ -77,15 +73,17 @@ public class MotoristaVeiculoServiceImp implements MotoristaVeiculoService{
     }
 
     @Override
-    public MotoristaVeiculoDTO update(MotoristaVeiculoDTO motoristaVeiculoDTO) {
+    public MotoristaVeiculoDTO update(MotoristaVeiculoDTO motoristaVeiculoDTO, String novaPlaca) {
         MotoristaVeiculo motoristaVeiculo = repository.findById(
                 new MotoristaVeiculo.MotoristaVeiculoId(
                         motoristaVeiculoDTO.getCpfMotorista(),
                         motoristaVeiculoDTO.getPlaca()
                 ))
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado motorista e veiculo para este ID!"));
+        MotoristaVeiculo novoMotoristaVeiculo = motoristaVeiculo;
+        novoMotoristaVeiculo.setPlaca(novaPlaca);
         MotoristaVeiculoDTO motoristaVeiculoDTOSaved = MotoristaVeiculoMapper.parseObject(
-                repository.save(motoristaVeiculo),
+                repository.save(novoMotoristaVeiculo),
                 MotoristaVeiculoDTO.class
         );
         motoristaVeiculoDTOSaved.add(

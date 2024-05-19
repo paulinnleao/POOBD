@@ -4,6 +4,7 @@ import com.motorista.Motorista;
 import com.veiculo.Veiculo;
 import com.viagem.Viagem;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -22,6 +23,10 @@ public class MotoristaVeiculo implements Serializable {
 
     @Embeddable
     public static class MotoristaVeiculoId implements Serializable {
+        @Serial
+        public static final long serialVersionUID = 1L;
+
+        @NotNull(message = "CPF não pode ser nulo")
         @Column(name = "CPF_MOTORISTA")
         private Long cpfMotorista;
 
@@ -30,6 +35,8 @@ public class MotoristaVeiculo implements Serializable {
 
         public MotoristaVeiculoId(){}
         public MotoristaVeiculoId(Long cpfMotorista, String placa) {
+            this.cpfMotorista = cpfMotorista;
+            this.placa = placa;
         }
 
         public Long getCpfMotorista() {
@@ -49,7 +56,6 @@ public class MotoristaVeiculo implements Serializable {
         }
     }
 
-    @Id
     @EmbeddedId
     private MotoristaVeiculoId motoristaVeiculoId = new MotoristaVeiculoId();
 

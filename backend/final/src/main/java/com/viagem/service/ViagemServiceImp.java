@@ -5,16 +5,14 @@ import com.util.exception.ResourceNotFoundException;
 import com.viagem.Viagem;
 import com.viagem.dto.ViagemDTO;
 import com.viagem.mapper.ViagemMapper;
-import com.viagem.rest.ViagemRestImp;
 import com.viagem.repository.ViagemRepository;
+import com.viagem.rest.ViagemRestImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

@@ -33,6 +33,7 @@ public class Viagem implements Serializable {
         @Column(name = "CPF_PASSAG")
         private Long cpfPassag;
 
+        @NotNull(message = "CPF não pode ser nulo")
         @Column(name = "CPF_MOTORISTA")
         private Long cpfMotorista;
 

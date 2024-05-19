@@ -10,6 +10,6 @@ public interface VeiculoService {
     VeiculoDTO findById(String placa);
     List<VeiculoDTO> findAll();
     VeiculoDTO create(VeiculoDTO veiculoDTO);
-    VeiculoDTO update(VeiculoDTO veiculoDTO);
+    VeiculoDTO update(VeiculoDTO veiculoAtualizado);
     ResponseEntity<?> delete(String placa);
 }

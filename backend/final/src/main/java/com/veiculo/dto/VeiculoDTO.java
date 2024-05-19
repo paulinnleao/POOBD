@@ -17,11 +17,11 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
     private String placa;
     private String marca;
     private String modelo;
-    private String ano_fabric;
-    private Integer capacidade_pass;
+    private String anoFabric;
+    private Integer capacidadePass;
     private String cor;
-    private String tipo_combust;
-    private Integer potencia_motor;
+    private String tipoCombust;
+    private Integer potenciaMotor;
 
     public VeiculoDTO() {
     }
@@ -32,12 +32,12 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         VeiculoDTO that = (VeiculoDTO) o;
-        return Objects.equals(placa, that.placa) && Objects.equals(marca, that.marca) && Objects.equals(modelo, that.modelo) && Objects.equals(ano_fabric, that.ano_fabric) && Objects.equals(capacidade_pass, that.capacidade_pass) && Objects.equals(cor, that.cor) && Objects.equals(tipo_combust, that.tipo_combust) && Objects.equals(potencia_motor, that.potencia_motor);
+        return Objects.equals(placa, that.placa) && Objects.equals(marca, that.marca) && Objects.equals(modelo, that.modelo) && Objects.equals(anoFabric, that.anoFabric) && Objects.equals(capacidadePass, that.capacidadePass) && Objects.equals(cor, that.cor) && Objects.equals(tipoCombust, that.tipoCombust) && Objects.equals(potenciaMotor, that.potenciaMotor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), placa, marca, modelo, ano_fabric, capacidade_pass, cor, tipo_combust, potencia_motor);
+        return Objects.hash(super.hashCode(), placa, marca, modelo, anoFabric, capacidadePass, cor, tipoCombust, potenciaMotor);
     }
 
     public String getPlaca() {
@@ -64,20 +64,20 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
         this.modelo = modelo;
     }
 
-    public String getAno_fabric() {
-        return ano_fabric;
+    public String getAnoFabric() {
+        return anoFabric;
     }
 
-    public void setAno_fabric(String ano_fabric) {
-        this.ano_fabric = ano_fabric;
+    public void setAnoFabric(String anoFabric) {
+        this.anoFabric = anoFabric;
     }
 
-    public Integer getCapacidade_pass() {
-        return capacidade_pass;
+    public Integer getCapacidadePass() {
+        return capacidadePass;
     }
 
-    public void setCapacidade_pass(Integer capacidade_pass) {
-        this.capacidade_pass = capacidade_pass;
+    public void setCapacidadePass(Integer capacidadePass) {
+        this.capacidadePass = capacidadePass;
     }
 
     public String getCor() {
@@ -88,19 +88,19 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
         this.cor = cor;
     }
 
-    public String getTipo_combust() {
-        return tipo_combust;
+    public String getTipoCombust() {
+        return tipoCombust;
     }
 
-    public void setTipo_combust(String tipo_combust) {
-        this.tipo_combust = tipo_combust;
+    public void setTipoCombust(String tipoCombust) {
+        this.tipoCombust = tipoCombust;
     }
 
-    public Integer getPotencia_motor() {
-        return potencia_motor;
+    public Integer getPotenciaMotor() {
+        return potenciaMotor;
     }
 
-    public void setPotencia_motor(Integer potencia_motor) {
-        this.potencia_motor = potencia_motor;
+    public void setPotenciaMotor(Integer potenciaMotor) {
+        this.potenciaMotor = potenciaMotor;
     }
 }
