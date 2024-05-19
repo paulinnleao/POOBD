@@ -4,6 +4,7 @@ import com.tipoPgto.TipoPgto;
 import com.tipoPgto.dto.TipoPgtoDTO;
 import com.tipoPgto.repository.TipoPgtoRepository;
 import com.tipoPgto.rest.TipoPgtoRestImp;
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class TipoPgtoServiceImp implements TipoPgtoService{
 
     @Override
     public TipoPgtoDTO create(TipoPgtoDTO tipoPgtoDTO) {
+        if(repository.findById(tipoPgtoDTO.getCodPagto()).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe pagamento cadastrado para este ID!");
+        }
         TipoPgto tipoPgto = GlobalMapper.parseObject(tipoPgtoDTO, TipoPgto.class);
         TipoPgtoDTO tipoPgtoDTOSaved = GlobalMapper.parseObject(
                 repository.save(tipoPgto),
@@ -64,8 +68,10 @@ public class TipoPgtoServiceImp implements TipoPgtoService{
 
     @Override
     public TipoPgtoDTO update(TipoPgtoDTO tipoPgtoDTO) {
-        TipoPgto tipoPgto = repository.findById(tipoPgtoDTO.getCodPagto())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado tipo de pagamento para este ID!"));
+        if(repository.findById(tipoPgtoDTO.getCodPagto()).isEmpty()){
+            throw new ResourceNotFoundException("Não foi encontrado tipo de pagamento para este ID!");
+        }
+        TipoPgto tipoPgto = GlobalMapper.parseObject(tipoPgtoDTO, TipoPgto.class);
         TipoPgtoDTO tipoPgtoDTOSaved = GlobalMapper.parseObject(
                 repository.save(tipoPgto),
                 TipoPgtoDTO.class

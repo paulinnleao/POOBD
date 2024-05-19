@@ -13,7 +13,7 @@ import java.util.Objects;
 @Data
 @Entity
 @AllArgsConstructor
-@Table(name = "TIPOS_PGTOS")
+@Table(name = "TIPOS_PAGTOS")
 public class TipoPgto implements Serializable {
 
     @Serial
