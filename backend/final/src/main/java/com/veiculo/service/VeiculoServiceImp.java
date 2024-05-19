@@ -1,5 +1,6 @@
 package com.veiculo.service;
 
+import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import com.veiculo.Veiculo;
@@ -50,6 +51,9 @@ public class VeiculoServiceImp implements VeiculoService {
 
     @Override
     public VeiculoDTO create(VeiculoDTO veiculoDTO) {
+        if(repository.findById(veiculoDTO.getPlaca()).isPresent()){
+            throw new ResourceAlreadyExistsException("Já existe veículo cadastrado para esta placa!");
+        }
         Veiculo veiculo = GlobalMapper.parseObject(veiculoDTO, Veiculo.class);
         VeiculoDTO veiculoDTOSaved = GlobalMapper.parseObject(
                 repository.save(veiculo),
@@ -65,8 +69,10 @@ public class VeiculoServiceImp implements VeiculoService {
 
     @Override
     public VeiculoDTO update(VeiculoDTO veiculoAtualizado) {
-        Veiculo veiculo = repository.findById(veiculoAtualizado.getPlaca())
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado este veículo para atualizar!"));
+        if(repository.findById(veiculoAtualizado.getPlaca()).isEmpty()){
+            throw  new ResourceNotFoundException("Não foi encontrado este veículo para atualizar!");
+        }
+        Veiculo veiculo = GlobalMapper.parseObject(veiculoAtualizado, Veiculo.class);
         VeiculoDTO veiculoDTOSaved = GlobalMapper.parseObject(
                 repository.save(veiculo),
                 VeiculoDTO.class

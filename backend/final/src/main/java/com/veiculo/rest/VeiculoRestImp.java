@@ -25,7 +25,7 @@ public class VeiculoRestImp {
     private VeiculoServiceImp service;
 
     @GetMapping(value = "/{placa}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar veiculo pelo id_veiculo", description = "Procura um veículo pelo id_veiculo. Caso não encontre, retorna um NOT_FOUND",
+    @Operation(summary = "Buscar veiculo pela PLACA", description = "Procura um veículo pela PLACA. Caso não encontre, retorna um NOT_FOUND",
                 tags = {"Veiculos"},
                 responses = {
                     @ApiResponse(
@@ -42,7 +42,7 @@ public class VeiculoRestImp {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Busca todos os veículos", description = "Busca todos os veículos cadastrados no Banco de Dados.",
+    @Operation(summary = "Busca todos os veículos", description = "Lista todos os veículos cadastrados no Banco de Dados.",
                 tags = {"Veiculos"},
                 responses = {
                         @ApiResponse(description = "Sucesso", responseCode = "200", content = {
@@ -64,13 +64,16 @@ public class VeiculoRestImp {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Persiste um novo veículo no Banco de Dados", description = "Persiste um novo veículo no Banco de Dados, caso ele não encontre outro com o mesmo ID.",
+    @Operation(summary = "Persiste um novo veículo no Banco de Dados",
+            description = "Persiste um novo veículo no Banco de Dados, caso ele não encontre outro com a mesma PLACA." +
+                    "Para o caso de encontrar, ele retorna a resposta Conflict",
                 tags = {"Veiculos"},
                 responses = {
                         @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = VeiculoDTO.class))),
                         @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                         @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                        @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+                        @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                        @ApiResponse(description = "Conflict", responseCode = "409", content = @Content)
                 })
     public VeiculoDTO create(@RequestBody VeiculoDTO veiculoDTO) {
         return service.create(veiculoDTO);
@@ -91,7 +94,7 @@ public class VeiculoRestImp {
     }
 
     @DeleteMapping("/{placa}")
-    @Operation(summary = "Apaga um veículo através do id_veiculo", description = "Busca um veículo pelo id_veiculo fornecido e se o encontrar, o apaga",
+    @Operation(summary = "Apaga um veículo através da PLACA", description = "Busca um veículo pela PLACA fornecidA e se encontrar, o apaga",
                 tags = {"Veiculos"},
                 responses = {
                         @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),

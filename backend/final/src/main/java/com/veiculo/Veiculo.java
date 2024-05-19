@@ -31,7 +31,7 @@ public class Veiculo implements Serializable {
     private String modelo;
 
     @Column(name = "ANO_FABRIC")
-    private String anoFabric;
+    private Integer anoFabric;
 
     @Column(name = "CAPACIDADE_PASS")
     private Integer capacidadePass;
@@ -45,8 +45,11 @@ public class Veiculo implements Serializable {
     @Column(name = "POTENCIA_MOTOR")
     private Integer potenciaMotor;
 
+    @Column(name = "CPF_PROP")
+    private Long cpfProp;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CPF_PROP")
+    @JoinColumn(name = "CPF_PROP", insertable = false, updatable = false)
     private Proprietario proprietario;
 
     @OneToMany(mappedBy = "veiculo")
@@ -60,12 +63,20 @@ public class Veiculo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Veiculo veiculo = (Veiculo) o;
-        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(anoFabric, veiculo.anoFabric) && Objects.equals(capacidadePass, veiculo.capacidadePass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipoCombust, veiculo.tipoCombust) && Objects.equals(potenciaMotor, veiculo.potenciaMotor) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
+        return Objects.equals(placa, veiculo.placa) && Objects.equals(marca, veiculo.marca) && Objects.equals(modelo, veiculo.modelo) && Objects.equals(anoFabric, veiculo.anoFabric) && Objects.equals(capacidadePass, veiculo.capacidadePass) && Objects.equals(cor, veiculo.cor) && Objects.equals(tipoCombust, veiculo.tipoCombust) && Objects.equals(potenciaMotor, veiculo.potenciaMotor) && Objects.equals(cpfProp, veiculo.cpfProp) && Objects.equals(proprietario, veiculo.proprietario) && Objects.equals(listaMotoristaVeiculo, veiculo.listaMotoristaVeiculo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(placa, marca, modelo, anoFabric, capacidadePass, cor, tipoCombust, potenciaMotor, proprietario, listaMotoristaVeiculo);
+        return Objects.hash(placa, marca, modelo, anoFabric, capacidadePass, cor, tipoCombust, potenciaMotor, cpfProp, proprietario, listaMotoristaVeiculo);
+    }
+
+    public Long getCpfProp() {
+        return cpfProp;
+    }
+
+    public void setCpfProp(Long cpfProp) {
+        this.cpfProp = cpfProp;
     }
 
     public Proprietario getProprietario() {
@@ -108,11 +119,11 @@ public class Veiculo implements Serializable {
         this.modelo = modelo;
     }
 
-    public String getAnoFabric() {
+    public Integer getAnoFabric() {
         return anoFabric;
     }
 
-    public void setAnoFabric(String anoFabric) {
+    public void setAnoFabric(Integer anoFabric) {
         this.anoFabric = anoFabric;
     }
 

@@ -17,11 +17,12 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
     private String placa;
     private String marca;
     private String modelo;
-    private String anoFabric;
+    private Integer anoFabric;
     private Integer capacidadePass;
     private String cor;
     private String tipoCombust;
     private Integer potenciaMotor;
+    private Long cpfProp;
 
     public VeiculoDTO() {
     }
@@ -32,12 +33,20 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         VeiculoDTO that = (VeiculoDTO) o;
-        return Objects.equals(placa, that.placa) && Objects.equals(marca, that.marca) && Objects.equals(modelo, that.modelo) && Objects.equals(anoFabric, that.anoFabric) && Objects.equals(capacidadePass, that.capacidadePass) && Objects.equals(cor, that.cor) && Objects.equals(tipoCombust, that.tipoCombust) && Objects.equals(potenciaMotor, that.potenciaMotor);
+        return Objects.equals(placa, that.placa) && Objects.equals(marca, that.marca) && Objects.equals(modelo, that.modelo) && Objects.equals(anoFabric, that.anoFabric) && Objects.equals(capacidadePass, that.capacidadePass) && Objects.equals(cor, that.cor) && Objects.equals(tipoCombust, that.tipoCombust) && Objects.equals(potenciaMotor, that.potenciaMotor) && Objects.equals(cpfProp, that.cpfProp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), placa, marca, modelo, anoFabric, capacidadePass, cor, tipoCombust, potenciaMotor);
+        return Objects.hash(super.hashCode(), placa, marca, modelo, anoFabric, capacidadePass, cor, tipoCombust, potenciaMotor, cpfProp);
+    }
+
+    public Long getCpfProp() {
+        return cpfProp;
+    }
+
+    public void setCpfProp(Long cpfProp) {
+        this.cpfProp = cpfProp;
     }
 
     public String getPlaca() {
@@ -64,11 +73,11 @@ public class VeiculoDTO extends RepresentationModel<VeiculoDTO> implements Seria
         this.modelo = modelo;
     }
 
-    public String getAnoFabric() {
+    public Integer getAnoFabric() {
         return anoFabric;
     }
 
-    public void setAnoFabric(String anoFabric) {
+    public void setAnoFabric(Integer anoFabric) {
         this.anoFabric = anoFabric;
     }
 
