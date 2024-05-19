@@ -25,7 +25,6 @@ public class Motorista implements Serializable {
     private Long cpfMotorista;
 
     @Column(name = "CNH")
-    @Size(max = 9, min = 9, message = "CNH deve conter 9 números")
     private String cnh;
 
     @Column(name = "BANCO_MOT")
