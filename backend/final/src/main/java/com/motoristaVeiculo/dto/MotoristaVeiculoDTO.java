@@ -1,4 +1,4 @@
-package com.motorista_veiculo.dto;
+package com.motoristaVeiculo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

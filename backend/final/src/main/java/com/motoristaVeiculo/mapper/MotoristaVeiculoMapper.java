@@ -1,7 +1,7 @@
-package com.motorista_veiculo.mapper;
+package com.motoristaVeiculo.mapper;
 
-import com.motorista_veiculo.MotoristaVeiculo;
-import com.motorista_veiculo.dto.MotoristaVeiculoDTO;
+import com.motoristaVeiculo.MotoristaVeiculo;
+import com.motoristaVeiculo.dto.MotoristaVeiculoDTO;
 import com.util.mapper.GlobalMapper;
 
 public class MotoristaVeiculoMapper extends GlobalMapper {

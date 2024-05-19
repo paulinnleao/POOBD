@@ -1,6 +1,6 @@
 package com.veiculo;
 
-import com.motorista_veiculo.MotoristaVeiculo;
+import com.motoristaVeiculo.MotoristaVeiculo;
 import com.proprietario.Proprietario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

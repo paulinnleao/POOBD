@@ -1,6 +1,6 @@
 package com.viagem;
 
-import com.motorista_veiculo.MotoristaVeiculo;
+import com.motoristaVeiculo.MotoristaVeiculo;
 import com.passageiro.Passageiro;
 import com.tipoPgto.TipoPgto;
 import jakarta.persistence.*;

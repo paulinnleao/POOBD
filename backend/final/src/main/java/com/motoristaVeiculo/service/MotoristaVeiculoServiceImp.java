@@ -1,10 +1,10 @@
-package com.motorista_veiculo.service;
+package com.motoristaVeiculo.service;
 
-import com.motorista_veiculo.MotoristaVeiculo;
-import com.motorista_veiculo.dto.MotoristaVeiculoDTO;
-import com.motorista_veiculo.mapper.MotoristaVeiculoMapper;
-import com.motorista_veiculo.repository.MotoristaVeiculoRepository;
-import com.motorista_veiculo.rest.MotoristaVeiculoRestImp;
+import com.motoristaVeiculo.MotoristaVeiculo;
+import com.motoristaVeiculo.dto.MotoristaVeiculoDTO;
+import com.motoristaVeiculo.mapper.MotoristaVeiculoMapper;
+import com.motoristaVeiculo.repository.MotoristaVeiculoRepository;
+import com.motoristaVeiculo.rest.MotoristaVeiculoRestImp;
 import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.viagem.dto.ViagemDTO;

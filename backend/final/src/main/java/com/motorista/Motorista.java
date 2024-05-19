@@ -1,6 +1,6 @@
 package com.motorista;
 
-import com.motorista_veiculo.MotoristaVeiculo;
+import com.motoristaVeiculo.MotoristaVeiculo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

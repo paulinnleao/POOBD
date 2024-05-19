@@ -1,6 +1,6 @@
-package com.motorista_veiculo.service;
+package com.motoristaVeiculo.service;
 
-import com.motorista_veiculo.dto.MotoristaVeiculoDTO;
+import com.motoristaVeiculo.dto.MotoristaVeiculoDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

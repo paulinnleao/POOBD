@@ -1,6 +1,6 @@
-package com.motorista_veiculo.repository;
+package com.motoristaVeiculo.repository;
 
-import com.motorista_veiculo.MotoristaVeiculo;
+import com.motoristaVeiculo.MotoristaVeiculo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

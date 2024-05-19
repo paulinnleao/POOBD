@@ -1,4 +1,4 @@
-package com.motorista_veiculo;
+package com.motoristaVeiculo;
 
 import com.motorista.Motorista;
 import com.veiculo.Veiculo;

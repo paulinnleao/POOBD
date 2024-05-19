@@ -1,7 +1,7 @@
-package com.motorista_veiculo.rest;
+package com.motoristaVeiculo.rest;
 
-import com.motorista_veiculo.dto.MotoristaVeiculoDTO;
-import com.motorista_veiculo.service.MotoristaVeiculoServiceImp;
+import com.motoristaVeiculo.dto.MotoristaVeiculoDTO;
+import com.motoristaVeiculo.service.MotoristaVeiculoServiceImp;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
