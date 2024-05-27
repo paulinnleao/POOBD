@@ -12,4 +12,7 @@ public interface VeiculoService {
     VeiculoDTO create(VeiculoDTO veiculoDTO);
     VeiculoDTO update(VeiculoDTO veiculoAtualizado);
     ResponseEntity<?> delete(String placa);
+
+    //Atividade 02
+    List<VeiculoDTO> findByDate(String data, String horaInicio, String horaFinal);
 }

@@ -7,6 +7,8 @@ import com.veiculo.Veiculo;
 import com.veiculo.dto.VeiculoDTO;
 import com.veiculo.repository.VeiculoRepository;
 import com.veiculo.rest.VeiculoRestImp;
+import com.viagem.dto.ViagemDTO;
+import com.viagem.service.ViagemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,13 +16,22 @@ import org.springframework.stereotype.Service;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 public class VeiculoServiceImp implements VeiculoService {
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
     @Autowired
     private VeiculoRepository repository;
+
+    @Autowired
+    private ViagemServiceImp viagemService;
 
     @Override
     public VeiculoDTO findById(String placa) {
@@ -91,5 +102,21 @@ public class VeiculoServiceImp implements VeiculoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado veículo para esta placa!"));
         repository.delete(veiculo);
         return ResponseEntity.noContent().build();
+    }
+    @Override
+    public List<VeiculoDTO> findByDate(String data, String horaInicio, String horaFinal){
+        LocalDateTime dtHoraInicio = LocalDateTime.parse(data + "T" + horaInicio, formatter);
+        LocalDateTime dtHoraFim = LocalDateTime.parse(data + "T" + horaFinal, formatter);
+    List<ViagemDTO> viagensBuscadas = viagemService.findByDate(dtHoraInicio, dtHoraFim);
+    List<VeiculoDTO> veiculosBuscadosDTO = new ArrayList<>();
+    viagensBuscadas.forEach(viagem -> repository.findById(viagem.getPlaca()));
+    veiculosBuscadosDTO.forEach(
+                veiculo -> veiculo.add(
+                        linkTo(
+                                methodOn(VeiculoRestImp.class).findById(veiculo.getPlaca())
+                        ).withSelfRel()
+                )
+        );
+        return veiculosBuscadosDTO;
     }
 }

@@ -107,4 +107,22 @@ public class VeiculoRestImp {
     public ResponseEntity<?> delete(@PathVariable("placa") String placa) {
         return service.delete(placa);
     }
+
+    @GetMapping("/{data}/{hora-inicial}/{hora-final}")
+            @Operation(summary = "Busca os veículos através da data, hora inicial e hora final.", description = "Busca os veículos com base na data hora fornecidos. Caso não encontre, retorna um NOT_FOUND",
+            tags = {"Veiculos"},
+            responses = {
+            @ApiResponse(
+                    description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = VeiculoDTO.class))
+            ),
+            @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+            @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+            @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+            @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+            @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+    })
+public List<VeiculoDTO> findByDate(@PathParam("data") String data, @PathParam("hora-inicial") String horaInicial, @PathParam("hora-final") String horaFinal){
+    return service.findByDate(data, horaInicial, horaFinal);
+    }
+
 }

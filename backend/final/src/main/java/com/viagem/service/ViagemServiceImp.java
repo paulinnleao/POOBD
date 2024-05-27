@@ -177,4 +177,13 @@ public class ViagemServiceImp implements ViagemService{
         repository.delete(viagem);
         return ResponseEntity.noContent().build();
     }
+    @Override
+    public List<ViagemDTO> findByDate(LocalDateTime dtHoraInicio, LocalDateTime dtHoraFim){
+    List<Viagem> viagemBuscada = repository.findByDate(dtHoraInicio, dtHoraFim);
+    if(viagemBuscada.isEmpty()){
+     throw new ResourceNotFoundException("Não existem viagens para a data, hora inicio e hora fim fornecida!");
+    }
+    List<ViagemDTO> viagemBuscadaDTO = ViagemMapper.parseListObject(viagemBuscada, ViagemDTO.class);
+    return viagemBuscadaDTO;
+    };
 }
