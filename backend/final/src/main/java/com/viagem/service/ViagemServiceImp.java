@@ -177,13 +177,24 @@ public class ViagemServiceImp implements ViagemService{
         repository.delete(viagem);
         return ResponseEntity.noContent().build();
     }
+
+    // Fase 02 - atividade 01
     @Override
     public List<ViagemDTO> findByDate(LocalDateTime dtHoraInicio, LocalDateTime dtHoraFim){
-    List<Viagem> viagemBuscada = repository.findByDate(dtHoraInicio, dtHoraFim);
-    if(viagemBuscada.isEmpty()){
-     throw new ResourceNotFoundException("Não existem viagens para a data, hora inicio e hora fim fornecida!");
-    }
-    List<ViagemDTO> viagemBuscadaDTO = ViagemMapper.parseListObject(viagemBuscada, ViagemDTO.class);
-    return viagemBuscadaDTO;
+        List<Viagem> viagensBuscada = repository.findByDate(dtHoraInicio, dtHoraFim);
+        if(viagensBuscada.isEmpty()){
+         throw new ResourceNotFoundException("Não existem viagens para a data, hora inicio e hora fim fornecida!");
+        }
+        return ViagemMapper.parseListObject(viagensBuscada, ViagemDTO.class);
     };
+
+    // Fase 02 - atividade 02
+    @Override
+    public List<ViagemDTO> faturamentoPorMes(Integer quantidade, Integer mes){
+        List<Viagem> viagensBuscada = repository.faturamentoPorMes(quantidade, mes);
+        if(viagensBuscada.isEmpty()){
+            throw new ResourceNotFoundException("Não existem viagens para este mês!");
+        }
+        return ViagemMapper.parseListObject(viagensBuscada, ViagemDTO.class);
+    }
 }

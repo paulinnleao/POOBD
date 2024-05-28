@@ -13,6 +13,9 @@ public interface ViagemService {
     ViagemDTO update(ViagemDTO viagemDTO);
     List<ViagemDTO> findAll();
     ResponseEntity<?> delete(String placa, Long cpfPassag, Long cpfMotorista, String dthoraInicio);
-    // Atividade 02
+    // Fase 02 - atividade 01
     List<ViagemDTO> findByDate(LocalDateTime dtHoraInicio, LocalDateTime dtHoraFim);
+
+    // Fase 02 - atividade 02
+    List<ViagemDTO> faturamentoPorMes(Integer quantidade, Integer mes);
 }

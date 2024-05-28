@@ -14,5 +14,9 @@ public interface ViagemRepository extends JpaRepository<Viagem, Viagem.ViagemId>
 
     @Query(value = "SELECT V.* FROM VIAGENS V WHERE V.DT_HORA_INICIO = :dtHoraInicio AND v.DT_HORA_FIM = :dtHoraFim", nativeQuery = true)
     List<Viagem> findByDate(@Param("dtHoraInicio") LocalDateTime dtHoraInicio, @Param("dtHoraFim") LocalDateTime dtHoraFim);
+
+    //@Query(value = "SELECT TOP :quantidade * FROM VIAGENS WHERE EXTRACT (MONTH FROM DT_HORA_INICIO) = :mes", nativeQuery = true)
+    @Query(value = "SELECT * FROM VIAGENS WHERE EXTRACT(MONTH FROM DT_HORA_INICIO) = :mes LIMIT :quantidade", nativeQuery = true)
+    List<Viagem> faturamentoPorMes(@Param("quantidade") Integer quantidade, @Param("mes") Integer mes);
 }
 
