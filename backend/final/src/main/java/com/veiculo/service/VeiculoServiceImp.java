@@ -109,7 +109,12 @@ public class VeiculoServiceImp implements VeiculoService {
         LocalDateTime dtHoraFim = LocalDateTime.parse(data + "T" + horaFinal, formatter);
     List<ViagemDTO> viagensBuscadas = viagemService.findByDate(dtHoraInicio, dtHoraFim);
     List<VeiculoDTO> veiculosBuscadosDTO = new ArrayList<>();
-    viagensBuscadas.forEach(viagem -> repository.findById(viagem.getPlaca()));
+    viagensBuscadas.forEach(viagem -> repository
+            .findById(viagem.getPlaca())
+            .ifPresent(
+                    veiculo -> veiculosBuscadosDTO.add(
+                            GlobalMapper.parseObject(veiculo, VeiculoDTO.class)
+    )));
     veiculosBuscadosDTO.forEach(
                 veiculo -> veiculo.add(
                         linkTo(
