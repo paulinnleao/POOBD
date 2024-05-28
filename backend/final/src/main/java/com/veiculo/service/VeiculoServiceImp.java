@@ -4,9 +4,11 @@ import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import com.veiculo.Veiculo;
+import com.veiculo.atividades.VeiculoFaturamento;
 import com.veiculo.dto.VeiculoDTO;
 import com.veiculo.repository.VeiculoRepository;
 import com.veiculo.rest.VeiculoRestImp;
+import com.viagem.Viagem;
 import com.viagem.dto.ViagemDTO;
 import com.viagem.service.ViagemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,15 +109,15 @@ public class VeiculoServiceImp implements VeiculoService {
     public List<VeiculoDTO> findByDate(String data, String horaInicio, String horaFinal){
         LocalDateTime dtHoraInicio = LocalDateTime.parse(data + "T" + horaInicio, formatter);
         LocalDateTime dtHoraFim = LocalDateTime.parse(data + "T" + horaFinal, formatter);
-    List<ViagemDTO> viagensBuscadas = viagemService.findByDate(dtHoraInicio, dtHoraFim);
-    List<VeiculoDTO> veiculosBuscadosDTO = new ArrayList<>();
-    viagensBuscadas.forEach(viagem -> repository
+        List<ViagemDTO> viagensBuscadas = viagemService.findByDate(dtHoraInicio, dtHoraFim);
+        List<VeiculoDTO> veiculosBuscadosDTO = new ArrayList<>();
+        viagensBuscadas.forEach(viagem -> repository
             .findById(viagem.getPlaca())
             .ifPresent(
                     veiculo -> veiculosBuscadosDTO.add(
                             GlobalMapper.parseObject(veiculo, VeiculoDTO.class)
-    )));
-    veiculosBuscadosDTO.forEach(
+        )));
+        veiculosBuscadosDTO.forEach(
                 veiculo -> veiculo.add(
                         linkTo(
                                 methodOn(VeiculoRestImp.class).findById(veiculo.getPlaca())
@@ -123,5 +125,11 @@ public class VeiculoServiceImp implements VeiculoService {
                 )
         );
         return veiculosBuscadosDTO;
+    }
+
+    @Override
+    public ResponseEntity<VeiculoFaturamento> faturamentoVeiculos(Integer mes){
+        List<Viagem> listaViagens = new ArrayList<>();
+        List<Veiculo>
     }
 }

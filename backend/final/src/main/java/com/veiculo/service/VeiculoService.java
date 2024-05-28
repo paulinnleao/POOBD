@@ -1,5 +1,6 @@
 package com.veiculo.service;
 
+import com.veiculo.atividades.VeiculoFaturamento;
 import com.veiculo.dto.VeiculoDTO;
 import org.springframework.http.ResponseEntity;
 
@@ -13,6 +14,9 @@ public interface VeiculoService {
     VeiculoDTO update(VeiculoDTO veiculoAtualizado);
     ResponseEntity<?> delete(String placa);
 
-    //Atividade 02
+    //Fase 02 - atividade 01
     List<VeiculoDTO> findByDate(String data, String horaInicio, String horaFinal);
+
+    //Fase 02 - atividade 03
+    ResponseEntity<VeiculoFaturamento> faturamentoVeiculos(Integer mes);
 }
