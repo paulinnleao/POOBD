@@ -1,5 +1,6 @@
 package com.veiculo.service;
 
+import com.pessoa.service.PessoaServiceImp;
 import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
@@ -10,6 +11,7 @@ import com.veiculo.repository.VeiculoRepository;
 import com.veiculo.rest.VeiculoRestImp;
 import com.viagem.Viagem;
 import com.viagem.dto.ViagemDTO;
+import com.viagem.repository.ViagemRepository;
 import com.viagem.service.ViagemServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +34,14 @@ public class VeiculoServiceImp implements VeiculoService {
     @Autowired
     private VeiculoRepository repository;
 
+    //Fase 02 - Atividade 01
     @Autowired
     private ViagemServiceImp viagemService;
+    //Fase 02 - Atividade 01
+    @Autowired
+    private ViagemRepository viagemRepository;
+    //Fase 02 - Atividade 03
+    private PessoaServiceImp pessoaServiceImp;
 
     @Override
     public VeiculoDTO findById(String placa) {
@@ -105,6 +113,8 @@ public class VeiculoServiceImp implements VeiculoService {
         repository.delete(veiculo);
         return ResponseEntity.noContent().build();
     }
+
+    //Fase 02 - atividade 01
     @Override
     public List<VeiculoDTO> findByDate(String data, String horaInicio, String horaFinal){
         LocalDateTime dtHoraInicio = LocalDateTime.parse(data + "T" + horaInicio, formatter);
@@ -127,9 +137,30 @@ public class VeiculoServiceImp implements VeiculoService {
         return veiculosBuscadosDTO;
     }
 
+    //Fase 02 - atividade 03
     @Override
     public ResponseEntity<VeiculoFaturamento> faturamentoVeiculos(Integer mes){
-        List<Viagem> listaViagens = new ArrayList<>();
-        List<Veiculo>
+        List<VeiculoFaturamento> veiculosFaturamento = new ArrayList<>();
+        List<Viagem> listaViagens = viagemRepository.faturamentoPorMes(null, mes);
+        List<Veiculo> listaVeiculos = new ArrayList<>();
+        listaViagens.forEach(
+                viagem -> repository.findById(
+                        viagem.getPlaca())
+                        .ifPresent(listaVeiculos::add));
+        for(int i = 0; i<listaViagens.size(); i++){
+            veiculosFaturamento.add(
+                    new VeiculoFaturamento(
+                            pessoaServiceImp.findById(
+                                    listaVeiculos
+                                            .get(i)
+                                            .getProprietario()
+                                            .getCpfProp()
+                            )
+                                    .getNome(),
+                            listaVeiculos.get(i).getPlaca(),
+                            listaViagens.get(i).getTipoPgto().getDescPagto(),
+
+                    ));
+        }
     }
 }

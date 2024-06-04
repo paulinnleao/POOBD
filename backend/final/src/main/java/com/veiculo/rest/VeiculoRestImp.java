@@ -108,6 +108,7 @@ public class VeiculoRestImp {
         return service.delete(placa);
     }
 
+    //Fase 02 - atividade 01
     @GetMapping("/{data}/{hora-inicial}/{hora-final}")
             @Operation(summary = "Busca os veículos através da data, hora inicial e hora final.", description = "Busca os veículos com base na data hora fornecidos. Caso não encontre, retorna um NOT_FOUND",
             tags = {"Veiculos"},
@@ -121,8 +122,8 @@ public class VeiculoRestImp {
             @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
             @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
     })
-public List<VeiculoDTO> findByDate(@PathParam("data") String data, @PathParam("hora-inicial") String horaInicial, @PathParam("hora-final") String horaFinal){
-    return service.findByDate(data, horaInicial, horaFinal);
-    }
+    public List<VeiculoDTO> findByDate(@PathParam("data") String data, @PathParam("hora-inicial") String horaInicial, @PathParam("hora-final") String horaFinal){
+        return service.findByDate(data, horaInicial, horaFinal);
+        }
 
 }
