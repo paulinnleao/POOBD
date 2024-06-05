@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class VeiculoServiceImp implements VeiculoService {
@@ -41,6 +40,7 @@ public class VeiculoServiceImp implements VeiculoService {
     @Autowired
     private ViagemRepository viagemRepository;
     //Fase 02 - Atividade 03
+    @Autowired
     private PessoaServiceImp pessoaServiceImp;
 
     @Override
@@ -139,9 +139,9 @@ public class VeiculoServiceImp implements VeiculoService {
 
     //Fase 02 - atividade 03
     @Override
-    public ResponseEntity<VeiculoFaturamento> faturamentoVeiculos(Integer mes){
+    public ResponseEntity<List<VeiculoFaturamento>> faturamentoVeiculos(Integer mes){
         List<VeiculoFaturamento> veiculosFaturamento = new ArrayList<>();
-        List<Viagem> listaViagens = viagemRepository.faturamentoPorMes(null, mes);
+        List<Viagem> listaViagens = viagemRepository.faturamentoPorMes(mes);
         List<Veiculo> listaVeiculos = new ArrayList<>();
         listaViagens.forEach(
                 viagem -> repository.findById(
@@ -159,8 +159,33 @@ public class VeiculoServiceImp implements VeiculoService {
                                     .getNome(),
                             listaVeiculos.get(i).getPlaca(),
                             listaViagens.get(i).getTipoPgto().getDescPagto(),
-
+                            valorTotalFaturado(listaViagens.get(i).getPlaca(), listaViagens),
+                            valorMedioFaturado(listaViagens.get(i).getPlaca(), listaViagens)
                     ));
         }
+        return ResponseEntity.ok(veiculosFaturamento);
+    }
+
+    @Override
+    public Double valorTotalFaturado(String placa, List<Viagem> listaViagens){
+        return listaViagens.stream()
+                .filter(viagem -> viagem.getPlaca().equals(placa))
+                .mapToDouble(Viagem::getValorPagto)
+                .sum();
+    }
+
+    @Override
+    public Double valorMedioFaturado(String placa, List<Viagem> listaViagens) {
+        double[] mediaEQuantidade = listaViagens.stream()
+                .filter(viagem -> viagem.getPlaca().equals(placa))
+                .mapToDouble(Viagem::getValorPagto)
+                .collect(() -> new double[2],
+                        (total, valor) -> { total[0] += valor; total[1]++; },
+                        (a, b) -> { a[0] += b[0]; a[1] += b[1]; });
+
+        double total = mediaEQuantidade[0];
+        double quantidade = mediaEQuantidade[1];
+
+        return quantidade > 0 ? total / quantidade : 0;
     }
 }

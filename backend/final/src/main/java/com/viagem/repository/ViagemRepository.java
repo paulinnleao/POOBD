@@ -17,12 +17,10 @@ public interface ViagemRepository extends JpaRepository<Viagem, Viagem.ViagemId>
 
     //@Query(value = "SELECT TOP :quantidade * FROM VIAGENS WHERE EXTRACT (MONTH FROM DT_HORA_INICIO) = :mes", nativeQuery = true)
     // Alteração feita pela Atividade 03
-//    @Query(value = "SELECT * FROM VIAGENS WHERE EXTRACT(MONTH FROM DT_HORA_INICIO) = :mes LIMIT :quantidade", nativeQuery = true)
-//    List<Viagem> faturamentoPorMes(@Param("quantidade") Integer quantidade, @Param("mes") Integer mes);
-    @Query(value = "SELECT * FROM VIAGENS WHERE EXTRACT(MONTH FROM DT_HORA_INICIO) = :mes " +
-            "LIMIT CASE WHEN :quantidade IS NULL THEN CAST('infinity' AS bigint) ELSE :quantidade END",
-            nativeQuery = true)
-    List<Viagem> faturamentoPorMes(@Param("quantidade") Integer quantidade, @Param("mes") Integer mes);
+    @Query(value = "SELECT * FROM VIAGENS WHERE EXTRACT(MONTH FROM DT_HORA_INICIO) = :mes LIMIT :quantidade", nativeQuery = true)
+    List<Viagem> faturamentoPorMesEQuantidade(@Param("quantidade") Integer quantidade, @Param("mes") Integer mes);
 
+    @Query(value = "SELECT * FROM VIAGENS WHERE EXTRACT(MONTH FROM DT_HORA_INICIO) = :mes", nativeQuery = true)
+    List<Viagem> faturamentoPorMes(@Param("mes") Integer mes);
 }
 

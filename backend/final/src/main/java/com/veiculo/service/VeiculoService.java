@@ -2,6 +2,7 @@ package com.veiculo.service;
 
 import com.veiculo.atividades.VeiculoFaturamento;
 import com.veiculo.dto.VeiculoDTO;
+import com.viagem.Viagem;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface VeiculoService {
     List<VeiculoDTO> findByDate(String data, String horaInicio, String horaFinal);
 
     //Fase 02 - atividade 03
-    ResponseEntity<VeiculoFaturamento> faturamentoVeiculos(Integer mes);
+    ResponseEntity<List<VeiculoFaturamento>> faturamentoVeiculos(Integer mes);
+    Double valorTotalFaturado(String placa, List<Viagem> listaViagens);
+    Double valorMedioFaturado(String placa, List<Viagem> listaViagens);
 }

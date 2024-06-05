@@ -191,7 +191,7 @@ public class ViagemServiceImp implements ViagemService{
     // Fase 02 - atividade 02
     @Override
     public List<ViagemDTO> faturamentoPorMes(Integer quantidade, Integer mes){
-        List<Viagem> viagensBuscada = repository.faturamentoPorMes(quantidade, mes);
+        List<Viagem> viagensBuscada = repository.faturamentoPorMesEQuantidade(quantidade, mes);
         if(viagensBuscada.isEmpty()){
             throw new ResourceNotFoundException("Não existem viagens para este mês!");
         }
