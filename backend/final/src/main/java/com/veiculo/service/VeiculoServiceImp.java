@@ -22,8 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class VeiculoServiceImp implements VeiculoService {
@@ -122,11 +121,11 @@ public class VeiculoServiceImp implements VeiculoService {
         List<ViagemDTO> viagensBuscadas = viagemService.findByDate(dtHoraInicio, dtHoraFim);
         List<VeiculoDTO> veiculosBuscadosDTO = new ArrayList<>();
         viagensBuscadas.forEach(viagem -> repository
-            .findById(viagem.getPlaca())
-            .ifPresent(
-                    veiculo -> veiculosBuscadosDTO.add(
-                            GlobalMapper.parseObject(veiculo, VeiculoDTO.class)
-        )));
+                .findById(viagem.getPlaca())
+                .ifPresent(
+                        veiculo -> veiculosBuscadosDTO.add(
+                                GlobalMapper.parseObject(veiculo, VeiculoDTO.class)
+                        )));
         veiculosBuscadosDTO.forEach(
                 veiculo -> veiculo.add(
                         linkTo(
@@ -139,32 +138,36 @@ public class VeiculoServiceImp implements VeiculoService {
 
     //Fase 02 - atividade 03
     @Override
-    public ResponseEntity<List<VeiculoFaturamento>> faturamentoVeiculos(Integer mes){
-        List<VeiculoFaturamento> veiculosFaturamento = new ArrayList<>();
+    public ResponseEntity<List<VeiculoFaturamento>> faturamentoVeiculos(Integer mes) {
         List<Viagem> listaViagens = viagemRepository.faturamentoPorMes(mes);
-        List<Veiculo> listaVeiculos = new ArrayList<>();
-        listaViagens.forEach(
-                viagem -> repository.findById(
-                        viagem.getPlaca())
-                        .ifPresent(listaVeiculos::add));
-        for(int i = 0; i<listaViagens.size(); i++){
-            veiculosFaturamento.add(
-                    new VeiculoFaturamento(
-                            pessoaServiceImp.findById(
-                                    listaVeiculos
-                                            .get(i)
-                                            .getProprietario()
-                                            .getCpfProp()
-                            )
-                                    .getNome(),
-                            listaVeiculos.get(i).getPlaca(),
-                            listaViagens.get(i).getTipoPgto().getDescPagto(),
-                            valorTotalFaturado(listaViagens.get(i).getPlaca(), listaViagens),
-                            valorMedioFaturado(listaViagens.get(i).getPlaca(), listaViagens)
-                    ));
+        List<Veiculo> listaVeiculos = listaViagens.stream()
+                .map(viagem -> repository.findById(viagem.getPlaca()))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .toList();
+
+        Map<String, VeiculoFaturamento> veiculosFaturamentoMap = new HashMap<>();
+
+        for (int i = 0; i < listaViagens.size(); i++) {
+            Viagem viagem = listaViagens.get(i);
+            Veiculo veiculo = listaVeiculos.get(i);
+
+            if (!veiculosFaturamentoMap.containsKey(veiculo.getPlaca())) {
+                String nomeProprietario = pessoaServiceImp.findById(veiculo.getProprietario().getCpfProp()).getNome();
+                String descPagto = viagem.getTipoPgto().getDescPagto();
+                double valorTotal = valorTotalFaturado(veiculo.getPlaca(), listaViagens);
+                double valorMedio = valorMedioFaturado(veiculo.getPlaca(), listaViagens);
+
+                VeiculoFaturamento veiculoFaturamento = new VeiculoFaturamento(
+                        nomeProprietario, veiculo.getPlaca(), descPagto, valorTotal, valorMedio);
+                veiculosFaturamentoMap.put(veiculo.getPlaca(), veiculoFaturamento);
+            }
         }
+
+        List<VeiculoFaturamento> veiculosFaturamento = new ArrayList<>(veiculosFaturamentoMap.values());
         return ResponseEntity.ok(veiculosFaturamento);
     }
+
 
     @Override
     public Double valorTotalFaturado(String placa, List<Viagem> listaViagens){
