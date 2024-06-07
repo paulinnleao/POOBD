@@ -5,7 +5,7 @@ import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.util.mapper.GlobalMapper;
 import com.veiculo.Veiculo;
-import com.veiculo.atividades.VeiculoFaturamento;
+import com.util.atividades.VeiculoFaturamento;
 import com.veiculo.dto.VeiculoDTO;
 import com.veiculo.repository.VeiculoRepository;
 import com.veiculo.rest.VeiculoRestImp;

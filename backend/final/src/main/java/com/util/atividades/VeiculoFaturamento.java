@@ -1,6 +1,5 @@
-package com.veiculo.atividades;
+package com.util.atividades;
 
-import com.tipoPgto.TipoPgto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

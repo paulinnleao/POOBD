@@ -1,5 +1,6 @@
 package com.viagem.repository;
 
+import com.util.atividades.ViagensMediaMensalSexo;
 import com.viagem.Viagem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,5 +23,27 @@ public interface ViagemRepository extends JpaRepository<Viagem, Viagem.ViagemId>
 
     @Query(value = "SELECT * FROM VIAGENS WHERE EXTRACT(MONTH FROM DT_HORA_INICIO) = :mes", nativeQuery = true)
     List<Viagem> faturamentoPorMes(@Param("mes") Integer mes);
+
+    // Fase 02 - atividade 04
+            // Primeiro script teste
+            //    @Query(value = "SELECT MONTH(DT_HORA_INICIO) AS mes AVG(VALOR_PAGTO) as feminino FROM VIAGENS V" +
+            //            "RIGHT JOIN PESSOAS P ON P.CPF_PESSOA = V.CPF_PASSAG AND P.SEXO = 'F'" +
+            //            "GROUP BY Mes", nativeQuery = true)
+    @Query(value =
+            "SELECT " +
+                "EXTRACT(MONTH FROM V.DT_HORA_INICIO) AS mes, " +
+                "P.SEXO AS sexo, " +
+                "AVG(V.VALOR_PAGTO) AS media " +
+            "FROM " +
+                "VIAGENS V " +
+            "RIGHT JOIN " +
+                "PESSOAS P ON P.CPF_PESSOA = V.CPF_PASSAG " +
+            "GROUP BY " +
+                "mes, " +
+                "sexo " +
+            "ORDER BY " +
+                "1",
+            nativeQuery = true)
+    List<Object[]> buscarViagensMediaMensalSexo();
 }
 

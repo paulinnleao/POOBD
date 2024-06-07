@@ -1,5 +1,6 @@
 package com.viagem.service;
 
+import com.util.atividades.ViagensMediaMensalSexo;
 import com.viagem.dto.ViagemDTO;
 import org.springframework.http.ResponseEntity;
 
@@ -18,4 +19,7 @@ public interface ViagemService {
 
     // Fase 02 - atividade 02
     List<ViagemDTO> faturamentoPorMes(Integer quantidade, Integer mes);
+
+    // Fase 02 - atividade 04
+    ResponseEntity<List<ViagensMediaMensalSexo>> buscarViagensMediaMensalSexo();
 }

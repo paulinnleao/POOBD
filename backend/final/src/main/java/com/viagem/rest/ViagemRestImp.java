@@ -1,5 +1,6 @@
 package com.viagem.rest;
 
+import com.util.atividades.ViagensMediaMensalSexo;
 import com.viagem.dto.ViagemDTO;
 import com.viagem.service.ViagemServiceImp;
 import io.swagger.v3.oas.annotations.Operation;
@@ -139,5 +140,22 @@ public class ViagemRestImp {
     )
     public List<ViagemDTO> faturamentoPorMes(@PathParam("quantidade") Integer quantidade, @PathParam("mes") Integer mes){
         return service.faturamentoPorMes(quantidade, mes);
+    }
+
+    @GetMapping("/media-mensal-por-mes")
+    @Operation(summary = "Buscar media mensal de cada sexo",
+            description = "Busca a média de cada sexo de cada mês. Não é necessário passar nada como parâmetro",
+            tags = {"Viagens"},
+            responses = {
+                    @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+            }
+    )
+    public ResponseEntity<List<ViagensMediaMensalSexo>> buscarViagensMediaMensalSexo(){
+        return service.buscarViagensMediaMensalSexo();
     }
 }

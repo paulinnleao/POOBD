@@ -1,6 +1,7 @@
 package com.viagem.service;
 
 import com.tipoPgto.rest.TipoPgtoRestImp;
+import com.util.atividades.ViagensMediaMensalSexo;
 import com.util.exception.ResourceAlreadyExistsException;
 import com.util.exception.ResourceNotFoundException;
 import com.viagem.Viagem;
@@ -12,15 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
-public class ViagemServiceImp implements ViagemService{
+ public class ViagemServiceImp implements ViagemService{
     @Autowired
     ViagemRepository repository;
 
@@ -196,5 +204,34 @@ public class ViagemServiceImp implements ViagemService{
             throw new ResourceNotFoundException("Não existem viagens para este mês!");
         }
         return ViagemMapper.parseListObject(viagensBuscada, ViagemDTO.class);
+    }
+
+    // Fase 02 - atividade 04
+    @Override
+    public ResponseEntity<List<ViagensMediaMensalSexo>> buscarViagensMediaMensalSexo(){
+        List<ViagensMediaMensalSexo> viagensMediaMensalSexoLista = new ArrayList<>();
+        var resultado = repository.buscarViagensMediaMensalSexo();
+        resultado.forEach(objeto -> {
+            int mesNumero = ((BigDecimal) objeto[0]).intValue();
+            String mes = Month.of(mesNumero).getDisplayName(TextStyle.FULL, Locale.getDefault());
+            Double media = ((BigDecimal) objeto[2]).setScale(2, RoundingMode.HALF_UP).doubleValue();
+
+            // Verifica se já existe um elemento com o mesmo mês na lista
+            boolean existeMes = false;
+            for (ViagensMediaMensalSexo registro : viagensMediaMensalSexoLista) {
+                if (registro.getMes().equals(mes)) {
+                    registro.setMediaFeminino(media);
+                    existeMes = true;
+                    break;
+                }
+            }
+
+            // Se não existir, adiciona um novo elemento com valores padrão
+            if (!existeMes) {
+                viagensMediaMensalSexoLista.add(new ViagensMediaMensalSexo(mes, media));
+            }
+        });
+
+        return ResponseEntity.ok(viagensMediaMensalSexoLista);
     }
 }

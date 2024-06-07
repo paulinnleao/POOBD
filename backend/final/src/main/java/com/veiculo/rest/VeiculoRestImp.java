@@ -1,6 +1,6 @@
 package com.veiculo.rest;
 
-import com.veiculo.atividades.VeiculoFaturamento;
+import com.util.atividades.VeiculoFaturamento;
 import com.veiculo.dto.VeiculoDTO;
 import com.veiculo.service.VeiculoServiceImp;
 import io.swagger.v3.oas.annotations.Operation;

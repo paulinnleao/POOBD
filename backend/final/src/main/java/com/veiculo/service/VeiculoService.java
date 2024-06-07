@@ -1,6 +1,6 @@
 package com.veiculo.service;
 
-import com.veiculo.atividades.VeiculoFaturamento;
+import com.util.atividades.VeiculoFaturamento;
 import com.veiculo.dto.VeiculoDTO;
 import com.viagem.Viagem;
 import org.springframework.http.ResponseEntity;
