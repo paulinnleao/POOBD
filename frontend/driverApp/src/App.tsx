@@ -1,26 +1,40 @@
 import React from 'react'
 import './App.css'
 
-// 1. import `ChakraProvider` component
 import {
   ChakraBaseProvider,
   extendBaseTheme,
   theme as chakraTheme,
 } from '@chakra-ui/react'
+import { 
+  createBrowserRouter,
+  RouterProvider, 
+} from 'react-router-dom'
+import PaginaInicial from './components/paginas/PaginaInicial'
+import { useColorMode } from '@chakra-ui/react';
 
 const { Button } = chakraTheme.components
 
 const theme = extendBaseTheme({
+  initialColorMode: 'dark',
+  useSystemColorMode: false,
   components: {
     Button,
   },
-})
+  
+
+});
+
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <PaginaInicial />,
+  },
+]);
 
 export const App = () => {
-  // 2. Wrap ChakraProvider at the root of your app
-  return (
-    <ChakraBaseProvider theme={theme}>
-      <div> Jeçç</div>
+  return <ChakraBaseProvider theme={theme}>
+        <RouterProvider router={router} />  
     </ChakraBaseProvider>
-  )
 }
