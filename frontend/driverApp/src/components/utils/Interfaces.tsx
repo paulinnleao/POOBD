@@ -1,5 +1,5 @@
 type Dado = string | number;
-type IdentificadoresProps = MotoristaEditModalProps;
+type IdentificadoresProps = MotoristaEditModalProps | null;
 // Util
 export interface listaDeCardsProps {
     listaDeCards: [{
@@ -14,17 +14,19 @@ export interface DadosTabelaProps {
         dados:Dado[][]
     },
     
-    setEditModal: React.Dispatch<React.SetStateAction<EditModalProps | null>>;
+    setEditEntity: React.Dispatch<React.SetStateAction<EditEntity | null>>;
 }
-export interface EditModalProps{
-    editModal: boolean,
-    identificadores: IdentificadoresProps
+export interface EditEntity{
+    editar: boolean,
+    identificadores: number,
 }
 export interface ItemMapProps {
     value: string,
     id: number
 }
-
+export interface EditModal{
+    identificador: IdentificadoresProps
+}
 // Interface das entidades
 //Motorista
 export interface MotoristaDTO {
@@ -35,7 +37,31 @@ export interface MotoristaDTO {
     contaMot: number;
   }
 export interface MotoristaEditModalProps {
-    cpf: string
+    cpfMotorista: {
+        label: string;
+        value: number;
+        editavel: boolean;
+    }
+    cnh: {
+        label: string;
+        value: string;
+        editavel: boolean;
+    },
+    bancoMot: {
+        label: string;
+        value: number;
+        editavel: boolean;
+    },
+    agenciaMot: {
+        label: string;
+        value: number;
+        editavel: boolean;
+    },
+    contaMot: {
+        label: string;
+        value: number;
+        editavel: boolean;
+    }
 }
 
 // Motorista Veiculo

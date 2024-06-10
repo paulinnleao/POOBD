@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardBody, Card, Stack, Image, Flex, Button, useColorMode } from '@chakra-ui/react';
+import { CardBody, Card, Stack, Image, Flex, Button, useColorMode, Box } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import imagens from '../utils/imagens.json';
@@ -30,32 +30,35 @@ const CardsMenu = () => {
     });
 
     return (
-    <Card>
-        <CardBody>
-        <Stack direction="row" spacing={2} {...handlers}>
-            {visibleItems.map((itens, id) => (
-            <NavLink key={id} to={itens.to}>
-                <Flex
-                _hover={{
-                    boxShadow: `${colorMode==='light'?'0 0 10px rgba(0, 0, 0, 0.5)': '0 0 10px rgba(255, 255, 255, 1)'}`,
-                }}
-                borderRadius={'5px'}
-                bgColor={'#F0FAFE'}
-                paddingLeft={'10px'}
-                w={'400px'}
-                h={'56px'}
-                m={'5px'}
-                alignItems={'center'}
-                gap={'10px'}
-                color={'black'}
-                >
-                <Image w={42} h={42} src={itens.imagem[0]} />
-                {itens.nome}
-                </Flex>
-            </NavLink>
-            ))}
-        </Stack>
-        <Flex justifyContent="space-between" mb={4}>
+    <Box>
+        <Card>
+            <CardBody>
+            <Stack justifyContent={'space-between'} direction="row" spacing={2} {...handlers}>
+                {visibleItems.map((itens, id) => (
+                <NavLink key={id} to={itens.to}>
+                    <Flex
+                    _hover={{
+                        boxShadow: `${colorMode==='light'?'0 0 10px rgba(0, 0, 0, 0.5)': '0 0 10px rgba(255, 255, 255, 1)'}`,
+                    }}
+                    borderRadius={'5px'}
+                    bgColor={'#F0FAFE'}
+                    paddingLeft={'10px'}
+                    w={'350px'}
+                    h={'56px'}
+                    m={'5px'}
+                    alignItems={'center'}
+                    gap={'10px'}
+                    color={'black'}
+                    >
+                    <Image w={42} h={42} src={itens.imagem[0]} />
+                    {itens.nome}
+                    </Flex>
+                </NavLink>
+                ))}
+            </Stack>
+            </CardBody>
+        </Card>
+        <Flex marginTop={'10px'} justifyContent="space-between" mb={4}>
             <Button
             _hover={{
                 backgroundColor:`${colorMode === 'light' ? 'black' : 'white'}`,
@@ -82,8 +85,7 @@ const CardsMenu = () => {
             &gt;
             </Button>
         </Flex>
-        </CardBody>
-    </Card>
+    </Box>
     );
     };
 

@@ -88,6 +88,7 @@ const MotoristaVeiculo = () => {
         alignItems={'center'}
         >
           <Input
+          w={'300px'}
           name='cpfMotorista'
           onChange={formik.handleChange}
           onBlur={(e) => {
@@ -108,6 +109,7 @@ const MotoristaVeiculo = () => {
           minLength={11}
           />
           <Input
+          w={'300px'}
           name='placa'
           onChange={formik.handleChange}
           onBlur={(e) => {

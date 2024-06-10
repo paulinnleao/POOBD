@@ -78,6 +78,7 @@ const TipoPgto = () => {
         alignItems={'center'}
         >
         <Input 
+          w={'300px'}
           name='id'
           onChange={formik.handleChange}
           onBlur={(e) => {

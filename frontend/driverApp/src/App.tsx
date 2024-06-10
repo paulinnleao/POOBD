@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
-  ChakraBaseProvider,
-  extendBaseTheme,
+  ChakraProvider,
+  extendTheme,
 } from '@chakra-ui/react';
 
 import { 
@@ -26,7 +26,9 @@ import Proprietario from './components/paginas/paginasEntidades/Proprietario'
 import { ToastContainer } from 'react-toastify';
 
 
-const theme = extendBaseTheme({
+const theme = extendTheme({
+  components: {
+  }
 });
 
 
@@ -71,10 +73,10 @@ export const router = createBrowserRouter([
 
 export const App = () => {
   return <>
-      <ChakraBaseProvider theme={theme}>
+      <ChakraProvider theme={theme}>
         <Cabecalho />
         <RouterProvider router={router} />  
         <ToastContainer />
-      </ChakraBaseProvider>
+      </ChakraProvider>
     </>
 }

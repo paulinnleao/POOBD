@@ -90,6 +90,7 @@ const Veiculo = () => {
         alignItems={'center'}
         >
           <Input
+          w={'300px'}
           name='placa'
           onChange={formik.handleChange}
           onBlur={(e) => {

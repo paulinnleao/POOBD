@@ -113,6 +113,7 @@ const Viagem = () => {
         alignItems={'center'}
         >
         <Input 
+          w={'250px'}
           name='cpfPassag'
           onChange={formik.handleChange}
           onBlur={(e) => {
@@ -133,6 +134,7 @@ const Viagem = () => {
           minLength={11}
           />
           <Input 
+          w={'250px'}
           name='cpfMotorista'
           onChange={formik.handleChange}
           onBlur={(e) => {
@@ -153,6 +155,7 @@ const Viagem = () => {
           minLength={11}
           />
           <Input
+          w={'250px'}
           name='placa'
           onChange={formik.handleChange}
           onBlur={(e) => {
@@ -173,6 +176,7 @@ const Viagem = () => {
           minLength={7}
           />
           <Input
+          w={'250px'}
           name='dtHoraInicio'
           onChange={formik.handleChange}
           onBlur={(e) => {

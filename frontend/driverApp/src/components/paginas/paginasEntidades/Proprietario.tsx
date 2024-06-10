@@ -83,6 +83,7 @@ const Proprietario = () => {
         alignItems={'center'}
         >
         <Input 
+          w={'300px'}
           name='cpf'
           onChange={formik.handleChange}
           onBlur={(e) => {

@@ -1,4 +1,4 @@
-import { Table, TableContainer, Thead, Tr, Th, Td, Tbody, Tfoot, Icon, Flex, Button } from '@chakra-ui/react'
+import { Table, TableContainer, Thead, Tr, Th, Td, Tbody, Tfoot, Icon, Flex, Button, useColorMode } from '@chakra-ui/react'
 import React from 'react'
 
 import './Tabela.css'
@@ -10,14 +10,12 @@ import { FaPlusCircle } from "react-icons/fa";
 
 import styled from 'styled-components'
 
-const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditModal}) => {
-
-    const handleClick = (cpf: string) => {
-        setEditModal({
-            editModal: true,
-            identificadores: {
-                cpf: cpf
-            }
+const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditEntity}) => {
+    const {colorMode} = useColorMode();
+    const handleClick = (id: number) => {
+        setEditEntity({
+            editar: true,
+            identificadores: id
         })
     }
 
@@ -35,6 +33,7 @@ const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditModal}) => {
                                         _hover={{
                                             color: 'green',
                                         }}
+                                        color={colorMode === 'light' ? 'white' : 'black'}
                                         ><FaPlusCircle /></Button>
                             </Flex>
                                 </ThH>
@@ -56,7 +55,7 @@ const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditModal}) => {
                                         _hover={{
                                             color: 'gray',
                                         }}
-                                        onClick={() => handleClick(value[0].toString())}
+                                        onClick={() => handleClick(value[0])}
 
                                         ><FaPencil /></Button>
                                 </Flex>
@@ -78,7 +77,7 @@ const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditModal}) => {
 
 export default Tabela;
 
-const ThS = styled(Th)`
+const ThS = styled.th`
     padding: 8px;
     border-top: 1px solid #ddd;
     padding-left: 50px;
@@ -86,7 +85,7 @@ const ThS = styled(Th)`
         padding-left: 20px;
     }
 `;
-const TdS = styled(Td)`
+const TdS = styled.td`
     padding: 8px;
     text-align: center;
     border-top: 1px solid #ddd;
@@ -95,7 +94,7 @@ const TdS = styled(Td)`
         padding-left: 20px;
     }
 `;
-const ThH = styled(Th)`
+const ThH = styled.th`
     background-color: #f0f0f0;
     color: #333;
     text-transform: uppercase;

@@ -18,13 +18,17 @@ const Cabecalho = () => {
         Driver App
       </Heading>
       <Button 
-        border={'1px'} 
+        _hover={{
+          backgroundColor: `${colorMode === 'light'?'black':'white'}`,
+          color:`${colorMode === 'light'?'white':'black'}`,
+          border: `1px solid ${colorMode === 'light'?'white':'black'}`,
+        }}
         borderRadius={'15px'}
-        w={'35px'}
         leftIcon={colorMode === 'light' ? <IoSunny /> : undefined}
         rightIcon={colorMode === 'dark' ? <IoIosMoon /> : undefined}
         onClick={toggleColorMode}
-        color={colorMode === 'light'?'white':'black'}
+        color={colorMode === 'light'?'black':'white'}
+        bgColor={colorMode === 'light'?'white':'black'}
         />
   </Flex>
 }
