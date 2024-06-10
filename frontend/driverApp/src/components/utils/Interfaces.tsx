@@ -1,3 +1,6 @@
+type Dado = string | number;
+type IdentificadoresProps = MotoristaEditModalProps;
+// Util
 export interface listaDeCardsProps {
     listaDeCards: [{
         nome: string,
@@ -5,20 +8,25 @@ export interface listaDeCardsProps {
         to: string,
     }]
 }
-type Dado = string | number;
 export interface DadosTabelaProps {
     dadosTabela: {
         titulos:string[],
         dados:Dado[][]
-    }
+    },
+    
+    setEditModal: React.Dispatch<React.SetStateAction<EditModalProps | null>>;
 }
-
+export interface EditModalProps{
+    editModal: boolean,
+    identificadores: IdentificadoresProps
+}
 export interface ItemMapProps {
     value: string,
     id: number
 }
 
 // Interface das entidades
+//Motorista
 export interface MotoristaDTO {
     cpfMotorista: number;
     cnh: string;
@@ -26,7 +34,11 @@ export interface MotoristaDTO {
     agenciaMot: number;
     contaMot: number;
   }
+export interface MotoristaEditModalProps {
+    cpf: string
+}
 
+// Motorista Veiculo
 export interface MotoristaVeiculoDTO {
     cpfMotorista: number,
     placa: string,

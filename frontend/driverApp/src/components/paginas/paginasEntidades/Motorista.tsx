@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Tabela from '../../utils/Tabela';
 import CardsMenu from '../CardsMenu';
 import titulos from '../../utils/titulos.json'
-import { MotoristaDTO } from '../../utils/Interfaces';
+import { EditModalProps, MotoristaDTO, MotoristaEditModalProps } from '../../utils/Interfaces';
 import axios from 'axios';
 import { IoMdSearch } from "react-icons/io";
-import { CircularProgress, Button, InputGroup, Input, useColorMode } from '@chakra-ui/react';
+import { CircularProgress, Button, InputGroup, Input, useColorMode, Modal, useDisclosure, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -15,7 +15,18 @@ const Motorista = () => {
     const [motoristas, setMotoristas] = useState<MotoristaDTO[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [editModal, setEditModal] = useState<EditModalProps | null>({
+      editModal: false,
+      identificadores: {
+        cpf: '0'
+      },
+    });
 
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const initialRef = React.useRef(null)
+    const finalRef = React.useRef(null)
+  
     const formik = useFormik({
       initialValues: {
         cpf: '',
@@ -107,7 +118,37 @@ const Motorista = () => {
         <div style={{ color: 'red' }}>{formik.errors.cpf}</div>
       ) : null}
     </form>
-    <Tabela dadosTabela={dadosTabela} />
+    <Tabela dadosTabela={dadosTabela} setEditModal={setEditModal}/>
+    <Modal 
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={false}
+        onClose={onClose}
+        >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create your account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>First name</FormLabel>
+              <Input ref={initialRef} placeholder='First name' />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Last name</FormLabel>
+              <Input placeholder='Last name' />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+    </Modal>
     </>
 }
 

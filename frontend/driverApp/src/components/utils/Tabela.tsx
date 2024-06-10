@@ -10,7 +10,17 @@ import { FaPlusCircle } from "react-icons/fa";
 
 import styled from 'styled-components'
 
-const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela}) => {
+const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditModal}) => {
+
+    const handleClick = (cpf: string) => {
+        setEditModal({
+            editModal: true,
+            identificadores: {
+                cpf: cpf
+            }
+        })
+    }
+
     return <TableContainer>
             <Table w={'100%'}>
                 <Thead>
@@ -46,6 +56,8 @@ const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela}) => {
                                         _hover={{
                                             color: 'gray',
                                         }}
+                                        onClick={() => handleClick(value[0].toString())}
+
                                         ><FaPencil /></Button>
                                 </Flex>
                             </TdS>
