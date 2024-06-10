@@ -1,21 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  font-family: 'Poppins', sans-serif;
 }
 
 @keyframes logo-spin {
@@ -33,10 +22,27 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* Define a animação com keyframes
+@keyframes moverEColorir {
+  0% {
+    transform: translateX(0);
+    background-color: red;
+  }
+  50% {
+    transform: translateX(100px);
+    background-color: yellow;
+  }
+  100% {
+    transform: translateX(500px);
+    background-color: green;
+  }
 }
 
-.read-the-docs {
-  color: #888;
-}
+/* Estilo do quadrado e aplicação da animação 
+.quadrado {
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  position: relative;
+  animation: moverEColorir 4s infinite;
+} */

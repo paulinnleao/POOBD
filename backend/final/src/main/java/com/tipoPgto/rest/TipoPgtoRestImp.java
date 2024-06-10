@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tipos-pagamentos")
-@Tag(name = "Tipos Pagamentos", description = "Endpoints para gerenciar entidade TipoPgto.")
+@RequestMapping("/tipos-pagamento")
+@Tag(name = "Tipos Pagamento", description = "Endpoints para gerenciar entidade TipoPgto.")
 public class TipoPgtoRestImp {
 
 
@@ -25,8 +25,8 @@ public class TipoPgtoRestImp {
     private TipoPgtoServiceImp service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Busca todos os tipos de pagamentos", description = "Lista todos os tipos de pagamentos no Banco de Dados.",
-            tags = {"Tipos Pagamentos"},
+    @Operation(summary = "Busca todos os tipos de pagamento", description = "Lista todos os tipos de pagamentos no Banco de Dados.",
+            tags = {"Tipos Pagamento"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = {
                             @Content (
@@ -49,7 +49,7 @@ public class TipoPgtoRestImp {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Buscar tipo de pagamento pelo ID",
             description = "Procura um tipo de pagamento pelo ID. Caso não encontre, retorna uma resposta NOT_FOUND",
-            tags = {"Tipos Pagamentos"},
+            tags = {"Tipos Pagamento"},
             responses = {
                     @ApiResponse(
                             description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = TipoPgtoDTO.class))
@@ -68,7 +68,7 @@ public class TipoPgtoRestImp {
     @Operation(summary = "Persiste um novo tipo de pagamento no Banco de Dados",
             description = "Persiste um novo tipo de pagamento no Banco de Dados, caso ele não encontre outro com o mesmo ID." +
                     "Para o caso de encontrar, ele retorna a resposta Conflict",
-            tags = {"Tipos Pagamentos"},
+            tags = {"Tipos Pagamento"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = TipoPgtoDTO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -82,7 +82,7 @@ public class TipoPgtoRestImp {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Atualiza os dados de um tipo de pagamento", description = "Busca o tipo de pagamento, atualiza, persiste e retorna o tipo de pagamento atualizado.",
-            tags = {"Tipos Pagamentos"},
+            tags = {"Tipos Pagamento"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content(schema = @Schema(implementation = TipoPgtoDTO.class))),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -96,7 +96,7 @@ public class TipoPgtoRestImp {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Apaga um tipo de pagamento através do ID", description = "Busca um tipo de pagamento pelo ID fornecido e se o encontrar, o apaga",
-            tags = {"Tipos Pagamentos"},
+            tags = {"Tipos Pagamento"},
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode = "200", content = @Content),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),

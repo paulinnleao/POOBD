@@ -1,0 +1,26 @@
+.conversion-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .conversion-table th,
+  .conversion-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  .conversion-table thead th {
+    background-color: #f0f0f0;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  .conversion-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .conversion-table tr.multiply-by th,
+  .conversion-table tr.multiply-by td {
+    text-align: right;
+  }

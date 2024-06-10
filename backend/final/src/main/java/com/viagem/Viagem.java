@@ -92,7 +92,7 @@ public class Viagem implements Serializable {
     private String localDestViag;
 
     @Column(name = "DT_HORA_FIM")
-    private Date dtHoraFim;
+    private LocalDateTime dtHoraFim;
 
     @Column(name = "QTDE_PASS")
     private Integer qtdePass;
@@ -199,11 +199,11 @@ public class Viagem implements Serializable {
         this.localDestViag = localDestViag;
     }
 
-    public Date getDtHoraFim() {
+    public LocalDateTime getDtHoraFim() {
         return dtHoraFim;
     }
 
-    public void setDtHoraFim(Date dtHoraFim) {
+    public void setDtHoraFim(LocalDateTime dtHoraFim) {
         this.dtHoraFim = dtHoraFim;
     }
 

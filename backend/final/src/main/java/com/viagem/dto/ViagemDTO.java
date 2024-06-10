@@ -28,7 +28,7 @@ public class ViagemDTO extends RepresentationModel<ViagemDTO> implements Seriali
 
     private LocalDateTime dtHoraInicio;
 
-    private Date dtHoraFim;
+    private LocalDateTime dtHoraFim;
 
     private Integer qtdePass;
 
@@ -115,11 +115,11 @@ public class ViagemDTO extends RepresentationModel<ViagemDTO> implements Seriali
         this.dtHoraInicio = dtHoraInicio;
     }
 
-    public Date getDtHoraFim() {
+    public LocalDateTime getDtHoraFim() {
         return dtHoraFim;
     }
 
-    public void setDtHoraFim(Date dtHoraFim) {
+    public void setDtHoraFim(LocalDateTime dtHoraFim) {
         this.dtHoraFim = dtHoraFim;
     }
 

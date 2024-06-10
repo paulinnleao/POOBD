@@ -1,0 +1,10 @@
+{
+    "motorista": ["CPF", "CNH", "Banco", "Agência", "Conta"],
+    "motoristaVeiculo": ["CPF", "Placa"],
+    "passageiro": ["CPF", "Cartao", "Bandeira", "Cidade"],
+    "pessoa": ["CPF", "Nome", "Endereço", "Telefone", "Sexo", "Email"],
+    "proprietario": ["CPF", "CNH", "Banco", "Agencia", "Conta"],
+    "tipoPgto": ["Código de Pagamento", "Desconto"],
+    "veiculo": ["Placa", "Marca", "Modelo", "Ano de Fabricação", "Capacidade de Pessoas", "Cor", "Tipo de Combustível", "Potência do Motor", "CPF do Proprietário"],
+    "viagem": ["Passageiro", "Motorista", "Placa", "Origem", "Destino", "Data Inicio", "Data Fim", "Qtd Passageiro", "Pagamento", "Valor Pago", "Canc. Motorista", "Canc. Passageiro", "Código de Pag."]
+}

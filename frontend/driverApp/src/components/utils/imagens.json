@@ -1,0 +1,46 @@
+{
+    "listaDeCards":
+        [
+            {
+                "nome": "Motorista",
+                "to": "/motoristas",
+                "imagem":["src/components/utils/imagens/driver_dark.png","src/components/utils/imagens/driver_light.png"]
+            },
+            {
+                "nome": "Motoristas Veículos",
+                "to": "/motoristas-veiculos",
+                "imagem":["src/components/utils/imagens/driverLi_dark.png","src/components/utils/imagens/driverLi_light.png"]
+            },
+            {
+                "nome": "Passageiros",
+                "to": "/passageiros",
+                "imagem":["src/components/utils/imagens/passageiro_dark.png","src/components/utils/imagens/passageiro_light.png"]
+            },
+            {
+                "nome": "Tipos Pagemento",
+                "to": "/tipos-pagamento",
+                "imagem":["src/components/utils/imagens/payment_dark.png","src/components/utils/imagens/payment_light.png"]
+            },
+            {
+                "nome": "Pessoas",
+                "to": "/pessoas",
+                "imagem":["src/components/utils/imagens/person_dark.png","src/components/utils/imagens/person_light.png"]
+            },
+            {
+                "nome": "Proprietários",
+                "to": "/proprietarios",
+                "imagem":["src/components/utils/imagens/proprietario_dark.png","src/components/utils/imagens/proprietario_light.png"]
+            },
+            {
+                "nome": "Viagens",
+                "to": "/viagens",
+                "imagem":["src/components/utils/imagens/route_dark.png","src/components/utils/imagens/route_light.png"]
+            },
+            {
+                "nome": "Veículos",
+                "to": "/veiculos",
+                "imagem":["src/components/utils/imagens/vehicle_dark.png","src/components/utils/imagens/vehicle_light.png" ]
+            }
+        ]
+}
+  

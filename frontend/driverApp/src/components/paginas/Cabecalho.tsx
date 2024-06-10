@@ -1,0 +1,32 @@
+import React from 'react';
+import { IoIosMoon } from "react-icons/io";
+import { IoSunny } from "react-icons/io5";
+import { Box, Button, Flex, Heading, useColorMode } from '@chakra-ui/react';
+
+const Cabecalho = () => {
+
+    const {colorMode, toggleColorMode} = useColorMode();
+  return <Flex
+            top={0}
+            w={'100%'}
+            bgColor={colorMode === 'light'?'#171648':'white'}
+            justifyContent={"space-between"}
+            padding={'15px'}
+            borderRadius={'10px'}
+            >
+      <Heading color={colorMode === 'light'?'white':'black'}>
+        Driver App
+      </Heading>
+      <Button 
+        border={'1px'} 
+        borderRadius={'15px'}
+        w={'35px'}
+        leftIcon={colorMode === 'light' ? <IoSunny /> : undefined}
+        rightIcon={colorMode === 'dark' ? <IoIosMoon /> : undefined}
+        onClick={toggleColorMode}
+        color={colorMode === 'light'?'white':'black'}
+        />
+  </Flex>
+}
+
+export default Cabecalho
