@@ -20,6 +20,7 @@ const Motorista = () => {
     editar: false,
     identificadores: 0,
   });
+  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
 
   const formik = useFormik({
     initialValues: {
@@ -60,7 +61,7 @@ const Motorista = () => {
     };
 
     fetchMotoristas();
-  }, [formik.values.cpf]);
+  }, [formik.values.cpf, atualizarPagina]);
 
   if (loading) return <CircularProgress isIndeterminate color='blue.300' />;
   if (error) return <div>{error}</div>;
@@ -116,7 +117,7 @@ const Motorista = () => {
   </form>
   <Tabela dadosTabela={dadosTabela} setEditEntity={setEditEntity}/>
   {!!editEntity && 
-  <ModalMotorista motorista={motoristas[editEntity?.identificadores]} setEditEntity={setEditEntity}/>}
+  <ModalMotorista motorista={motoristas[editEntity?.identificadores]} atualizarPagina={atualizarPagina} setEditEntity={setEditEntity} setAtualizarPagina={setAtualizarPagina}/>}
   </>
 }
 

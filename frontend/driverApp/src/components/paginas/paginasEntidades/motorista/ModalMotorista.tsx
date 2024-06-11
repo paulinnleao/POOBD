@@ -14,15 +14,13 @@ import {
     Button,
     useDisclosure,
     Heading,
-    ModalCloseButton,
     FormErrorMessage,
-    FormHelperText
  } from "@chakra-ui/react";
 import { MotoristaDTO, MotoristaModalProps } from "../../../utils/Interfaces";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
-export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEditEntity}) => {
+export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atualizarPagina, setEditEntity, setAtualizarPagina}) => {
 
 
   const formik = useFormik({
@@ -33,8 +31,23 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
       agenciaMot: motorista.agenciaMot,
       contaMot: motorista.contaMot
     },
-    onSubmit: values => {
-      console.log(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try{
+        const response = await axios.put<MotoristaDTO>(`http://localhost:8080/motoristas`,values)
+        
+        toast.success(`Motorista de cpf ${response?.data?.cpfMotorista} atualizado com sucesso!`,{
+          position: 'bottom-center',
+          theme: "colored"
+        })
+      }catch(err){
+        toast.error('Erro ao atualizar motorista!',{
+          position: 'bottom-center',
+          theme: "colored"
+        })
+      } finally {
+        sairModal();
+        setAtualizarPagina(!atualizarPagina);
+      }
     },
     validationSchema: Yup.object().shape({
       cpfMotorista: Yup.string()

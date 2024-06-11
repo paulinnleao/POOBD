@@ -80,7 +80,9 @@ export interface MotoristaDTO {
   }
 export interface MotoristaModalProps {
     motorista: MotoristaDTO,
+    atualizarPagina: boolean,
     setEditEntity: React.Dispatch<React.SetStateAction<EditEntity | null>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Motorista Veiculo
