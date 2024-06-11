@@ -15,7 +15,8 @@ import {
     useDisclosure,
     Heading,
     ModalCloseButton,
-    FormErrorMessage
+    FormErrorMessage,
+    FormHelperText
  } from "@chakra-ui/react";
 import { MotoristaDTO, MotoristaModalProps } from "../../../utils/Interfaces";
 import { useFormik } from "formik";
@@ -42,8 +43,8 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
                        .min(11, 'CPF deve ter pelo menos 11 dígitos!')
                        .max(11, 'CPF deve ter no máximo 11 dígitos!'),
       cnh: Yup.string()
-              .matches(/^\d{11}$/, 'A CNH deve conter exatamente 11 dígitos numéricos.')
-              .required('A CNH é obrigatória.'),
+              .matches(/^\d{11}$/, 'CNH deve conter exatamente 11 dígitos numéricos.')
+              .required('CNH é obrigatória.'),
       bancoMot: Yup.string()
                    .required('Banco é obrigatório')
                    .matches(/^[0-9]*$/, 'Apenas número são permitidos'),
@@ -57,40 +58,6 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
 
     }),
   });
-
-  // const formik = useFormik({
-  //   initialValues:{
-  //     cpfMotorista: motorista.cpfMotorista,
-  //     cnh: motorista.cnh,
-  //     bancoMot: motorista.bancoMot,
-  //     agenciaMot: motorista.agenciaMot,
-  //     contaMot: motorista.contaMot
-  //   },
-  //   onSubmit: (values) => {
-  //     console.log("asdfasdf")
-  //   },
-  //   validationSchema: Yup.object().shape({
-  //     cpfMotorista: Yup.string()
-  //                      .required('O CPF é Obrigatório')
-  //                      .matches(/^[0-9]*$/, 'Apenas números são permitidos')
-  //                      .min(11, 'CPF deve ter pelo menos 11 dígitos!')
-  //                      .max(11, 'CPF deve ter no máximo 11 dígitos!'),
-  //     cnh: Yup.string()
-  //             .matches(/^\d{11}$/, 'A CNH deve conter exatamente 11 dígitos numéricos.')
-  //             .required('A CNH é obrigatória.'),
-  //     bancoMot: Yup.string()
-  //                  .required('Banco é obrigatório')
-  //                  .matches(/^[0-9]*$/, 'Apenas número são permitidos'),
-  //     agenciaMot: Yup.string()
-  //                    .required('Banco é obrigatório')
-  //                    .matches(/^[0-9]*$/, 'Apenas número são permitidos'),
-  //     contaMot: Yup.string()
-  //                  .required('Banco é obrigatório')
-  //                  .matches(/^[0-9]*$/, 'Apenas número são permitidos'),
-
-
-  //   }),
-  // });
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -113,8 +80,8 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
         <ModalContent>
           <ModalHeader textAlign={'center'}><Heading> Editando entidade</Heading></ModalHeader>
           <ModalBody pb={6}>
-            <FormControl textAlign={'center'}>
 
+            <FormControl isInvalid={!!formik.errors.cpfMotorista} textAlign={'center'}>
               <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
@@ -129,8 +96,10 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
                     value={formik.values.cpfMotorista}
                     onChange={formik.handleChange}
                     disabled/>
-                </FormLabel>
+                </FormLabel>                
+            </FormControl>
 
+            <FormControl isInvalid={!!formik.errors.cnh} textAlign={'center'}>
                 <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
@@ -144,13 +113,19 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
                     placeholder={'CNH'}
                     value={formik.values.cnh}
                     onChange={formik.handleChange}
+                    maxLength={11} minLength={11}
+                    borderColor={
+                      formik.touched.cnh 
+                      && formik.errors.cnh ? 'red' : undefined}
                     />
                 </FormLabel>
-
-                {formik.touched.cnh && formik.errors.cnh ? (
-                    <FormErrorMessage style={{ color: 'red' }}>{formik.errors.cnh}</FormErrorMessage>
-                  ) : null}
-
+                {formik.touched.cnh && !formik.errors.cnh ?
+                        null: (
+                        <FormErrorMessage>{formik.errors.cnh}</FormErrorMessage>
+                      )}
+            </FormControl>
+              
+            <FormControl isInvalid={!!formik.errors.bancoMot} textAlign={'center'}>
                 <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
@@ -166,7 +141,13 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
                     onChange={formik.handleChange}
                     />
                 </FormLabel>
-
+                {formik.touched.bancoMot && !formik.errors.bancoMot ?
+                            null: (
+                            <FormErrorMessage>{formik.errors.bancoMot}</FormErrorMessage>
+                          )}
+            </FormControl>
+            
+            <FormControl isInvalid={!!formik.errors.agenciaMot} textAlign={'center'}>
                 <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
@@ -182,7 +163,13 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
                     onChange={formik.handleChange}
                     />
                 </FormLabel>
+                {formik.touched.agenciaMot && !formik.errors.agenciaMot ?
+                            null: (
+                            <FormErrorMessage>{formik.errors.agenciaMot}</FormErrorMessage>
+                          )}
+              </FormControl>
 
+              <FormControl isInvalid={!!formik.errors.contaMot} textAlign={'center'}>
                 <FormLabel 
                   paddingTop={'10px'}
                   display={'flex'} 
@@ -198,9 +185,12 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, setEdi
                       onChange={formik.handleChange}
                       />
                 </FormLabel>
-
-                
-            </FormControl>
+                {formik.touched.contaMot && !formik.errors.contaMot ?
+                            null: (
+                            <FormErrorMessage>{formik.errors.contaMot}</FormErrorMessage>
+                          )}
+              </FormControl>
+              
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='red' mr={3}
