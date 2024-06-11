@@ -10,13 +10,23 @@ import { FaPlusCircle } from "react-icons/fa";
 
 import styled from 'styled-components'
 
-const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditEntity}) => {
+const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditEntity, setDeleteEntity, setCreateEntity}) => {
     const {colorMode} = useColorMode();
     const handleClick = (id: number) => {
         setEditEntity({
             editar: true,
             identificadores: id
         })
+    };
+    const handleDeleteClick = (id: number) => {
+        console.log(id);
+        setDeleteEntity({
+            deletar: true,
+            identificador: id
+        })
+    }
+    const handleCreateEntity = () =>{
+        setCreateEntity(true);
     }
 
     return <TableContainer>
@@ -33,6 +43,7 @@ const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditEntity}) => {
                                         _hover={{
                                             color: 'green',
                                         }}
+                                        onClick={handleCreateEntity}
                                         color={colorMode === 'light' ? 'white' : 'black'}
                                         ><FaPlusCircle /></Button>
                             </Flex>
@@ -50,6 +61,7 @@ const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditEntity}) => {
                                         _hover={{
                                             color: 'red',
                                         }}
+                                        onClick={() => handleDeleteClick(id)}
                                         ><FaRegTrashAlt /></Button>
                                     <Button
                                         _hover={{

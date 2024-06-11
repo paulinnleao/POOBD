@@ -20,16 +20,16 @@ import { MotoristaDTO, MotoristaModalProps } from "../../../utils/Interfaces";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
-export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atualizarPagina, setEditEntity, setAtualizarPagina}) => {
+export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atualizarPagina, editEntity, setEditEntity, setAtualizarPagina}) => {
 
 
   const formik = useFormik({
     initialValues:{
-      cpfMotorista: motorista.cpfMotorista,
-      cnh: motorista.cnh,
-      bancoMot: motorista.bancoMot,
-      agenciaMot: motorista.agenciaMot,
-      contaMot: motorista.contaMot
+      cpfMotorista: motorista?.cpfMotorista,
+      cnh: motorista?.cnh,
+      bancoMot: motorista?.bancoMot,
+      agenciaMot: motorista?.agenciaMot,
+      contaMot: motorista?.contaMot
     },
     onSubmit: async (values) => {
       try{
@@ -70,15 +70,21 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atuali
 
 
     }),
+    enableReinitialize: true,
   });
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { onClose } = useDisclosure()
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
 
   const sairModal = () => {
-    setEditEntity(null);
+    if(editEntity){
+      setEditEntity?.({
+        editar: false,
+        identificadores: -1
+      });
+    }
   }
     return (
     <form onSubmit={formik.handleSubmit}>
@@ -86,12 +92,12 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atuali
         size='lg' 
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={!!motorista}
+        isOpen={editEntity?.editar}
         onClose={onClose}
         >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign={'center'}><Heading> Editando entidade</Heading></ModalHeader>
+          <ModalHeader textAlign={'center'}><Heading> Editar Motorista</Heading></ModalHeader>
           <ModalBody pb={6}>
 
             <FormControl isInvalid={!!formik.errors.cpfMotorista} textAlign={'center'}>
@@ -191,7 +197,7 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atuali
                   gap={'10px'} w={'400px'} 
                   fontSize={'20px'} >Conta
                     <Input
-                      name="conta"
+                      name="contaMot"
                       w={'200px'}
                       placeholder={'Conta'}
                       value={formik.values.contaMot}

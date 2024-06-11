@@ -23,7 +23,9 @@ export interface DadosTabelaProps {
         dados:Dado[][]
     },
     
-    setEditEntity: React.Dispatch<React.SetStateAction<EditEntity | null>>;
+    setEditEntity: React.Dispatch<React.SetStateAction<EditEntity>>;
+    setDeleteEntity: React.Dispatch<React.SetStateAction<DeleteEntity>>;
+    setCreateEntity: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface EditEntity{
     editar: boolean,
@@ -32,6 +34,10 @@ export interface EditEntity{
 export interface ItemMapProps {
     value: string,
     id: number
+}
+export interface DeleteEntity{
+    deletar: boolean,
+    identificador: number
 }
 
 
@@ -79,12 +85,25 @@ export interface MotoristaDTO {
     contaMot: number;
   }
 export interface MotoristaModalProps {
-    motorista: MotoristaDTO,
+    motorista: MotoristaDTO | null,
     atualizarPagina: boolean,
-    setEditEntity: React.Dispatch<React.SetStateAction<EditEntity | null>>;
+    editEntity: EditEntity,
+    setEditEntity?: React.Dispatch<React.SetStateAction<EditEntity>>;
     setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
+export interface MotoristaModalDelete {
+    motorista: MotoristaDTO | null,
+    atualizarPagina: boolean,
+    deleteEntity: DeleteEntity,
+    setDeleteEntity: React.Dispatch<React.SetStateAction<DeleteEntity>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface MotoristaModalCreateProps{
+    createEntity: boolean;
+    atualizarPagina: boolean,
+    setCreateEntity: React.Dispatch<React.SetStateAction<boolean>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
 // Motorista Veiculo
 export interface MotoristaVeiculoDTO {
     cpfMotorista: number,

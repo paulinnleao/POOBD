@@ -2,25 +2,33 @@ import React, { useEffect, useState } from 'react';
 import Tabela from '../../../utils/Tabela';
 import CardsMenu from '../../CardsMenu';
 import titulos from '../../../utils/titulos.json'
-import { EditEntity, MotoristaDTO } from '../../../utils/Interfaces';
+import { DeleteEntity, EditEntity, MotoristaDTO } from '../../../utils/Interfaces';
 import axios from 'axios';
 import { IoMdSearch } from "react-icons/io";
-import { CircularProgress, Button, InputGroup, Input, useColorMode, Modal, useDisclosure, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter } from '@chakra-ui/react';
+import { CircularProgress, Button, InputGroup, Input, useColorMode } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { ModalMotorista } from './ModalMotorista';
+import ModalDeleteMotorista from './ModalDeleteMotorista';
+import ModalDeCriacao from './ModalDeCriacao';
 
 const Motorista = () => {
   const {colorMode} = useColorMode();
-  const [motoristas, setMotoristas] = useState<MotoristaDTO[]>([]);
+  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [editEntity, setEditEntity] = useState<EditEntity | null>({
-    editar: false,
-    identificadores: 0,
+
+  const [motoristas, setMotoristas] = useState<MotoristaDTO[]>([]);
+  const [deleteEntity, setDeleteEntity] = useState<DeleteEntity>({
+    deletar: false,
+    identificador: -1
   });
-  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
+  const [editEntity, setEditEntity] = useState<EditEntity>({
+    editar: false,
+    identificadores: -1
+  });
+  const [createEntity, setCreateEntity] = useState<boolean>(false);
 
   const formik = useFormik({
     initialValues: {
@@ -115,9 +123,35 @@ const Motorista = () => {
       <div style={{ color: 'red' }}>{formik.errors.cpf}</div>
     ) : null}
   </form>
-  <Tabela dadosTabela={dadosTabela} setEditEntity={setEditEntity}/>
+
+  <Tabela 
+   dadosTabela={dadosTabela}
+   setEditEntity={setEditEntity} 
+   setDeleteEntity={setDeleteEntity} 
+   setCreateEntity={setCreateEntity}/>
+
   {!!editEntity && 
-  <ModalMotorista motorista={motoristas[editEntity?.identificadores]} atualizarPagina={atualizarPagina} setEditEntity={setEditEntity} setAtualizarPagina={setAtualizarPagina}/>}
+  <ModalMotorista 
+    motorista={motoristas[editEntity?.identificadores]} 
+    atualizarPagina={atualizarPagina} 
+    editEntity={editEntity}
+    setEditEntity={setEditEntity} 
+    setAtualizarPagina={setAtualizarPagina}
+    />}
+    {!!deleteEntity && 
+    <ModalDeleteMotorista 
+      motorista={motoristas[deleteEntity?.identificador]}
+      atualizarPagina={atualizarPagina}
+      deleteEntity={deleteEntity}
+      setDeleteEntity={setDeleteEntity}
+      setAtualizarPagina={setAtualizarPagina}
+    />}
+    {createEntity && 
+    <ModalDeCriacao 
+      createEntity={createEntity} 
+      atualizarPagina={atualizarPagina}
+      setCreateEntity={setCreateEntity}
+      setAtualizarPagina={setAtualizarPagina} />}
   </>
 }
 
