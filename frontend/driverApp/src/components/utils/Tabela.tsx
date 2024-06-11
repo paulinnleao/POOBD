@@ -55,7 +55,7 @@ const Tabela: React.FC<DadosTabelaProps> = ({dadosTabela, setEditEntity}) => {
                                         _hover={{
                                             color: 'gray',
                                         }}
-                                        onClick={() => handleClick(value[0])}
+                                        onClick={() => handleClick(id)}
 
                                         ><FaPencil /></Button>
                                 </Flex>

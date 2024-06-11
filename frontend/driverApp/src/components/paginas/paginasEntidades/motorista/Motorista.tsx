@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Tabela from '../../utils/Tabela';
-import CardsMenu from '../CardsMenu';
-import titulos from '../../utils/titulos.json'
-import { EditEntity, EditModal, MotoristaDTO, MotoristaEditModalProps } from '../../utils/Interfaces';
+import Tabela from '../../../utils/Tabela';
+import CardsMenu from '../../CardsMenu';
+import titulos from '../../../utils/titulos.json'
+import { EditEntity, MotoristaDTO } from '../../../utils/Interfaces';
 import axios from 'axios';
 import { IoMdSearch } from "react-icons/io";
 import { CircularProgress, Button, InputGroup, Input, useColorMode, Modal, useDisclosure, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { ModalComponent } from '../../utils/ModalComponent';
+import { ModalMotorista } from './ModalMotorista';
 
 const Motorista = () => {
   const {colorMode} = useColorMode();
@@ -20,42 +20,6 @@ const Motorista = () => {
     editar: false,
     identificadores: 0,
   });
-  const [editModal, setEditModal] = useState<EditModal | null>(null);
-
-  useEffect(() => {
-    if (editEntity?.editar) {
-      setEditModal((oldValues) => ({
-        ...oldValues,
-        identificador: {
-          cpfMotorista: {
-            label: 'CPF',
-            value: motoristas[editEntity.identificadores].cpfMotorista,
-            editavel: false,
-          },
-          cnh: {
-            label: 'CNH',
-            value: motoristas[editEntity.identificadores].cnh,
-            editavel: true,
-          },
-          bancoMot: {
-            label: 'Banco',
-            value: motoristas[editEntity.identificadores].bancoMot,
-            editavel: true,
-          },
-          agenciaMot: {
-            label: 'Agência',
-            value: motoristas[editEntity.identificadores].agenciaMot,
-            editavel: true,
-          },
-          contaMot: {
-            label: 'Conta',
-            value: motoristas[editEntity.identificadores].contaMot,
-            editavel: true,
-          },
-        },
-      }));
-    }
-  }, [editEntity]);
 
   const formik = useFormik({
     initialValues: {
@@ -151,7 +115,8 @@ const Motorista = () => {
     ) : null}
   </form>
   <Tabela dadosTabela={dadosTabela} setEditEntity={setEditEntity}/>
-  <ModalComponent identificador={editModal} setEditModal={setEditModal}/>
+  {!!editEntity && 
+  <ModalMotorista motorista={motoristas[editEntity?.identificadores]} setEditEntity={setEditEntity}/>}
   </>
 }
 

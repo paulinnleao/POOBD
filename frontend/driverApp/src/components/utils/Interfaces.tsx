@@ -1,5 +1,14 @@
+// Espécies de tipos
 type Dado = string | number;
-type IdentificadoresProps = MotoristaEditModalProps | null;
+
+
+
+
+
+
+
+
+
 // Util
 export interface listaDeCardsProps {
     listaDeCards: [{
@@ -24,9 +33,42 @@ export interface ItemMapProps {
     value: string,
     id: number
 }
-export interface EditModal{
-    identificador: IdentificadoresProps
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Interface das entidades
 //Motorista
 export interface MotoristaDTO {
@@ -36,32 +78,9 @@ export interface MotoristaDTO {
     agenciaMot: number;
     contaMot: number;
   }
-export interface MotoristaEditModalProps {
-    cpfMotorista: {
-        label: string;
-        value: number;
-        editavel: boolean;
-    }
-    cnh: {
-        label: string;
-        value: string;
-        editavel: boolean;
-    },
-    bancoMot: {
-        label: string;
-        value: number;
-        editavel: boolean;
-    },
-    agenciaMot: {
-        label: string;
-        value: number;
-        editavel: boolean;
-    },
-    contaMot: {
-        label: string;
-        value: number;
-        editavel: boolean;
-    }
+export interface MotoristaModalProps {
+    motorista: MotoristaDTO,
+    setEditEntity: React.Dispatch<React.SetStateAction<EditEntity | null>>;
 }
 
 // Motorista Veiculo

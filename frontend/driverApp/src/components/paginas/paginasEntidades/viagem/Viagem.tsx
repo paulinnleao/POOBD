@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import CardsMenu from '../CardsMenu'
-import Tabela from '../../utils/Tabela'
-import { ViagensDTO } from '../../utils/Interfaces'
+import CardsMenu from '../../CardsMenu'
+import Tabela from '../../../utils/Tabela'
+import { ViagensDTO } from '../../../utils/Interfaces'
 import axios from 'axios';
-import titulos from '../../utils/titulos.json'
+import titulos from '../../../utils/titulos.json'
 import { Button, CircularProgress, Input, InputGroup, useColorMode } from '@chakra-ui/react';
 import moment from 'moment';
 import { useFormik } from 'formik';

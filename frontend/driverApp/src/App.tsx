@@ -15,15 +15,15 @@ import {
 
 import PaginaInicial from './components/paginas/PaginaInicial';
 import Cabecalho from './components/paginas/Cabecalho';
-import Motorista from './components/paginas/paginasEntidades/Motorista';
-import MotoristaVeiculo from './components/paginas/paginasEntidades/MotoristaVeiculo';
-import Passageiro from './components/paginas/paginasEntidades/Passageiro';
-import Pessoa from './components/paginas/paginasEntidades/Pessoa';
-import TipoPgto from './components/paginas/paginasEntidades/TipoPgto';
-import Veiculo from './components/paginas/paginasEntidades/Veiculo';
-import Viagem from './components/paginas/paginasEntidades/Viagem';
-import Proprietario from './components/paginas/paginasEntidades/Proprietario'
 import { ToastContainer } from 'react-toastify';
+import Motorista from './components/paginas/paginasEntidades/motorista/Motorista';
+import MotoristaVeiculo from './components/paginas/paginasEntidades/motoristaVeiculo/MotoristaVeiculo';
+import Passageiro from './components/paginas/paginasEntidades/passageiro/Passageiro';
+import Pessoa from './components/paginas/paginasEntidades/pessoa/Pessoa';
+import TipoPgto from './components/paginas/paginasEntidades/tipopgto/TipoPgto';
+import Veiculo from './components/paginas/paginasEntidades/veiculo/Veiculo';
+import Viagem from './components/paginas/paginasEntidades/viagem/Viagem';
+import Proprietario from './components/paginas/paginasEntidades/proprietario/Proprietario';
 
 
 const theme = extendTheme({

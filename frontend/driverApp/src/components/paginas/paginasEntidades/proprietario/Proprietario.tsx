@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import CardsMenu from '../CardsMenu'
-import Tabela from '../../utils/Tabela'
+import CardsMenu from '../../CardsMenu'
+import Tabela from '../../../utils/Tabela'
 import { Button, CircularProgress, Input, InputGroup, useColorMode } from '@chakra-ui/react';
 import axios from 'axios';
-import titulos from '../../utils/titulos.json';
-import { ProprietarioDTO } from '../../utils/Interfaces';
+import titulos from '../../../utils/titulos.json';
+import { ProprietarioDTO } from '../../../utils/Interfaces';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';

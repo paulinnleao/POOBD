@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import CardsMenu from '../CardsMenu';
-import Tabela from '../../utils/Tabela';
-import titulos from '../../utils/titulos.json';
-import { TipoPgToDTO } from '../../utils/Interfaces';
+import CardsMenu from '../../CardsMenu';
+import Tabela from '../../../utils/Tabela';
+import titulos from '../../../utils/titulos.json';
+import { TipoPgToDTO } from '../../../utils/Interfaces';
 import axios from 'axios';
 import { Button, CircularProgress, Input, InputGroup, useColorMode } from '@chakra-ui/react';
 import { useFormik } from 'formik';

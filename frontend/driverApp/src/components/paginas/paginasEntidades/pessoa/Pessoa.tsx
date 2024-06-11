@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import CardsMenu from '../CardsMenu';
-import Tabela from '../../utils/Tabela';
-import { PassageiroDTO } from '../../utils/Interfaces';
+import CardsMenu from '../../CardsMenu';
+import Tabela from '../../../utils/Tabela';
+import titulos from '../../../utils/titulos.json';
+import { PessoaDTO } from '../../../utils/Interfaces';
 import axios from 'axios';
-import { CircularProgress, Input, InputGroup, useColorMode, Button } from '@chakra-ui/react';
-import titulos from '../../utils/titulos.json';
+import { Button, CircularProgress, Input, InputGroup, useColorMode } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { IoMdSearch } from "react-icons/io";
 
-const Passageiro = () => {
+const Pessoa = () => {
 
-  const [passageiros, setPassageiros] = useState<PassageiroDTO[]>([]);
+  const [pessoas, setPessoas] = useState<PessoaDTO[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const {colorMode} = useColorMode();
@@ -28,12 +28,12 @@ const Passageiro = () => {
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
-        const response = await axios.get<PassageiroDTO>(`http://localhost:8080/passageiros/${values.cpf}`);
-        console.log('Passageiro encontrado:', response.data);
-        setPassageiros([response.data])
+        const response = await axios.get<PessoaDTO>(`http://localhost:8080/pessoas/${values.cpf}`);
+        console.log('Pessoa encontrado:', response.data);
+        setPessoas([response.data])
       } catch (error) {
-        console.error('Erro ao buscar passageiro:', error);
-        toast.error('Passageiro não encontrado!', {
+        console.error('Erro ao buscar pessoa:', error);
+        toast.error('Pessoa não encontrada!', {
           position: 'top-center',
           theme: "colored"
         });
@@ -43,33 +43,36 @@ const Passageiro = () => {
     },
   });
 
-  useEffect(() => {
-    const fetchPassageiros = async () => {
+  useEffect(()=>{
+    const fetchPessoa = async () => {
       try{
-        const response = await axios.get<PassageiroDTO[]>('http://localhost:8080/passageiros');
-        setPassageiros(response.data);
+        const response = await axios.get<PessoaDTO[]>('http://localhost:8080/pessoas');
+        setPessoas(response.data);
       } catch (err) {
-        setError('Erro ao buscar os passageiros');
+        setError('Erro ao buscar pessoas');
       } finally {
         setLoading(false);
       }
+
     }
-    
-    fetchPassageiros();
+    fetchPessoa();
   }, [formik.values]);
 
   if (loading) return <CircularProgress isIndeterminate color='blue.300' />;
   if (error) return <div>{error}</div>;
+
+
   const dadosTabela = {
-    titulos: titulos.passageiro,
-    dados:passageiros.map((passageiro)=>[
-      passageiro.cpfPassg.toString(),
-      passageiro.cartaoCred,
-      passageiro.bandeiraCartao,
-      passageiro.cidadeOrig,
+    titulos: titulos.pessoa,
+    dados: pessoas.map((pessoa)=>[
+      pessoa.cpfPessoa.toString(),
+      pessoa.eMail,
+      pessoa.endereco,
+      pessoa.telefone.toString(),
+      pessoa.sexo,
+      pessoa.eMail,
     ])
   }
-
   return <>
     <CardsMenu />
     <form onSubmit={formik.handleSubmit}>
@@ -92,7 +95,7 @@ const Passageiro = () => {
           borderRadius={'10px'}
           pr='4.5rem' 
           padding={'15px'}
-          placeholder='Buscar passageiro'
+          placeholder='Buscar pessoa'
           _hover={{
             boxShadow: `${colorMode==='light'?'0 0 10px rgba(0, 0, 0, 0.5)': '0 0 10px rgba(255, 255, 255, 1)'}`,
             }}
@@ -111,4 +114,4 @@ const Passageiro = () => {
   </>
 }
 
-export default Passageiro
+export default Pessoa
