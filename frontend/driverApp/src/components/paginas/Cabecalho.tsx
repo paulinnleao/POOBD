@@ -2,6 +2,7 @@ import React from 'react';
 import { IoIosMoon } from "react-icons/io";
 import { IoSunny } from "react-icons/io5";
 import { Box, Button, Flex, Heading, useColorMode } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
 
 const Cabecalho = () => {
 
@@ -14,9 +15,12 @@ const Cabecalho = () => {
             padding={'15px'}
             borderRadius={'10px'}
             >
-      <Heading color={colorMode === 'light'?'white':'black'}>
-        Driver App
-      </Heading>
+              
+        <NavLink to={'/'}>
+          <Heading color={colorMode === 'light'?'white':'black'}>
+              Driver App
+          </Heading>
+      </NavLink>
       <Button 
         _hover={{
           backgroundColor: `${colorMode === 'light'?'black':'white'}`,

@@ -24,6 +24,7 @@ import TipoPgto from './components/paginas/paginasEntidades/tipopgto/TipoPgto';
 import Veiculo from './components/paginas/paginasEntidades/veiculo/Veiculo';
 import Viagem from './components/paginas/paginasEntidades/viagem/Viagem';
 import Proprietario from './components/paginas/paginasEntidades/proprietario/Proprietario';
+import Atividade01 from './components/paginas/personalizadas/Atividade01';
 
 
 const theme = extendTheme({
@@ -68,13 +69,16 @@ export const router = createBrowserRouter([
   {
     path:"/proprietarios",
     element:<Proprietario />
+  },
+  {
+    path:"/atividade01",
+    element: <Atividade01 />
   }
 ]);
 
 export const App = () => {
   return <>
       <ChakraProvider theme={theme}>
-        <Cabecalho />
         <RouterProvider router={router} />  
         <ToastContainer />
       </ChakraProvider>

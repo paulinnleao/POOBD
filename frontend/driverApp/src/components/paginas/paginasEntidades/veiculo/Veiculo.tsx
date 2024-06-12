@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CardsMenu from '../../CardsMenu';
 import Tabela from '../../../utils/Tabela';
-import { VeiculosDTO } from '../../../utils/Interfaces';
+import { DeleteEntity, EditEntity, VeiculosDTO } from '../../../utils/Interfaces';
 import axios from 'axios';
 import titulos from '../../../utils/titulos.json';
 import { Button, CircularProgress, Input, InputGroup, useColorMode } from '@chakra-ui/react';
@@ -17,6 +17,16 @@ const Veiculo = () => {
   const [error, setError] = useState<string | null>(null);
   const {colorMode} = useColorMode();
 
+  const [deleteEntity, setDeleteEntity] = useState<DeleteEntity>({
+    deletar: false,
+    identificador: -1
+  });
+  const [editEntity, setEditEntity] = useState<EditEntity>({
+    editar: false,
+    identificadores: -1
+  });
+  const [createEntity, setCreateEntity] = useState<boolean>(false);
+  
   const formik = useFormik({
     initialValues: {
       placa: ''
@@ -116,7 +126,12 @@ const Veiculo = () => {
         <div style={{ color: 'red' }}>{formik.errors.placa}</div>
       ) : null}
     </form>
-    <Tabela dadosTabela={dadosTabela} />
+    <Tabela
+      dadosTabela={dadosTabela}
+      setCreateEntity={setCreateEntity}
+      setDeleteEntity={setDeleteEntity}
+      setEditEntity={setEditEntity}
+      />
   </>
 }
 

@@ -3,6 +3,7 @@ import { CardBody, Card, Stack, Image, Flex, Button, useColorMode, Box } from '@
 import { NavLink } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import imagens from '../utils/imagens.json';
+import Cabecalho from './Cabecalho';
 
 const CardsMenu = () => {
 
@@ -31,6 +32,7 @@ const CardsMenu = () => {
 
     return (
     <Box>
+        <Cabecalho />
         <Card>
             <CardBody>
             <Stack justifyContent={'space-between'} direction="row" spacing={2} {...handlers}>

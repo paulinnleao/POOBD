@@ -15,11 +15,12 @@ import ModalDeCriacao from './ModalDeCriacao';
 
 const Motorista = () => {
   const {colorMode} = useColorMode();
-  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const [motoristas, setMotoristas] = useState<MotoristaDTO[]>([]);
+  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
+  
   const [deleteEntity, setDeleteEntity] = useState<DeleteEntity>({
     deletar: false,
     identificador: -1

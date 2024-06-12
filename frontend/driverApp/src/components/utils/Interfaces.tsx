@@ -109,14 +109,56 @@ export interface MotoristaVeiculoDTO {
     cpfMotorista: number,
     placa: string,
 }
+export interface MotoristaVeiculoModalProps {
+    motoristaVeiculo: MotoristaVeiculoDTO | null,
+    atualizarPagina: boolean,
+    editEntity: EditEntity,
+    setEditEntity?: React.Dispatch<React.SetStateAction<EditEntity>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface MotoristaVeiculoModalDelete {
+    motoristaVeiculo: MotoristaVeiculoDTO | null,
+    atualizarPagina: boolean,
+    deleteEntity: DeleteEntity,
+    setDeleteEntity: React.Dispatch<React.SetStateAction<DeleteEntity>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface MotoristaVeiculoModalCreateProps{
+    createEntity: boolean;
+    atualizarPagina: boolean,
+    setCreateEntity: React.Dispatch<React.SetStateAction<boolean>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
   
+// Passageiro
 export interface PassageiroDTO {
     cpfPassg: number,
     cartaoCred: string,
     bandeiraCartao: string,
     cidadeOrig: string,
 }
+export interface PassageiroModalProps {
+    passageiro: PassageiroDTO | null,
+    atualizarPagina: boolean,
+    editEntity: EditEntity,
+    setEditEntity?: React.Dispatch<React.SetStateAction<EditEntity>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface PassageiroModalDelete {
+    passageiro: PassageiroDTO | null,
+    atualizarPagina: boolean,
+    deleteEntity: DeleteEntity,
+    setDeleteEntity: React.Dispatch<React.SetStateAction<DeleteEntity>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface PassageiroModalCreateProps{
+    createEntity: boolean;
+    atualizarPagina: boolean,
+    setCreateEntity: React.Dispatch<React.SetStateAction<boolean>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+// Pessoa
 export interface PessoaDTO {
     cpfPessoa: number;
     nome: string;
@@ -125,7 +167,28 @@ export interface PessoaDTO {
     sexo: string;
     eMail: string;
 }
+export interface PessoaModalProps {
+    motorista: PessoaDTO | null,
+    atualizarPagina: boolean,
+    editEntity: EditEntity,
+    setEditEntity?: React.Dispatch<React.SetStateAction<EditEntity>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface PessoaModalDelete {
+    motorista: PessoaDTO | null,
+    atualizarPagina: boolean,
+    deleteEntity: DeleteEntity,
+    setDeleteEntity: React.Dispatch<React.SetStateAction<DeleteEntity>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface PessoaModalCreateProps{
+    createEntity: boolean;
+    atualizarPagina: boolean,
+    setCreateEntity: React.Dispatch<React.SetStateAction<boolean>>;
+    setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+// TipoPgto
 export interface TipoPgToDTO {
     codPagto: number,
     descPagto: string,

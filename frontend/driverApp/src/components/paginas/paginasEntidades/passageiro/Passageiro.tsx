@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CardsMenu from '../../CardsMenu';
 import Tabela from '../../../utils/Tabela';
-import { PassageiroDTO } from '../../../utils/Interfaces';
+import { DeleteEntity, EditEntity, PassageiroDTO } from '../../../utils/Interfaces';
 import axios from 'axios';
 import { CircularProgress, Input, InputGroup, useColorMode, Button } from '@chakra-ui/react';
 import titulos from '../../../utils/titulos.json';
@@ -9,6 +9,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { IoMdSearch } from "react-icons/io";
+import ModalDeCriacaoPassageiro from './ModalDeCriacaoPassageiro';
+import ModalDeletePassageiro from './ModalDeletePassageiro';
+import { ModalPassageiro } from './ModalPassageiro';
 
 const Passageiro = () => {
 
@@ -17,6 +20,21 @@ const Passageiro = () => {
   const [error, setError] = useState<string | null>(null);
   const {colorMode} = useColorMode();
 
+  
+  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
+  
+  const [deleteEntity, setDeleteEntity] = useState<DeleteEntity>({
+    deletar: false,
+    identificador: -1
+  });
+  const [editEntity, setEditEntity] = useState<EditEntity>({
+    editar: false,
+    identificadores: -1
+  });
+  const [createEntity, setCreateEntity] = useState<boolean>(false);
+
+
+  
   const formik = useFormik({
     initialValues: {
       cpf: '',
@@ -107,7 +125,34 @@ const Passageiro = () => {
         <div style={{ color: 'red' }}>{formik.errors.cpf}</div>
       ) : null}
     </form>
-    <Tabela dadosTabela={dadosTabela} />
+    <Tabela 
+      dadosTabela={dadosTabela}
+      setCreateEntity={setCreateEntity}
+      setDeleteEntity={setDeleteEntity}
+      setEditEntity={setEditEntity}/>
+      
+    {!!editEntity && 
+    <ModalPassageiro 
+    passageiro={passageiros[editEntity?.identificadores]} 
+    atualizarPagina={atualizarPagina} 
+    editEntity={editEntity}
+    setEditEntity={setEditEntity} 
+    setAtualizarPagina={setAtualizarPagina}
+    />}
+    {!!deleteEntity && 
+    <ModalDeletePassageiro 
+      passageiro={passageiros[deleteEntity?.identificador]}
+      atualizarPagina={atualizarPagina}
+      deleteEntity={deleteEntity}
+      setDeleteEntity={setDeleteEntity}
+      setAtualizarPagina={setAtualizarPagina}
+    />}
+    {createEntity && 
+    <ModalDeCriacaoPassageiro 
+      createEntity={createEntity} 
+      atualizarPagina={atualizarPagina}
+      setCreateEntity={setCreateEntity}
+      setAtualizarPagina={setAtualizarPagina} />}
   </>
 }
 

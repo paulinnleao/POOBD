@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MotoristaVeiculoDTO } from '../../../utils/Interfaces'
+import { DeleteEntity, EditEntity, MotoristaVeiculoDTO } from '../../../utils/Interfaces'
 import axios from 'axios';
 import { Button, CircularProgress, Input, InputGroup, useColorMode } from '@chakra-ui/react';
 import CardsMenu from '../../CardsMenu';
@@ -9,12 +9,28 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {toast} from 'react-toastify'
 import { IoMdSearch } from "react-icons/io";
+import { ModalMotoristaVeiculo} from './ModalMotoristaVeiculo';
+import ModalDeleteMotoristaVeiculo from './ModalDeleteMotoristaVeiculo';
+import ModalDeCriacaoMotoristaVeiculo from './ModalDeCriacaoMotoristaVeiculo';
 
 const MotoristaVeiculo = () => {
   const [motoristaVeiculo, setMotoristaVeiculo] = useState<MotoristaVeiculoDTO[]>([]);
   const {colorMode} = useColorMode();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
+  
+  const [deleteEntity, setDeleteEntity] = useState<DeleteEntity>({
+    deletar: false,
+    identificador: -1
+  });
+  const [editEntity, setEditEntity] = useState<EditEntity>({
+    editar: false,
+    identificadores: -1
+  });
+  const [createEntity, setCreateEntity] = useState<boolean>(false);
+
 
   const formik = useFormik({
     initialValues: {
@@ -138,7 +154,34 @@ const MotoristaVeiculo = () => {
         <div style={{ color: 'red' }}>{formik.errors.placa}</div>
       ) : null}
     </form>
-    <Tabela dadosTabela={dadosTabela} />
+    <Tabela 
+    dadosTabela={dadosTabela} 
+    setCreateEntity={setCreateEntity} 
+    setDeleteEntity={setDeleteEntity}
+    setEditEntity={setEditEntity}/>
+
+    {!!editEntity && 
+    <ModalMotoristaVeiculo 
+    motoristaVeiculo={motoristaVeiculo[editEntity?.identificadores]} 
+    atualizarPagina={atualizarPagina} 
+    editEntity={editEntity}
+    setEditEntity={setEditEntity} 
+    setAtualizarPagina={setAtualizarPagina}
+    />}
+    {!!deleteEntity && 
+    <ModalDeleteMotoristaVeiculo 
+      motoristaVeiculo={motoristaVeiculo[deleteEntity?.identificador]}
+      atualizarPagina={atualizarPagina}
+      deleteEntity={deleteEntity}
+      setDeleteEntity={setDeleteEntity}
+      setAtualizarPagina={setAtualizarPagina}
+    />}
+    {createEntity && 
+    <ModalDeCriacaoMotoristaVeiculo 
+      createEntity={createEntity} 
+      atualizarPagina={atualizarPagina}
+      setCreateEntity={setCreateEntity}
+      setAtualizarPagina={setAtualizarPagina} />}
   </>
 }
 

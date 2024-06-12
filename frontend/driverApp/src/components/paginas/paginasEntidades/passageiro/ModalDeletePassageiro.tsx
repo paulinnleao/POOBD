@@ -1,12 +1,11 @@
 import React from 'react'
-import { MotoristaModalDelete, MotoristaModalProps } from '../../../utils/Interfaces'
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay, Button, Heading, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react'
-import { useFormik } from 'formik'
+import { PassageiroModalDelete } from '../../../utils/Interfaces'
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay, Button, Heading, useDisclosure } from '@chakra-ui/react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const ModalDeleteMotorista: React.FC<MotoristaModalDelete> = ({
-    motorista,
+const ModalDeletePassageiro: React.FC<PassageiroModalDelete> = ({
+    passageiro,
     atualizarPagina, 
     deleteEntity,
     setDeleteEntity, 
@@ -15,14 +14,14 @@ const ModalDeleteMotorista: React.FC<MotoristaModalDelete> = ({
 
     const deleteEntityFunction = async () =>{
         try{
-            const response = await axios.delete(`http://localhost:8080/motoristas/${motorista?.cpfMotorista}`);
+            const response = await axios.delete(`http://localhost:8080/passageiros/${passageiro?.cpfPassg}`);
             setAtualizarPagina(!atualizarPagina);
-            toast.success('Motorista deletado com sucesso! '+response?.data,{
+            toast.success(`Passageiro de CPF: ${passageiro} deletado com sucesso! `+response?.data,{
                 position: 'top-center',
                 theme: "colored"
               });
         }catch(err){
-            toast.error('Erro ao tentar deletar o motorista. Possivelmente este motorista possui cadastro de veículos ou viagem.',{
+            toast.error('Erro ao tentar deletar o passageiro. Possivelmente este passageiro possui viagem.',{
                 position: 'top-center',
                 theme: "colored"
               });
@@ -58,11 +57,11 @@ const ModalDeleteMotorista: React.FC<MotoristaModalDelete> = ({
         <AlertDialogOverlay>
             <AlertDialogContent>
                 <AlertDialogHeader fontSize='lg' fontWeight='bold' textAlign={'center'}>
-                    <Heading>Deletar Motorista</Heading>
+                    <Heading>Deletar Passageiro</Heading>
                 </AlertDialogHeader>
 
                 <AlertDialogBody textAlign={'center'}>
-                    Você tem certerteza que quer <br /> deletar o motorista de <strong>CPF:</strong> {motorista?.cpfMotorista}?
+                    Você tem certerteza que quer <br /> deletar o passageiro de <strong>CPF:</strong> {passageiro?.cpfPassg}?
                 </AlertDialogBody>
 
                 <AlertDialogBody textAlign={'center'}>
@@ -78,4 +77,4 @@ const ModalDeleteMotorista: React.FC<MotoristaModalDelete> = ({
         </AlertDialog>
 }
 
-export default ModalDeleteMotorista
+export default ModalDeletePassageiro

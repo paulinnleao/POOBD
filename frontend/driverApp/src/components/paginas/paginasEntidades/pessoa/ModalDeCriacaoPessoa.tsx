@@ -3,13 +3,13 @@ import React from 'react';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, Heading, ModalBody, FormControl, FormLabel, Input, FormErrorMessage, ModalFooter, Button, useDisclosure } from '@chakra-ui/react';
-import { MotoristaModalCreateProps } from '../../../utils/Interfaces';
+import { PessoaModalCreateProps } from '../../../utils/Interfaces';
 import { toast } from 'react-toastify';
 
-const ModalDeCriacao: React.FC<MotoristaModalCreateProps> = ({createEntity, atualizarPagina, setCreateEntity, setAtualizarPagina}) => {
+const ModalDeCriacao: React.FC<PessoaModalCreateProps> = ({createEntity, atualizarPagina, setCreateEntity, setAtualizarPagina}) => {
     const formik = useFormik({
         initialValues:{
-            cpfMotorista: '',
+            cpfPessoa: '',
             cnh: '',
             bancoMot: '',
             agenciaMot: '',
@@ -17,17 +17,17 @@ const ModalDeCriacao: React.FC<MotoristaModalCreateProps> = ({createEntity, atua
         },
         onSubmit: async (values) => {
             try{
-                const response = await axios.post('http://localhost:8080/motoristas',values);
-                toast.success('Motorista cadastrado com sucesso!',{
+                const response = await axios.post('http://localhost:8080/pessoas',values);
+                toast.success('Pessoa cadastrado com sucesso!',{
                     position: 'top-center',
                     theme: "colored"
                 })
-                toast.success(`CPF: ${response?.data?.cpfMotorista}`,{
+                toast.success(`CPF: ${response?.data?.cpfPessoa}`,{
                     position: 'top-center',
                     theme: "colored"
                 })
             }catch(err){
-                toast.error('Erro ao cadastrar motorista - '+err,{
+                toast.error('Erro ao cadastrar pessoa - '+err,{
                     position: 'top-center',
                     theme: "colored"
                 })
@@ -37,7 +37,7 @@ const ModalDeCriacao: React.FC<MotoristaModalCreateProps> = ({createEntity, atua
             }
         },
         validationSchema: Yup.object().shape({
-          cpfMotorista: Yup.string()
+          cpfPessoa: Yup.string()
                            .required('O CPF é Obrigatório')
                            .matches(/^[0-9]*$/, 'Apenas números são permitidos')
                            .min(11, 'CPF deve ter pelo menos 11 dígitos!')
@@ -80,10 +80,10 @@ const ModalDeCriacao: React.FC<MotoristaModalCreateProps> = ({createEntity, atua
             >
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader textAlign={'center'}><Heading> Cadastrar Motorista</Heading></ModalHeader>
+            <ModalHeader textAlign={'center'}><Heading> Cadastrar Pessoa</Heading></ModalHeader>
             <ModalBody pb={6}>
 
-                <FormControl isInvalid={!!formik.errors.cpfMotorista} textAlign={'center'}>
+                <FormControl isInvalid={!!formik.errors.cpfPessoa} textAlign={'center'}>
                 <FormLabel 
                     paddingTop={'10px'}
                     display={'flex'} 
@@ -92,10 +92,10 @@ const ModalDeCriacao: React.FC<MotoristaModalCreateProps> = ({createEntity, atua
                     gap={'10px'} w={'400px'} 
                     fontSize={'20px'} >CPF
                     <Input
-                        name="cpfMotorista"
+                        name="cpfPessoa"
                         w={'200px'}
                         placeholder='CPF'
-                        value={formik.values.cpfMotorista}
+                        value={formik.values.cpfPessoa}
                         onChange={formik.handleChange}
                         maxLength={11} minLength={11}
                         />

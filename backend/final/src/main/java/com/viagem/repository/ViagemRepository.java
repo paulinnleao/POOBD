@@ -13,7 +13,10 @@ import java.util.List;
 @Repository
 public interface ViagemRepository extends JpaRepository<Viagem, Viagem.ViagemId> {
 
-    @Query(value = "SELECT V.* FROM VIAGENS V WHERE V.DT_HORA_INICIO = :dtHoraInicio AND v.DT_HORA_FIM = :dtHoraFim", nativeQuery = true)
+    @Query(value = "SELECT V.* \n" +
+            "FROM VIAGENS V \n" +
+            "WHERE V.DT_HORA_INICIO BETWEEN :dtHoraInicio AND :dtHoraFim \n" +
+            "  AND V.DT_HORA_FIM BETWEEN :dtHoraInicio AND :dtHoraFim\n", nativeQuery = true)
     List<Viagem> findByDate(@Param("dtHoraInicio") LocalDateTime dtHoraInicio, @Param("dtHoraFim") LocalDateTime dtHoraFim);
 
     //@Query(value = "SELECT TOP :quantidade * FROM VIAGENS WHERE EXTRACT (MONTH FROM DT_HORA_INICIO) = :mes", nativeQuery = true)
