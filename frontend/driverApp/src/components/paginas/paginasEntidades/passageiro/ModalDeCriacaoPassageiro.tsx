@@ -40,7 +40,7 @@ const ModalDeCriacaoPassageiro: React.FC<PassageiroModalCreateProps> = ({createE
             }
         },
         validationSchema: Yup.object().shape({
-            cpfMotorista: Yup.string()
+            cpfPassg: Yup.string()
                              .required('O CPF é Obrigatório')
                              .matches(/^[0-9]*$/, 'Apenas números são permitidos')
                              .min(11, 'CPF deve ter pelo menos 11 dígitos!')

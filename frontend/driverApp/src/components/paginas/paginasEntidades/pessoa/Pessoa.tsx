@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import CardsMenu from '../../CardsMenu';
 import Tabela from '../../../utils/Tabela';
 import titulos from '../../../utils/titulos.json';
-import { PessoaDTO } from '../../../utils/Interfaces';
+import { DeleteEntity, EditEntity, PessoaDTO } from '../../../utils/Interfaces';
 import axios from 'axios';
 import { Button, CircularProgress, Input, InputGroup, useColorMode } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { IoMdSearch } from "react-icons/io";
+import { ModalPessoa } from './ModalPessoa';
 
 const Pessoa = () => {
 
@@ -16,6 +17,21 @@ const Pessoa = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const {colorMode} = useColorMode();
+
+  
+  
+  const [atualizarPagina, setAtualizarPagina] = useState<boolean>(false);
+  
+  const [deleteEntity, setDeleteEntity] = useState<DeleteEntity>({
+    deletar: false,
+    identificador: -1
+  });
+  const [editEntity, setEditEntity] = useState<EditEntity>({
+    editar: false,
+    identificadores: -1
+  });
+  const [createEntity, setCreateEntity] = useState<boolean>(false);
+
 
   const formik = useFormik({
     initialValues: {
@@ -110,7 +126,9 @@ const Pessoa = () => {
         <div style={{ color: 'red' }}>{formik.errors.cpf}</div>
       ) : null}
     </form>
-    <Tabela dadosTabela={dadosTabela} />
+    <Tabela dadosTabela={dadosTabela}  setCreateEntity={setCreateEntity} setDeleteEntity={setDeleteEntity} setEditEntity={setEditEntity}/>
+    {!!editEntity &&
+     <ModalPessoa atualizarPagina={atualizarPagina} pessoa={pessoas[editEntity.identificadores]} editEntity={editEntity} setAtualizarPagina={setAtualizarPagina} />}
   </>
 }
 
