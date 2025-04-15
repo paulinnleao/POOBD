@@ -168,14 +168,14 @@ export interface PessoaDTO {
     eMail: string;
 }
 export interface PessoaModalProps {
-    motorista: PessoaDTO | null,
+    pessoa: PessoaDTO | null,
     atualizarPagina: boolean,
     editEntity: EditEntity,
     setEditEntity?: React.Dispatch<React.SetStateAction<EditEntity>>;
     setAtualizarPagina: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface PessoaModalDelete {
-    motorista: PessoaDTO | null,
+    pessoa: PessoaDTO | null,
     atualizarPagina: boolean,
     deleteEntity: DeleteEntity,
     setDeleteEntity: React.Dispatch<React.SetStateAction<DeleteEntity>>;

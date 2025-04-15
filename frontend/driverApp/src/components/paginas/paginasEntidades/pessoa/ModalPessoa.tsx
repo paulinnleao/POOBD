@@ -15,32 +15,35 @@ import {
     useDisclosure,
     Heading,
     FormErrorMessage,
+    RadioGroup,
+    Radio,
  } from "@chakra-ui/react";
-import { MotoristaDTO, MotoristaModalProps } from "../../../utils/Interfaces";
+import { PessoaDTO, PessoaModalProps } from "../../../utils/Interfaces";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
-export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atualizarPagina, editEntity, setEditEntity, setAtualizarPagina}) => {
+export const ModalPessoa: React.FC<PessoaModalProps> = ({pessoa, atualizarPagina, editEntity, setEditEntity, setAtualizarPagina}) => {
 
 
   const formik = useFormik({
     initialValues:{
-      cpfMotorista: motorista?.cpfMotorista,
-      cnh: motorista?.cnh,
-      bancoMot: motorista?.bancoMot,
-      agenciaMot: motorista?.agenciaMot,
-      contaMot: motorista?.contaMot
+      cpfPessoa: pessoa?.cpfPessoa,
+      nome: pessoa?.nome,
+      endereco: pessoa?.endereco,
+      telefone: pessoa?.telefone,
+      sexo: pessoa?.sexo,
+      eMail: pessoa?.eMail
     },
     onSubmit: async (values) => {
       try{
-        const response = await axios.put<MotoristaDTO>(`http://localhost:8080/motoristas`,values)
+        const response = await axios.put<PessoaDTO>(`http://localhost:8080/pessoas`,values)
         
-        toast.success(`Motorista de cpf ${response?.data?.cpfMotorista} atualizado com sucesso!`,{
+        toast.success(`Pessoa de cpf ${response?.data?.cpfPessoa} atualizado com sucesso!`,{
           position: 'bottom-center',
           theme: "colored"
         })
       }catch(err){
-        toast.error('Erro ao atualizar motorista!',{
+        toast.error('Erro ao atualizar pessoa!',{
           position: 'bottom-center',
           theme: "colored"
         })
@@ -50,25 +53,28 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atuali
       }
     },
     validationSchema: Yup.object().shape({
-      cpfMotorista: Yup.string()
+      cpfPessoa: Yup.string()
                        .required('O CPF é Obrigatório')
                        .matches(/^[0-9]*$/, 'Apenas números são permitidos')
                        .min(11, 'CPF deve ter pelo menos 11 dígitos!')
                        .max(11, 'CPF deve ter no máximo 11 dígitos!'),
-      cnh: Yup.string()
-              .matches(/^\d{11}$/, 'CNH deve conter exatamente 11 dígitos numéricos.')
-              .required('CNH é obrigatória.'),
-      bancoMot: Yup.string()
-                   .required('Banco é obrigatório')
-                   .matches(/^[0-9]*$/, 'Apenas número são permitidos'),
-      agenciaMot: Yup.string()
-                     .required('Banco é obrigatório')
-                     .matches(/^[0-9]*$/, 'Apenas número são permitidos'),
-      contaMot: Yup.string()
-                   .required('Banco é obrigatório')
-                   .matches(/^[0-9]*$/, 'Apenas número são permitidos'),
-
-
+      nome: Yup.string()
+               .required('Nome é obrigatório')
+               .matches(
+                /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi,
+                    'Nome pode ter apenas letras.'
+                )
+               .matches(/^\s*[\S]+(\s[\S]+)+\s*$/gms,'Por favor, insira seu nome completo.'),
+      endereco: Yup.string()
+                   .required('Endereço é obrigatório'),
+      telefone: Yup.string()
+                   .required('Telefone é obrigatório')
+                   .matches(/^[0-9]*$/, 'Apenas números são permitidos')
+                   .min(11, 'Telefone deve ter pelo menos 11 dígitos!')
+                   .max(11, 'Telefone deve ter no máximo 11 dígitos!'),
+      eMail: Yup.string()
+                .required('Email é obrigatório')
+                .email('Email inválido'),
     }),
     enableReinitialize: true,
   });
@@ -97,10 +103,10 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atuali
         >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign={'center'}><Heading> Editar Motorista</Heading></ModalHeader>
+          <ModalHeader textAlign={'center'}><Heading> Editar Pessoa</Heading></ModalHeader>
           <ModalBody pb={6}>
 
-            <FormControl isInvalid={!!formik.errors.cpfMotorista} textAlign={'center'}>
+            <FormControl isInvalid={!!formik.errors.cpfPessoa} textAlign={'center'}>
               <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
@@ -109,107 +115,136 @@ export const ModalMotorista: React.FC<MotoristaModalProps> = ({motorista, atuali
                 gap={'10px'} w={'400px'} 
                 fontSize={'20px'} >CPF
                   <Input
-                    name="cpfMotorista"
+                    name="cpfPessoa"
                     w={'200px'}
                     placeholder='CPF'
-                    value={formik.values.cpfMotorista}
+                    value={formik.values.cpfPessoa}
                     onChange={formik.handleChange}
                     disabled/>
                 </FormLabel>                
             </FormControl>
 
-            <FormControl isInvalid={!!formik.errors.cnh} textAlign={'center'}>
+            <FormControl isInvalid={!!formik.errors.nome} textAlign={'center'}>
                 <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
                 margin={'auto'}
                 justifyContent={'space-between'} 
                 gap={'10px'} w={'400px'} 
-                fontSize={'20px'} >CNH
+                fontSize={'20px'} >Nome
                   <Input
-                    name="cnh"
+                    name="nome"
                     w={'200px'}
-                    placeholder={'CNH'}
-                    value={formik.values.cnh}
+                    placeholder={'Nome'}
+                    value={formik.values.nome}
                     onChange={formik.handleChange}
                     maxLength={11} minLength={11}
                     borderColor={
-                      formik.touched.cnh 
-                      && formik.errors.cnh ? 'red' : undefined}
+                      formik.touched.nome 
+                      && formik.errors.nome ? 'red' : undefined}
                     />
                 </FormLabel>
-                {formik.touched.cnh && !formik.errors.cnh ?
+                {formik.touched.nome && !formik.errors.nome ?
                         null: (
-                        <FormErrorMessage>{formik.errors.cnh}</FormErrorMessage>
+                        <FormErrorMessage>{formik.errors.nome}</FormErrorMessage>
                       )}
             </FormControl>
-              
-            <FormControl isInvalid={!!formik.errors.bancoMot} textAlign={'center'}>
+            
+            <FormControl isInvalid={!!formik.errors.endereco} textAlign={'center'}>
                 <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
                 margin={'auto'}
                 justifyContent={'space-between'} 
                 gap={'10px'} w={'400px'} 
-                fontSize={'20px'} >Banco
+                fontSize={'20px'} >Endereço
                   <Input
-                    name="bancoMot"
+                    name="endereco"
                     w={'200px'}
-                    placeholder={'Banco'}
-                    value={formik.values.bancoMot}
+                    placeholder={'Endereço'}
+                    value={formik.values.endereco}
                     onChange={formik.handleChange}
                     />
                 </FormLabel>
-                {formik.touched.bancoMot && !formik.errors.bancoMot ?
+                {formik.touched.endereco && !formik.errors.endereco ?
                             null: (
-                            <FormErrorMessage>{formik.errors.bancoMot}</FormErrorMessage>
+                            <FormErrorMessage>{formik.errors.endereco}</FormErrorMessage>
                           )}
             </FormControl>
             
-            <FormControl isInvalid={!!formik.errors.agenciaMot} textAlign={'center'}>
+            <FormControl isInvalid={!!formik.errors.telefone} textAlign={'center'}>
                 <FormLabel 
                 paddingTop={'10px'}
                 display={'flex'} 
                 margin={'auto'}
                 justifyContent={'space-between'} 
                 gap={'10px'} w={'400px'} 
-                fontSize={'20px'} >Agência
+                fontSize={'20px'} >Telefone
                   <Input
-                    name="agenciaMot"
+                    name="telefone"
                     w={'200px'}
-                    placeholder={'Agência'}
-                    value={formik.values.agenciaMot}
+                    placeholder={'(99) 99999-9999'}
+                    value={formik.values.telefone}
                     onChange={formik.handleChange}
                     />
                 </FormLabel>
-                {formik.touched.agenciaMot && !formik.errors.agenciaMot ?
+                {formik.touched.telefone && !formik.errors.telefone ?
                             null: (
-                            <FormErrorMessage>{formik.errors.agenciaMot}</FormErrorMessage>
+                            <FormErrorMessage>{formik.errors.telefone}</FormErrorMessage>
                           )}
               </FormControl>
-
-              <FormControl isInvalid={!!formik.errors.contaMot} textAlign={'center'}>
+              <RadioGroup name="sexo" textAlign={'center'}>
+                <Radio>Feminino</Radio>
+                <Radio>Masculino</Radio>
+                
+                {formik.touched.sexo && !formik.errors.sexo ?
+                            null: (
+                            <FormErrorMessage>{formik.errors.sexo}</FormErrorMessage>
+                          )}
+              </RadioGroup>
+              {/* <FormControl isInvalid={!!formik.errors.sexo} textAlign={'center'}>
                 <FormLabel 
                   paddingTop={'10px'}
                   display={'flex'} 
                   margin={'auto'}
                   justifyContent={'space-between'} 
                   gap={'10px'} w={'400px'} 
-                  fontSize={'20px'} >Conta
+                  fontSize={'20px'} >Sexo
                     <Input
-                      name="contaMot"
+                      name="sexo"
                       w={'200px'}
-                      placeholder={'Conta'}
-                      value={formik.values.contaMot}
+                      placeholder={'Sexo'}
+                      value={formik.values.sexo}
                       onChange={formik.handleChange}
                       />
                 </FormLabel>
-                {formik.touched.contaMot && !formik.errors.contaMot ?
+                {formik.touched.sexo && !formik.errors.sexo ?
                             null: (
-                            <FormErrorMessage>{formik.errors.contaMot}</FormErrorMessage>
+                            <FormErrorMessage>{formik.errors.sexo}</FormErrorMessage>
+                          )}
+              </FormControl> */}
+              
+              <FormControl isInvalid={!!formik.errors.eMail} textAlign={'center'}>
+                <FormLabel 
+                  paddingTop={'10px'}
+                  display={'flex'} 
+                  margin={'auto'}
+                  justifyContent={'space-between'} 
+                  gap={'10px'} w={'400px'} 
+                  fontSize={'20px'} >E-mail
+                    <Input
+                      name="eMail"
+                      w={'200px'}
+                      placeholder={'email@exemplo.com'}
+                      value={formik.values.eMail}
+                      onChange={formik.handleChange}
+                      />
+                </FormLabel>
+                {formik.touched.eMail && !formik.errors.eMail ?
+                            null: (
+                            <FormErrorMessage>{formik.errors.eMail}</FormErrorMessage>
                           )}
               </FormControl>
-              
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='red' mr={3}
