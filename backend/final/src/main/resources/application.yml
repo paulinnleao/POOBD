@@ -1,9 +1,10 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/cmp1611_paulo_artur
+    url: jdbc:postgresql://localhost:5432/cmp1611_paulo_artur_marcel
     username: postgres
     password: admin123
+#    url: jdbc:postgresql://localhost:5432/cmp1611_paulo_artur
 
   jpa:
     hibernate:
